@@ -2,14 +2,64 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on </title>
-    <link>http://localhost:1313/tags/</link>
+    <link>https://yuliusw.github.io/tags/</link>
     <description>Recent content in Tags on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <managingEditor>yuliu666666@outlook.com (yuliu)</managingEditor>
     <webMaster>yuliu666666@outlook.com (yuliu)</webMaster>
-    <copyright>© 2026 yuliu</copyright>
-    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>Copy, _right?_ :thinking_face:</copyright>
+    <lastBuildDate>Wed, 25 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://yuliusw.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Algorithm</title>
+      <link>https://yuliusw.github.io/tags/algorithm/</link>
+      <pubDate>Wed, 25 Mar 2026 00:00:00 +0000</pubDate>
+      <author>yuliu666666@outlook.com (yuliu)</author>
+      <guid>https://yuliusw.github.io/tags/algorithm/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Heap</title>
+      <link>https://yuliusw.github.io/tags/heap/</link>
+      <pubDate>Sun, 08 Mar 2026 00:00:00 +0000</pubDate>
+      <author>yuliu666666@outlook.com (yuliu)</author>
+      <guid>https://yuliusw.github.io/tags/heap/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Holibe</title>
+      <link>https://yuliusw.github.io/tags/holibe/</link>
+      <pubDate>Sun, 08 Mar 2026 00:00:00 +0000</pubDate>
+      <author>yuliu666666@outlook.com (yuliu)</author>
+      <guid>https://yuliusw.github.io/tags/holibe/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>LinkList</title>
+      <link>https://yuliusw.github.io/tags/linklist/</link>
+      <pubDate>Sun, 08 Mar 2026 00:00:00 +0000</pubDate>
+      <author>yuliu666666@outlook.com (yuliu)</author>
+      <guid>https://yuliusw.github.io/tags/linklist/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Safe</title>
+      <link>https://yuliusw.github.io/tags/safe/</link>
+      <pubDate>Sun, 08 Mar 2026 00:00:00 +0000</pubDate>
+      <author>yuliu666666@outlook.com (yuliu)</author>
+      <guid>https://yuliusw.github.io/tags/safe/</guid>
+      <description></description>
+      
+    </item>
     
   </channel>
 </rss>
