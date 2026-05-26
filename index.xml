@@ -2,31 +2,91 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>welcome on yuliu&#39;s blog</title>
-    <link>http://localhost:1313/</link>
+    <link>https://example.org/</link>
     <description>Recent content in welcome on yuliu&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <managingEditor>yuliu666666@outlook.com (yuliu)</managingEditor>
     <webMaster>yuliu666666@outlook.com (yuliu)</webMaster>
     <copyright>© 2026 yuliu</copyright>
-    <lastBuildDate>Tue, 26 May 2026 14:31:03 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 26 May 2026 19:03:44 +0800</lastBuildDate><atom:link href="https://example.org/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>并发编程01</title>
-      <link>http://localhost:1313/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B01/</link>
+      <title>并发编程05 常见模型与happen Before</title>
+      <link>https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B05-%E5%B8%B8%E8%A7%81%E6%A8%A1%E5%9E%8B%E4%B8%8Ehappen-before/</link>
+      <pubDate>Tue, 26 May 2026 19:03:44 +0800</pubDate>
+      <author>yuliu666666@outlook.com (yuliu)</author>
+      <guid>https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B05-%E5%B8%B8%E8%A7%81%E6%A8%A1%E5%9E%8B%E4%B8%8Ehappen-before/</guid>
+      <description></description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B05-%E5%B8%B8%E8%A7%81%E6%A8%A1%E5%9E%8B%E4%B8%8Ehappen-before/featured.png" />
+    </item>
+    
+    <item>
+      <title>并发编程04 Context</title>
+      <link>https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B04-context/</link>
+      <pubDate>Tue, 26 May 2026 18:54:56 +0800</pubDate>
+      <author>yuliu666666@outlook.com (yuliu)</author>
+      <guid>https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B04-context/</guid>
+      <description></description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B04-context/featured.png" />
+    </item>
+    
+    <item>
+      <title>并发编程03 Sync包</title>
+      <link>https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B03-sync%E5%8C%85/</link>
+      <pubDate>Tue, 26 May 2026 18:42:53 +0800</pubDate>
+      <author>yuliu666666@outlook.com (yuliu)</author>
+      <guid>https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B03-sync%E5%8C%85/</guid>
+      <description></description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B03-sync%E5%8C%85/featured.png" />
+    </item>
+    
+    <item>
+      <title>并发编程02 Channel</title>
+      <link>https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B02-channel/</link>
+      <pubDate>Tue, 26 May 2026 18:36:39 +0800</pubDate>
+      <author>yuliu666666@outlook.com (yuliu)</author>
+      <guid>https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B02-channel/</guid>
+      <description></description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B02-channel/featured.png" />
+    </item>
+    
+    <item>
+      <title>k8s-with-KVM-1</title>
+      <link>https://example.org/%E8%BF%90%E7%BB%B4/k8s-with-kvm-1/</link>
       <pubDate>Tue, 26 May 2026 14:31:03 +0800</pubDate>
       <author>yuliu666666@outlook.com (yuliu)</author>
-      <guid>http://localhost:1313/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B01/</guid>
+      <guid>https://example.org/%E8%BF%90%E7%BB%B4/k8s-with-kvm-1/</guid>
       <description></description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B01/featured.png" />
+      
+    </item>
+    
+    <item>
+      <title>passward-and-program-script</title>
+      <link>https://example.org/%E8%BF%90%E7%BB%B4/passward-and-program-script/</link>
+      <pubDate>Tue, 26 May 2026 14:31:03 +0800</pubDate>
+      <author>yuliu666666@outlook.com (yuliu)</author>
+      <guid>https://example.org/%E8%BF%90%E7%BB%B4/passward-and-program-script/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>并发编程01 Goroutine</title>
+      <link>https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B01-goroutine/</link>
+      <pubDate>Tue, 26 May 2026 14:31:03 +0800</pubDate>
+      <author>yuliu666666@outlook.com (yuliu)</author>
+      <guid>https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B01-goroutine/</guid>
+      <description></description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B01-goroutine/featured.png" />
     </item>
     
     <item>
       <title>Why Fedora linux &amp; why not for beginner 2026</title>
-      <link>http://localhost:1313/%E7%A2%8E%E7%A2%8E%E5%BF%B5/why-fedora-linux--why-not-for-beginner-2026/</link>
+      <link>https://example.org/%E7%A2%8E%E7%A2%8E%E5%BF%B5/why-fedora-linux--why-not-for-beginner-2026/</link>
       <pubDate>Fri, 03 Apr 2026 14:31:03 +0800</pubDate>
       <author>yuliu666666@outlook.com (yuliu)</author>
-      <guid>http://localhost:1313/%E7%A2%8E%E7%A2%8E%E5%BF%B5/why-fedora-linux--why-not-for-beginner-2026/</guid>
+      <guid>https://example.org/%E7%A2%8E%E7%A2%8E%E5%BF%B5/why-fedora-linux--why-not-for-beginner-2026/</guid>
       <description></description>
       
     </item>

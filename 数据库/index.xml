@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Authors on yuliu&#39;s blog</title>
-    <link>https://example.org/authors/</link>
-    <description>Recent content in Authors on yuliu&#39;s blog</description>
+    <title>Posgres on yuliu&#39;s blog</title>
+    <link>https://example.org/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+    <description>Recent content in Posgres on yuliu&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <managingEditor>yuliu666666@outlook.com (yuliu)</managingEditor>
     <webMaster>yuliu666666@outlook.com (yuliu)</webMaster>
     <copyright>© 2026 yuliu</copyright>
-    <atom:link href="https://example.org/authors/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://example.org/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
     
   </channel>
 </rss>

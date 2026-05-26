@@ -2,14 +2,34 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>运维/架构 on yuliu&#39;s blog</title>
-    <link>http://localhost:1313/%E8%BF%90%E7%BB%B4/</link>
+    <link>https://example.org/%E8%BF%90%E7%BB%B4/</link>
     <description>Recent content in 运维/架构 on yuliu&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <managingEditor>yuliu666666@outlook.com (yuliu)</managingEditor>
     <webMaster>yuliu666666@outlook.com (yuliu)</webMaster>
     <copyright>© 2026 yuliu</copyright>
-    <atom:link href="http://localhost:1313/%E8%BF%90%E7%BB%B4/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 26 May 2026 14:31:03 +0800</lastBuildDate><atom:link href="https://example.org/%E8%BF%90%E7%BB%B4/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>k8s-with-KVM-1</title>
+      <link>https://example.org/%E8%BF%90%E7%BB%B4/k8s-with-kvm-1/</link>
+      <pubDate>Tue, 26 May 2026 14:31:03 +0800</pubDate>
+      <author>yuliu666666@outlook.com (yuliu)</author>
+      <guid>https://example.org/%E8%BF%90%E7%BB%B4/k8s-with-kvm-1/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>passward-and-program-script</title>
+      <link>https://example.org/%E8%BF%90%E7%BB%B4/passward-and-program-script/</link>
+      <pubDate>Tue, 26 May 2026 14:31:03 +0800</pubDate>
+      <author>yuliu666666@outlook.com (yuliu)</author>
+      <guid>https://example.org/%E8%BF%90%E7%BB%B4/passward-and-program-script/</guid>
+      <description></description>
+      
+    </item>
     
   </channel>
 </rss>

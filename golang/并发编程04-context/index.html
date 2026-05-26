@@ -1,0 +1,2070 @@
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="dark"
+  data-auto-appearance="false"><head>
+  <meta charset="utf-8">
+  
+    <meta http-equiv="content-language" content="en">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color">
+
+  
+  
+    <title>并发编程04 Context &middot; yuliu&#39;s blog</title>
+    <meta name="title" content="并发编程04 Context &middot; yuliu&#39;s blog">
+  
+
+  
+  
+  
+  
+  
+    
+  
+    
+  
+    
+  
+  
+  
+  
+  
+  <link rel="canonical" href="https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B04-context/">
+  
+  
+
+  
+  
+    <meta name="author" content="yuliu">
+  
+  
+    
+      
+        
+          <link href="yuliu666666@outlook.com" rel="me">
+        
+      
+    
+      
+        
+          <link href="yuliusw.github.io" rel="me">
+        
+      
+    
+  
+
+  
+  <meta property="og:url" content="https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B04-context/">
+  <meta property="og:site_name" content="yuliu&#39;s blog">
+  <meta property="og:title" content="并发编程04 Context">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="golang">
+    <meta property="article:published_time" content="2026-05-26T18:54:56+08:00">
+    <meta property="article:modified_time" content="2026-05-26T18:54:56+08:00">
+    <meta property="og:image" content="https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B04-context/featured.png">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B04-context/featured.png">
+  <meta name="twitter:title" content="并发编程04 Context">
+
+  
+  
+  
+  
+    
+      
+    
+  
+    
+  
+    
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.d2cccdafaf18679d7fb87e5d649649d49e4bbf22203cdbb87d3c00da40b1269505d9deb5e119f97ac4921cb4ecb63985394a2eb7e7c47ddd502aebcbee7f5231.css"
+    integrity="sha512-0szNr68YZ51/uH5dZJZJ1J5LvyIgPNu4fTwA2kCxJpUF2d614Rn5esSSHLTstjmFOUout&#43;fEfd1QKuvL7n9SMQ==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.6f41174b3a05b680820fe08cadbfa5fb7a7ca347b76a0955cdc68b9d8aca1ce24f0547e138cea33bcc7904d551a90afcb1cc7f2d9fe8557075d501419046c08c.js"
+    integrity="sha512-b0EXSzoFtoCCD&#43;CMrb&#43;l&#43;3p8o0e3aglVzcaLnYrKHOJPBUfhOM6jO8x5BNVRqQr8scx/LZ/oVXB11QFBkEbAjA=="></script>
+  
+  
+    
+    <script src="/js/a11y.min.7eeed9f7a6fe7c8aa3b999966484369eb1b5380455116fc15c2b407140f3c2e3b174fc00201797dba34e4d4013213736ae375c9bcf2d7ad1fadb224355d8d54d.js" integrity="sha512-fu7Z96b&#43;fIqjuZmWZIQ2nrG1OARVEW/BXCtAcUDzwuOxdPwAIBeX26NOTUATITc2rjdcm88tetH62yJDVdjVTQ=="></script>
+  
+  
+  
+  
+    
+    <script
+      type="text/javascript"
+      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
+      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
+  
+  
+    
+    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
+  
+
+  
+  
+  
+    
+  
+  
+    
+    
+    
+  
+  
+    
+  
+  
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.8f75559c3b0987cc436337d462a0b075ebdd214d92a8eac880da424282daeece8759e586481872b873dc2eaa92c6a66f083e3be96ab847d926aea25777dfb292.js"
+      integrity="sha512-j3VVnDsJh8xDYzfUYqCwdevdIU2SqOrIgNpCQoLa7s6HWeWGSBhyuHPcLqqSxqZvCD476Wq4R9kmrqJXd9&#43;ykg=="
+      data-copy="Copy"
+      data-copied="Copied"></script>
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Golang",
+    "name": "并发编程04 Context",
+    "headline": "并发编程04 Context",
+    
+    "inLanguage": "en",
+    "url" : "https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B04-context/",
+    "author" : {
+      "@type": "Person",
+      "name": "yuliu"
+    },
+    "copyrightYear": "2026",
+    "dateCreated": "2026-05-26T18:54:56\u002b08:00",
+    "datePublished": "2026-05-26T18:54:56\u002b08:00",
+    
+    "dateModified": "2026-05-26T18:54:56\u002b08:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1368"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Golang",
+            "item": "https://example.org/golang/"
+          },{
+        "@type": "ListItem",
+        "position":  2 ,
+        "name": "并发编程04 Context",
+        "item": "https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B04-context/"
+      }
+    ]
+  }]
+  </script>
+
+
+
+  
+  
+    
+
+
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+  
+</head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <body class="flex flex-col h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32 text-lg bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral bf-scrollbar">
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content">
+        <span class="font-bold text-primary-600 pe-2 dark:text-primary-400">&darr;</span>
+        Skip to main content
+      </a>
+    </div>
+    
+    
+      <div class="main-menu flex items-center w-full gap-2 p-1 pl-0">
+  
+  
+    <a href="/" class="text-base font-medium truncate min-w-0 shrink">
+      yuliu&rsquo;s blog
+    </a>
+  
+  <div class="flex items-center ms-auto">
+    <div class="hidden md:flex">
+      <nav class="flex items-center gap-x-5 h-12">
+  
+    
+      
+  
+    <a
+      href="/golang/"
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="Golang"
+      title="Golang">
+      
+        <span class="mr-1">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M287.9 0C297.1 0 305.5 5.25 309.5 13.52L378.1 154.8L531.4 177.5C540.4 178.8 547.8 185.1 550.7 193.7C553.5 202.4 551.2 211.9 544.8 218.2L433.6 328.4L459.9 483.9C461.4 492.9 457.7 502.1 450.2 507.4C442.8 512.7 432.1 513.4 424.9 509.1L287.9 435.9L150.1 509.1C142.9 513.4 133.1 512.7 125.6 507.4C118.2 502.1 114.5 492.9 115.1 483.9L142.2 328.4L31.11 218.2C24.65 211.9 22.36 202.4 25.2 193.7C28.03 185.1 35.5 178.8 44.49 177.5L197.7 154.8L266.3 13.52C270.4 5.249 278.7 0 287.9 0L287.9 0zM287.9 78.95L235.4 187.2C231.9 194.3 225.1 199.3 217.3 200.5L98.98 217.9L184.9 303C190.4 308.5 192.9 316.4 191.6 324.1L171.4 443.7L276.6 387.5C283.7 383.7 292.2 383.7 299.2 387.5L404.4 443.7L384.2 324.1C382.9 316.4 385.5 308.5 391 303L476.9 217.9L358.6 200.5C350.7 199.3 343.9 194.3 340.5 187.2L287.9 78.95z"/></svg></span>
+        </span>
+      
+      
+        <span class="text-base font-medium break-normal">
+          Golang
+        </span>
+      
+    </a>
+  
+
+    
+      
+  
+    <a
+      href="/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="杂谈"
+      title="杂谈">
+      
+        <span class="mr-1">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M421.7 220.3L188.5 453.4L154.6 419.5L158.1 416H112C103.2 416 96 408.8 96 400V353.9L92.51 357.4C87.78 362.2 84.31 368 82.42 374.4L59.44 452.6L137.6 429.6C143.1 427.7 149.8 424.2 154.6 419.5L188.5 453.4C178.1 463.8 165.2 471.5 151.1 475.6L30.77 511C22.35 513.5 13.24 511.2 7.03 504.1C.8198 498.8-1.502 489.7 .976 481.2L36.37 360.9C40.53 346.8 48.16 333.9 58.57 323.5L291.7 90.34L421.7 220.3zM492.7 58.75C517.7 83.74 517.7 124.3 492.7 149.3L444.3 197.7L314.3 67.72L362.7 19.32C387.7-5.678 428.3-5.678 453.3 19.32L492.7 58.75z"/></svg>
+</span>
+        </span>
+      
+      
+        <span class="text-base font-medium break-normal">
+          杂谈
+        </span>
+      
+    </a>
+  
+
+    
+      
+  
+    <a
+      href="/%E7%AE%97%E6%B3%95/"
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="算法"
+      title="">
+      
+        <span class="mr-1">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M502.285 159.704l-234-156c-7.987-4.915-16.511-4.96-24.571 0l-234 156C3.714 163.703 0 170.847 0 177.989v155.999c0 7.143 3.714 14.286 9.715 18.286l234 156.022c7.987 4.915 16.511 4.96 24.571 0l234-156.022c6-3.999 9.715-11.143 9.715-18.286V177.989c-.001-7.142-3.715-14.286-9.716-18.285zM278 63.131l172.286 114.858-76.857 51.429L278 165.703V63.131zm-44 0v102.572l-95.429 63.715-76.857-51.429L234 63.131zM44 219.132l55.143 36.857L44 292.846v-73.714zm190 229.715L61.714 333.989l76.857-51.429L234 346.275v102.572zm22-140.858l-77.715-52 77.715-52 77.715 52-77.715 52zm22 140.858V346.275l95.429-63.715 76.857 51.429L278 448.847zm190-156.001l-55.143-36.857L468 219.132v73.714z"/></svg>
+</span>
+        </span>
+      
+      
+        <span class="text-base font-medium break-normal">
+          算法
+        </span>
+      
+    </a>
+  
+
+    
+      
+  
+    <a
+      href="/%E8%BF%90%E7%BB%B4/"
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="运维/架构"
+      title="运维/架构">
+      
+        <span class="mr-1">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+<path fill="currentColor" d="M349.9 236.3h-66.1v-59.4h66.1v59.4zm0-204.3h-66.1v60.7h66.1V32zm78.2 144.8H362v59.4h66.1v-59.4zm-156.3-72.1h-66.1v60.1h66.1v-60.1zm78.1 0h-66.1v60.1h66.1v-60.1zm276.8 100c-14.4-9.7-47.6-13.2-73.1-8.4-3.3-24-16.7-44.9-41.1-63.7l-14-9.3-9.3 14c-18.4 27.8-23.4 73.6-3.7 103.8-8.7 4.7-25.8 11.1-48.4 10.7H2.4c-8.7 50.8 5.8 116.8 44 162.1 37.1 43.9 92.7 66.2 165.4 66.2 157.4 0 273.9-72.5 328.4-204.2 21.4.4 67.6.1 91.3-45.2 1.5-2.5 6.6-13.2 8.5-17.1l-13.3-8.9zm-511.1-27.9h-66v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm-78.1-72.1h-66.1v60.1h66.1v-60.1z"/></svg></span>
+        </span>
+      
+      
+        <span class="text-base font-medium break-normal">
+          运维/架构
+        </span>
+      
+    </a>
+  
+
+    
+      
+  
+    <a
+      href=""
+      
+      class="flex items-center bf-icon-color-hover"
+      
+      title="">
+      
+      
+    </a>
+  
+
+    
+  
+
+  
+
+  
+    <div class="flex items-center">
+  <button
+    id="desktop-a11y-toggle"
+    aria-label="Open accessibility panel"
+    aria-expanded="false"
+    type="button"
+    class="bf-icon-color-hover"
+    role="button"
+    aria-pressed="false">
+    <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm161.5-86.1c-12.2-5.2-26.3 .4-31.5 12.6s.4 26.3 12.6 31.5l11.9 5.1c17.3 7.4 35.2 12.9 53.6 16.3l0 50.1c0 4.3-.7 8.6-2.1 12.6l-28.7 86.1c-4.2 12.6 2.6 26.2 15.2 30.4s26.2-2.6 30.4-15.2l24.4-73.2c1.3-3.8 4.8-6.4 8.8-6.4s7.6 2.6 8.8 6.4l24.4 73.2c4.2 12.6 17.8 19.4 30.4 15.2s19.4-17.8 15.2-30.4l-28.7-86.1c-1.4-4.1-2.1-8.3-2.1-12.6l0-50.1c18.4-3.5 36.3-8.9 53.6-16.3l11.9-5.1c12.2-5.2 17.8-19.3 12.6-31.5s-19.3-17.8-31.5-12.6L338.7 175c-26.1 11.2-54.2 17-82.7 17s-56.5-5.8-82.7-17l-11.9-5.1zM256 160a40 40 0 1 0 0-80 40 40 0 1 0 0 80z"/></svg>
+</span>
+  </button>
+
+  <div id="desktop-a11y-overlay" class="fixed inset-0 hidden" style="z-index:9999;"></div>
+
+  <div
+    id="desktop-a11y-panel"
+    role="dialog"
+    aria-labelledby="desktop-a11y-panel-title"
+    class="a11y-panel-enter fixed hidden p-6 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 rounded-lg shadow-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700"
+    style="min-width: 20rem; z-index:9999;">
+    <div class="flex items-center justify-between mb-6">
+      <h3
+        id="desktop-a11y-panel-title"
+        class="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+        Accessibility settings
+      </h3>
+      <button
+        id="desktop-a11y-close"
+        class="text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200"
+        aria-label="Close a11y panel">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="space-y-5">
+      
+      
+      
+      
+        
+      
+      
+        <div class="flex items-center justify-between">
+          <label for="desktop-disable-blur" class="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+            Disable blur
+          </label>
+          <div class="ios-toggle">
+            <input type="checkbox" id="desktop-disable-blur">
+          </div>
+        </div>
+        <div class="flex items-center justify-between">
+          <label for="desktop-underline-links" class="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+            Show link underline
+          </label>
+          <div class="ios-toggle">
+            <input type="checkbox" id="desktop-underline-links">
+          </div>
+        </div>
+        <div class="flex items-center justify-between">
+          <label for="desktop-zen-mode" class="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+            Enable zen mode
+          </label>
+          <div class="ios-toggle">
+            <input type="checkbox" id="desktop-zen-mode">
+          </div>
+        </div>
+
+
+      <div class="flex items-center justify-between">
+        <label
+          for="desktop-font-size-select"
+          class="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+          Font size
+        </label>
+        <select
+          id="desktop-font-size-select"
+          class="border rounded-lg px-3 py-1.5 pr-8 text-neutral-900 text-sm dark:bg-neutral-700 dark:text-neutral-200 focus:ring-primary-500 focus:border-primary-500">
+          
+          
+            <option value="default">default</option>
+          
+            <option value="12px">12px</option>
+          
+            <option value="14px">14px</option>
+          
+            <option value="16px">16px</option>
+          
+            <option value="18px">18px</option>
+          
+            <option value="20px">20px</option>
+          
+            <option value="22px">22px</option>
+          
+            <option value="24px">24px</option>
+          
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+  
+    <button
+      id="search-button"
+      aria-label="Search"
+      class="text-base bf-icon-color-hover"
+      title="Search (/)">
+      <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+    </button>
+  
+
+  
+    <div class="flex items-center">
+      <button
+        id="appearance-switcher"
+        aria-label="Dark mode switcher"
+        type="button"
+        class="text-base bf-icon-color-hover">
+        <div class="flex items-center justify-center dark:hidden">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+        </div>
+        <div class="items-center justify-center hidden dark:flex">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+        </div>
+      </button>
+    </div>
+  
+</nav>
+
+
+
+    </div>
+    <div class="flex md:hidden">
+      <div class="flex items-center h-14 gap-4">
+  
+    <button
+      id="search-button-mobile"
+      aria-label="Search"
+      class="flex items-center justify-center bf-icon-color-hover"
+      title="Search (/)">
+      <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+    </button>
+  
+
+  
+    <button
+      id="appearance-switcher-mobile"
+      type="button"
+      aria-label="Dark mode switcher"
+      class="flex items-center justify-center text-neutral-900 hover:text-primary-600 dark:text-neutral-200 dark:hover:text-primary-400">
+      <div class="dark:hidden">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+      </div>
+      <div class="hidden dark:block">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+      </div>
+    </button>
+  
+
+  
+    <input type="checkbox" id="mobile-menu-toggle" autocomplete="off" class="hidden peer">
+    <label for="mobile-menu-toggle" class="flex items-center justify-center cursor-pointer bf-icon-color-hover">
+      <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+</span>
+    </label>
+
+    <div
+      role="dialog"
+      aria-modal="true"
+      style="scrollbar-gutter: stable;"
+      class="fixed inset-0 z-50 invisible overflow-y-auto px-6 py-20 opacity-0 transition-[opacity,visibility] duration-300 peer-checked:visible peer-checked:opacity-100 bg-neutral-50/97 dark:bg-neutral-900/99
+      bf-scrollbar">
+      <label
+        for="mobile-menu-toggle"
+        class="fixed end-8 top-5 flex items-center justify-center z-50 h-12 w-12 cursor-pointer select-none rounded-full bf-icon-color-hover border bf-border-color bf-border-color-hover bg-neutral-50 dark:bg-neutral-900">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </label>
+      <nav class="mx-auto max-w-md space-y-6">
+        
+  
+    
+    <div class="px-2">
+      <a
+        href="/golang/"
+        aria-label="Golang"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+          <span class="flex items-center justify-center h-8 w-8 text-2xl">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M287.9 0C297.1 0 305.5 5.25 309.5 13.52L378.1 154.8L531.4 177.5C540.4 178.8 547.8 185.1 550.7 193.7C553.5 202.4 551.2 211.9 544.8 218.2L433.6 328.4L459.9 483.9C461.4 492.9 457.7 502.1 450.2 507.4C442.8 512.7 432.1 513.4 424.9 509.1L287.9 435.9L150.1 509.1C142.9 513.4 133.1 512.7 125.6 507.4C118.2 502.1 114.5 492.9 115.1 483.9L142.2 328.4L31.11 218.2C24.65 211.9 22.36 202.4 25.2 193.7C28.03 185.1 35.5 178.8 44.49 177.5L197.7 154.8L266.3 13.52C270.4 5.249 278.7 0 287.9 0L287.9 0zM287.9 78.95L235.4 187.2C231.9 194.3 225.1 199.3 217.3 200.5L98.98 217.9L184.9 303C190.4 308.5 192.9 316.4 191.6 324.1L171.4 443.7L276.6 387.5C283.7 383.7 292.2 383.7 299.2 387.5L404.4 443.7L384.2 324.1C382.9 316.4 385.5 308.5 391 303L476.9 217.9L358.6 200.5C350.7 199.3 343.9 194.3 340.5 187.2L287.9 78.95z"/></svg></span>
+          </span>
+        
+        <span title="Golang" class="text-2xl font-bold tracking-tight">
+          Golang
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+    
+    <div class="px-2">
+      <a
+        href="/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"
+        aria-label="杂谈"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+          <span class="flex items-center justify-center h-8 w-8 text-2xl">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M421.7 220.3L188.5 453.4L154.6 419.5L158.1 416H112C103.2 416 96 408.8 96 400V353.9L92.51 357.4C87.78 362.2 84.31 368 82.42 374.4L59.44 452.6L137.6 429.6C143.1 427.7 149.8 424.2 154.6 419.5L188.5 453.4C178.1 463.8 165.2 471.5 151.1 475.6L30.77 511C22.35 513.5 13.24 511.2 7.03 504.1C.8198 498.8-1.502 489.7 .976 481.2L36.37 360.9C40.53 346.8 48.16 333.9 58.57 323.5L291.7 90.34L421.7 220.3zM492.7 58.75C517.7 83.74 517.7 124.3 492.7 149.3L444.3 197.7L314.3 67.72L362.7 19.32C387.7-5.678 428.3-5.678 453.3 19.32L492.7 58.75z"/></svg>
+</span>
+          </span>
+        
+        <span title="杂谈" class="text-2xl font-bold tracking-tight">
+          杂谈
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+    
+    <div class="px-2">
+      <a
+        href="/%E7%AE%97%E6%B3%95/"
+        aria-label="算法"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+          <span class="flex items-center justify-center h-8 w-8 text-2xl">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M502.285 159.704l-234-156c-7.987-4.915-16.511-4.96-24.571 0l-234 156C3.714 163.703 0 170.847 0 177.989v155.999c0 7.143 3.714 14.286 9.715 18.286l234 156.022c7.987 4.915 16.511 4.96 24.571 0l234-156.022c6-3.999 9.715-11.143 9.715-18.286V177.989c-.001-7.142-3.715-14.286-9.716-18.285zM278 63.131l172.286 114.858-76.857 51.429L278 165.703V63.131zm-44 0v102.572l-95.429 63.715-76.857-51.429L234 63.131zM44 219.132l55.143 36.857L44 292.846v-73.714zm190 229.715L61.714 333.989l76.857-51.429L234 346.275v102.572zm22-140.858l-77.715-52 77.715-52 77.715 52-77.715 52zm22 140.858V346.275l95.429-63.715 76.857 51.429L278 448.847zm190-156.001l-55.143-36.857L468 219.132v73.714z"/></svg>
+</span>
+          </span>
+        
+        <span title="" class="text-2xl font-bold tracking-tight">
+          算法
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+    
+    <div class="px-2">
+      <a
+        href="/%E8%BF%90%E7%BB%B4/"
+        aria-label="运维/架构"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+          <span class="flex items-center justify-center h-8 w-8 text-2xl">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+<path fill="currentColor" d="M349.9 236.3h-66.1v-59.4h66.1v59.4zm0-204.3h-66.1v60.7h66.1V32zm78.2 144.8H362v59.4h66.1v-59.4zm-156.3-72.1h-66.1v60.1h66.1v-60.1zm78.1 0h-66.1v60.1h66.1v-60.1zm276.8 100c-14.4-9.7-47.6-13.2-73.1-8.4-3.3-24-16.7-44.9-41.1-63.7l-14-9.3-9.3 14c-18.4 27.8-23.4 73.6-3.7 103.8-8.7 4.7-25.8 11.1-48.4 10.7H2.4c-8.7 50.8 5.8 116.8 44 162.1 37.1 43.9 92.7 66.2 165.4 66.2 157.4 0 273.9-72.5 328.4-204.2 21.4.4 67.6.1 91.3-45.2 1.5-2.5 6.6-13.2 8.5-17.1l-13.3-8.9zm-511.1-27.9h-66v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm-78.1-72.1h-66.1v60.1h66.1v-60.1z"/></svg></span>
+          </span>
+        
+        <span title="运维/架构" class="text-2xl font-bold tracking-tight">
+          运维/架构
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+    
+    <div class="px-2">
+      <a
+        href=""
+        
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+        <span title="" class="text-2xl font-bold tracking-tight">
+          
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+
+        
+  
+
+        
+  
+    <div
+      class="flex flex-wrap items-center [&_span]:text-2xl [&_.translation_button_.icon]:text-4xl! [&_.translation_button_span]:text-base! [&_.translation_.menuhide_span]:text-sm! gap-x-6 ps-2 mt-8 pt-8 border-t bf-border-color">
+      
+
+
+      
+        <div class="flex items-center">
+  <button
+    id="mobile-menu-a11y-toggle"
+    aria-label="Open accessibility panel"
+    aria-expanded="false"
+    type="button"
+    class="bf-icon-color-hover"
+    role="button"
+    aria-pressed="false">
+    <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm161.5-86.1c-12.2-5.2-26.3 .4-31.5 12.6s.4 26.3 12.6 31.5l11.9 5.1c17.3 7.4 35.2 12.9 53.6 16.3l0 50.1c0 4.3-.7 8.6-2.1 12.6l-28.7 86.1c-4.2 12.6 2.6 26.2 15.2 30.4s26.2-2.6 30.4-15.2l24.4-73.2c1.3-3.8 4.8-6.4 8.8-6.4s7.6 2.6 8.8 6.4l24.4 73.2c4.2 12.6 17.8 19.4 30.4 15.2s19.4-17.8 15.2-30.4l-28.7-86.1c-1.4-4.1-2.1-8.3-2.1-12.6l0-50.1c18.4-3.5 36.3-8.9 53.6-16.3l11.9-5.1c12.2-5.2 17.8-19.3 12.6-31.5s-19.3-17.8-31.5-12.6L338.7 175c-26.1 11.2-54.2 17-82.7 17s-56.5-5.8-82.7-17l-11.9-5.1zM256 160a40 40 0 1 0 0-80 40 40 0 1 0 0 80z"/></svg>
+</span>
+  </button>
+
+  <div id="mobile-menu-a11y-overlay" class="fixed inset-0 hidden" style="z-index:9999;"></div>
+
+  <div
+    id="mobile-menu-a11y-panel"
+    role="dialog"
+    aria-labelledby="mobile-menu-a11y-panel-title"
+    class="a11y-panel-enter fixed hidden p-6 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 rounded-lg shadow-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700"
+    style="min-width: 20rem; z-index:9999;">
+    <div class="flex items-center justify-between mb-6">
+      <h3
+        id="mobile-menu-a11y-panel-title"
+        class="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+        Accessibility settings
+      </h3>
+      <button
+        id="mobile-menu-a11y-close"
+        class="text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200"
+        aria-label="Close a11y panel">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="space-y-5">
+      
+      
+      
+      
+        
+      
+      
+        <div class="flex items-center justify-between">
+          <label for="mobile-menu-disable-blur" class="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+            Disable blur
+          </label>
+          <div class="ios-toggle">
+            <input type="checkbox" id="mobile-menu-disable-blur">
+          </div>
+        </div>
+        <div class="flex items-center justify-between">
+          <label for="mobile-menu-underline-links" class="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+            Show link underline
+          </label>
+          <div class="ios-toggle">
+            <input type="checkbox" id="mobile-menu-underline-links">
+          </div>
+        </div>
+        <div class="flex items-center justify-between">
+          <label for="mobile-menu-zen-mode" class="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+            Enable zen mode
+          </label>
+          <div class="ios-toggle">
+            <input type="checkbox" id="mobile-menu-zen-mode">
+          </div>
+        </div>
+
+
+      <div class="flex items-center justify-between">
+        <label
+          for="mobile-menu-font-size-select"
+          class="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+          Font size
+        </label>
+        <select
+          id="mobile-menu-font-size-select"
+          class="border rounded-lg px-3 py-1.5 pr-8 text-neutral-900 text-sm dark:bg-neutral-700 dark:text-neutral-200 focus:ring-primary-500 focus:border-primary-500">
+          
+          
+            <option value="default">default</option>
+          
+            <option value="12px">12px</option>
+          
+            <option value="14px">14px</option>
+          
+            <option value="16px">16px</option>
+          
+            <option value="18px">18px</option>
+          
+            <option value="20px">20px</option>
+          
+            <option value="22px">22px</option>
+          
+            <option value="24px">24px</option>
+          
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+    </div>
+  
+
+      </nav>
+    </div>
+  
+</div>
+
+
+
+
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+    
+    <div class="relative flex flex-col grow">
+      <main id="main-content" class="grow">
+        
+  
+  <article>
+    
+    
+
+    
+    <header id="single_header" class="mt-5 max-w-prose">
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        并发编程04 Context
+      </h1>
+      <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2026-05-26T18:54:56&#43;08:00">26 May 2026</time><span class="px-2 text-primary-500">&middot;</span><span>1368 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">7 mins</span>
+    
+
+    
+    
+  </div>
+
+  
+
+  
+  
+
+
+      </div>
+      
+    </header>
+
+    
+    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+      
+      
+      
+      
+      
+
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+
+        <div class="article-content max-w-prose mb-20">
+          
+<h3 class="relative group">Context
+    <div id="context" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#context" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+
+<h4 class="relative group">设计目标与语义边界
+    <div id="设计目标与语义边界" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e8%ae%be%e8%ae%a1%e7%9b%ae%e6%a0%87%e4%b8%8e%e8%af%ad%e4%b9%89%e8%be%b9%e7%95%8c" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>请求域内的取消、超时、值传递的统一载体。不可重用、不可跨请求缓存、不可持久化。</li>
+<li>取消是“最佳努力”：只有主动轮询或阻塞点支持取消才会生效（库/系统调用需配合）。</li>
+<li>上下游树状结构：子 Context 至少与父一致（更早的超时/取消优先），值链按最近优先覆盖。</li>
+</ul>
+
+<h4 class="relative group">核心类型与内部实现
+    <div id="核心类型与内部实现" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%a0%b8%e5%bf%83%e7%b1%bb%e5%9e%8b%e4%b8%8e%e5%86%85%e9%83%a8%e5%ae%9e%e7%8e%b0" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>emptyCtx：Background/TODO 的实现，永不取消，无值，无截止时间。</li>
+<li>cancelCtx：
+<ul>
+<li>字段：parent、done chan struct{}、children map[contextCanceler]struct{}、mu sync.Mutex、err error。</li>
+<li>Done 在第一次取消时关闭（close），广播一次。Err 返回 Canceled。</li>
+<li>取消传播：父取消时，遍历 children 调子取消。复杂度 O(children)。</li>
+<li>并发：addChild/removeChild 在 mu 下维护，父已取消时，addChild 会立即取消子。</li>
+</ul>
+</li>
+<li>timerCtx：
+<ul>
+<li>嵌入 cancelCtx 并持有 time.Timer。触发后调用取消路径，Err 返回 DeadlineExceeded。</li>
+<li>使用单调时间（time.Now 的单调部分），避免系统时钟跳变影响。</li>
+<li>早取消必须 stop timer 以释放资源。</li>
+</ul>
+</li>
+<li>valueCtx：
+<ul>
+<li>链式存储单 key/value。Value 查找沿 parent 链向上扫描，复杂度 O(depth)。</li>
+<li>键要求可比较；推荐使用不导出的自定义类型作为键，避免冲突。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">取消传播与并发特性
+    <div id="取消传播与并发特性" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%8f%96%e6%b6%88%e4%bc%a0%e6%92%ad%e4%b8%8e%e5%b9%b6%e5%8f%91%e7%89%b9%e6%80%a7" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>Done 是不可复位的单次 close，所有监听者同时唤醒；select 无饥饿，GMP 调度器会公平调度被唤醒 goroutine。</li>
+<li>取消函数多次调用是幂等的；第一次有效，后续无副作用。</li>
+<li>父取消与子创建并发安全；addChild 检查父状态，父已取消则子被即时取消。</li>
+<li>子设置比父更晚的 deadline 不生效（父更早者胜）；更早的生效，父仍可能更早取消（最早者胜）。</li>
+</ul>
+
+<h4 class="relative group">Deadline/Timeout 实现与开销
+    <div id="deadlinetimeout-实现与开销" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#deadlinetimeout-%e5%ae%9e%e7%8e%b0%e4%b8%8e%e5%bc%80%e9%94%80" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>WithDeadline/WithTimeout 内部分配 timerCtx 和 time.Timer；触发时调用取消。</li>
+<li>提前调用 cancel 能：
+<ul>
+<li>释放 timer（timer.Stop + 解除引用），降低 GC 压力。</li>
+<li>从父 children 解绑，减少父后续取消遍历成本。</li>
+</ul>
+</li>
+<li>频繁创建短命定时 context 的热路径中，避免深链与无谓的嵌套。</li>
+</ul>
+
+<h4 class="relative group">Err vs Cause（Go 1.20+）
+    <div id="err-vs-causego-120" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#err-vs-causego-120" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>Err 只返回两类哨兵错误：context.Canceled、context.DeadlineExceeded。</li>
+<li>WithCancelCause/Cause：
+<ul>
+<li>支持携带取消原因（任意 error），用于诊断/错误链路。</li>
+<li>Cause(ctx) 在未取消时返回 nil；取消后返回自定义原因或上述哨兵。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">Value 语义与键策略
+    <div id="value-语义与键策略" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#value-%e8%af%ad%e4%b9%89%e4%b8%8e%e9%94%ae%e7%ad%96%e7%95%a5" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>查找是线性链扫描；深度过大会增加延迟。仅存小型、只读、请求元数据（trace id、auth token）。</li>
+<li>键使用不导出的 struct{} 类型，避免第三方冲突。禁止使用 string 常量作为键。</li>
+<li>避免在 Value 中存放大对象或可变句柄（FD、连接池实例）；这会扩大存活范围，弱化可见性边界，恶化 GC。</li>
+</ul>
+
+<h4 class="relative group">标准库集成点
+    <div id="标准库集成点" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%a0%87%e5%87%86%e5%ba%93%e9%9b%86%e6%88%90%e7%82%b9" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>net/http：
+<ul>
+<li>Server 为每个请求创建可取消 Context，客户端断开/超时会取消。</li>
+<li>Handler 内部需 select ctx.Done，或将 ctx 传递给下游（DB、RPC、IO）。</li>
+</ul>
+</li>
+<li>net：
+<ul>
+<li>net.Dialer.DialContext 支持取消；TCP/UDP 连接建立 honor ctx。</li>
+<li>DNS 解析可能不完全可取消，取决于平台与 resolver。</li>
+</ul>
+</li>
+<li>database/sql：
+<ul>
+<li>QueryContext/ExecContext honor ctx；驱动完整支持度取决于具体实现（常见驱动支持）。</li>
+</ul>
+</li>
+<li>os/signal：
+<ul>
+<li>signal.NotifyContext 将信号与取消合并；用于优雅停机。</li>
+</ul>
+</li>
+<li>time：
+<ul>
+<li>timerCtx 使用 time.AfterFunc/Timer，单调时间保证稳定性。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">典型使用模式与约定
+    <div id="典型使用模式与约定" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%85%b8%e5%9e%8b%e4%bd%bf%e7%94%a8%e6%a8%a1%e5%bc%8f%e4%b8%8e%e7%ba%a6%e5%ae%9a" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>API 形状：func X(ctx context.Context, &hellip;) &hellip;；ctx 为首参，禁止为 nil。对外 API 遇 nil 直接 panic 或替换为 Background 是反模式；应在调用方保证非 nil。</li>
+<li>取消/清理惯例：派生 ctx 后，尽快 defer cancel（即便不超时也需要释放 timer 和 children）。</li>
+<li>goroutine 生命周期：每个后台 goroutine 必须监听 ctx.Done，退出前释放资源，避免泄露。</li>
+<li>流水线：
+<ul>
+<li>上游取消触发下游全部收缩（select Done）。中途 stage 必须非阻塞地感知取消，否则形成阻塞链。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">性能与 GC
+    <div id="性能与-gc" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%80%a7%e8%83%bd%e4%b8%8e-gc" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>分配：
+<ul>
+<li>WithCancel/Timeout/Deadline 分配 child ctx + done chan + 可能的 timer；逃逸到堆。</li>
+<li>Value 链增加对象与指针追踪；深层链增大扫描与写屏障开销。</li>
+</ul>
+</li>
+<li>锁与竞争：
+<ul>
+<li>取消时对 children 遍历与锁竞争可能成为热点（高扇出）。避免超大扇出（成百上千子）结构；用扇入聚合器或分层取消。</li>
+</ul>
+</li>
+<li>调度：
+<ul>
+<li>Done close 触发大量 goroutine 同步唤醒，注意风暴效应；在高并发系统中分级取消或将重任务放到工作队列做 backpressure。</li>
+</ul>
+</li>
+<li>GC：
+<ul>
+<li>未调用 cancel 导致 timer 与 child 持有，延长存活时间；在长寿父 ctx 下形成内存泄露。</li>
+<li>在 ctx.Value 放大对象会扩大可达集，增大标记与驻留。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">雷点与权衡
+    <div id="雷点与权衡" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e9%9b%b7%e7%82%b9%e4%b8%8e%e6%9d%83%e8%a1%a1" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>雷点：
+<ul>
+<li>不调用 cancel：timer 未释放、父子链未解绑、goroutine 泄露。</li>
+<li>误用 Value 承载业务参数：隐藏依赖，破坏 API 显式性，增加链扫描成本。</li>
+<li>忽略 Done：阻塞 IO/计算无法及时收缩，形成尾延迟与 goroutine 堆积。</li>
+<li>将 ctx 存入结构体或跨请求缓存：生命周期错乱，跨边界泄露。</li>
+<li>使用 string 键：与第三方冲突风险高。</li>
+<li>期望所有库函数可取消：系统调用/文件 IO 多数不支持，需额外超时与 goroutine 中断策略。</li>
+</ul>
+</li>
+<li>权衡：
+<ul>
+<li>更细粒度的 ctx（多个 stage 独立超时）提升隔离，但增深链与管理复杂度。</li>
+<li>扇出取消的广播成本 vs 简化编排；高扇出时需要分层与批量策略。</li>
+<li>全局超时（入口统一）简单但可能过度杀伤；分阶段超时更贴近 SLA，但调参复杂。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">代码片段（聚焦实现细节）
+    <div id="代码片段聚焦实现细节" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e4%bb%a3%e7%a0%81%e7%89%87%e6%ae%b5%e8%81%9a%e7%84%a6%e5%ae%9e%e7%8e%b0%e7%bb%86%e8%8a%82" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+
+<h5 class="relative group">取消与资源释放（必须 defer cancel）
+    <div id="取消与资源释放必须-defer-cancel" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%8f%96%e6%b6%88%e4%b8%8e%e8%b5%84%e6%ba%90%e9%87%8a%e6%94%be%e5%bf%85%e9%a1%bb-defer-cancel" aria-label="Anchor">#</a>
+    </span>
+    
+</h5>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">fetch</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">Item</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">cancel</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nf">WithTimeout</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="mi">500</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nf">cancel</span><span class="p">()</span><span class="w"> </span><span class="c1">// 释放timer与children</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="o">&lt;-</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">Item</span><span class="p">{},</span><span class="w"> </span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Err</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nx">itm</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&lt;-</span><span class="nf">loadItem</span><span class="p">(</span><span class="nx">id</span><span class="p">):</span><span class="w"> </span><span class="c1">// 假设返回channel的调用</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">itm</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+
+<h5 class="relative group">WithCancelCause/Cause 用于诊断
+    <div id="withcancelcausecause-用于诊断" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#withcancelcausecause-%e7%94%a8%e4%ba%8e%e8%af%8a%e6%96%ad" aria-label="Anchor">#</a>
+    </span>
+    
+</h5>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">cancel</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nf">WithCancelCause</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nf">cancel</span><span class="p">(</span><span class="kc">nil</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">go</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">work</span><span class="p">();</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nf">cancel</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Errorf</span><span class="p">(</span><span class="s">&#34;work failed: %w&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">&lt;-</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// ctx.Err() 仅为 context.Canceled；诊断用 Cause(ctx)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">cause</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nf">Cause</span><span class="p">(</span><span class="nx">ctx</span><span class="p">);</span><span class="w"> </span><span class="nx">cause</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">cause</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Err</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+
+<h5 class="relative group">goroutine 收缩模板（禁止 goroutine 泄露）
+    <div id="goroutine-收缩模板禁止-goroutine-泄露" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#goroutine-%e6%94%b6%e7%bc%a9%e6%a8%a1%e6%9d%bf%e7%a6%81%e6%ad%a2-goroutine-%e6%b3%84%e9%9c%b2" aria-label="Anchor">#</a>
+    </span>
+    
+</h5>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">worker</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">jobs</span><span class="w"> </span><span class="o">&lt;-</span><span class="kd">chan</span><span class="w"> </span><span class="nx">Job</span><span class="p">,</span><span class="w"> </span><span class="nx">out</span><span class="w"> </span><span class="kd">chan</span><span class="o">&lt;-</span><span class="w"> </span><span class="nx">Result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">select</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="o">&lt;-</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="nx">j</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&lt;-</span><span class="nx">jobs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">return</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nx">res</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">do</span><span class="p">(</span><span class="nx">j</span><span class="p">)</span><span class="w"> </span><span class="c1">// do 内部也应 honor ctx</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="c1">// 仅在非取消错误时处理</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">select</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">case</span><span class="w"> </span><span class="o">&lt;-</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="k">return</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">case</span><span class="w"> </span><span class="nx">out</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nx">Result</span><span class="p">{</span><span class="nx">Err</span><span class="p">:</span><span class="w"> </span><span class="nx">err</span><span class="p">}:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">continue</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">select</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="o">&lt;-</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">return</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="nx">out</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nx">res</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+
+<h5 class="relative group">键类型与浅链控制
+    <div id="键类型与浅链控制" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e9%94%ae%e7%b1%bb%e5%9e%8b%e4%b8%8e%e6%b5%85%e9%93%be%e6%8e%a7%e5%88%b6" aria-label="Anchor">#</a>
+    </span>
+    
+</h5>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">traceKey</span><span class="w"> </span><span class="kd">struct</span><span class="p">{}</span><span class="w"> </span><span class="c1">// 不导出，避免冲突</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">withTrace</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nf">WithValue</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">traceKey</span><span class="p">{},</span><span class="w"> </span><span class="nx">id</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">traceID</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">v</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Value</span><span class="p">(</span><span class="nx">traceKey</span><span class="p">{})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">s</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">v</span><span class="p">.(</span><span class="kt">string</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">s</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+
+<h5 class="relative group">net/http Handler 中的取消感知
+    <div id="nethttp-handler-中的取消感知" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#nethttp-handler-%e4%b8%ad%e7%9a%84%e5%8f%96%e6%b6%88%e6%84%9f%e7%9f%a5" aria-label="Anchor">#</a>
+    </span>
+    
+</h5>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">handler</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">ctx</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nf">Context</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 下游调用必须传递 ctx</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">rows</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nf">QueryContext</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;SELECT ...&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">http</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nf">Error</span><span class="p">(),</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusInternalServerError</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nx">rows</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 写响应前检查取消，避免无谓工作</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="o">&lt;-</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">default</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// ...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+
+<h5 class="relative group">分层取消，降低扇出广播成本
+    <div id="分层取消降低扇出广播成本" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%88%86%e5%b1%82%e5%8f%96%e6%b6%88%e9%99%8d%e4%bd%8e%e6%89%87%e5%87%ba%e5%b9%bf%e6%92%ad%e6%88%90%e6%9c%ac" aria-label="Anchor">#</a>
+    </span>
+    
+</h5>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">parent</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">stageCtx</span><span class="p">,</span><span class="w"> </span><span class="nx">stageCancel</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nf">WithCancel</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nf">stageCancel</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 子群组在 stageCtx 下派生，父级取消仅广播到 stageCtx</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">64</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">go</span><span class="w"> </span><span class="nf">child</span><span class="p">(</span><span class="nx">stageCtx</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+
+<h5 class="relative group">signal.NotifyContext 优雅停机
+    <div id="signalnotifycontext-优雅停机" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#signalnotifycontext-%e4%bc%98%e9%9b%85%e5%81%9c%e6%9c%ba" aria-label="Anchor">#</a>
+    </span>
+    
+</h5>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">stop</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">signal</span><span class="p">.</span><span class="nf">NotifyContext</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">(),</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Interrupt</span><span class="p">,</span><span class="w"> </span><span class="nx">syscall</span><span class="p">.</span><span class="nx">SIGTERM</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nf">stop</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">srv</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Server</span><span class="p">{</span><span class="nx">Addr</span><span class="p">:</span><span class="w"> </span><span class="s">&#34;:8080&#34;</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">go</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="o">&lt;-</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 带超时的优雅关闭</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">shutdownCtx</span><span class="p">,</span><span class="w"> </span><span class="nx">cancel</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nf">WithTimeout</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">(),</span><span class="w"> </span><span class="mi">5</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">defer</span><span class="w"> </span><span class="nf">cancel</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">_</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">srv</span><span class="p">.</span><span class="nf">Shutdown</span><span class="p">(</span><span class="nx">shutdownCtx</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">srv</span><span class="p">.</span><span class="nf">ListenAndServe</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+
+<h4 class="relative group">审核清单（工程落地）
+    <div id="审核清单工程落地" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%ae%a1%e6%a0%b8%e6%b8%85%e5%8d%95%e5%b7%a5%e7%a8%8b%e8%90%bd%e5%9c%b0" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>所有派生 Context 调用路径均有 defer cancel。</li>
+<li>所有新建 goroutine 至少一个 select { case &lt;-ctx.Done(): } 退出路径。</li>
+<li>API 不接受 nil ctx；内部工具函数如需允许 nil，必须在入口转为 Background，并仅限内部使用。</li>
+<li>Value 链深度受控（&lt;3）；键使用不导出类型；仅传递只读小型元数据。</li>
+<li>高扇出场景分层取消；避免单点取消广播风暴。</li>
+<li>检查下游库是否 honor ctx；对不支持取消的 IO 使用自建超时+中断策略（比如自建 select + 封装 Blocking 调用）。</li>
+</ul>
+
+<h3 class="relative group">非官方包ctx
+    <div id="非官方包ctx" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e9%9d%9e%e5%ae%98%e6%96%b9%e5%8c%85ctx" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+
+<h4 class="relative group">链路级 Context 传播（分布式）
+    <div id="链路级-context-传播分布式" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e9%93%be%e8%b7%af%e7%ba%a7-context-%e4%bc%a0%e6%92%ad%e5%88%86%e5%b8%83%e5%bc%8f" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>HTTP（W3C TraceContext）：
+<ul>
+<li>头部：traceparent, tracestate；用户态元数据用 baggage。</li>
+<li>入口：从请求头提取上下文，派生 span 并绑定 r.Context()。出口：将上下文注入到下游请求头。超时/取消不自动通过 HTTP 传播（只在本进程内生效），需要明确设置上下游各自的超时策略。</li>
+<li>OpenTelemetry 示例：
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// Server 端（net/http）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">h</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">ctx</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">otel</span><span class="p">.</span><span class="nf">GetTextMapPropagator</span><span class="p">().</span><span class="nf">Extract</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nf">Context</span><span class="p">(),</span><span class="w"> </span><span class="nx">propagation</span><span class="p">.</span><span class="nf">HeaderCarrier</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">Header</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">span</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">tracer</span><span class="p">.</span><span class="nf">Start</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;HTTP &#34;</span><span class="o">+</span><span class="nx">r</span><span class="p">.</span><span class="nx">Method</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nx">span</span><span class="p">.</span><span class="nf">End</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// ... 业务并继续传递 ctx ...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Client 端（net/http）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">do</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">req</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span><span class="w"> </span><span class="nx">rt</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">RoundTripper</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Response</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">req</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nf">WithContext</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">otel</span><span class="p">.</span><span class="nf">GetTextMapPropagator</span><span class="p">().</span><span class="nf">Inject</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">propagation</span><span class="p">.</span><span class="nf">HeaderCarrier</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">Header</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">rt</span><span class="p">.</span><span class="nf">RoundTrip</span><span class="p">(</span><span class="nx">req</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+</li>
+</ul>
+</li>
+<li>gRPC：
+<ul>
+<li>Deadline 自动通过 grpc-timeout 头传播；客户端 WithTimeout/WithDeadline 会被服务端感知并在 ctx.Deadline() 可见。</li>
+<li>元数据通过 metadata.MD 注入/提取；Tracing 建议使用 otelgrpc 拦截器（首选）或手写。</li>
+<li>手写拦截器（简化）：
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// Unary Server</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">UnaryServerInterceptor</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">req</span><span class="w"> </span><span class="kt">any</span><span class="p">,</span><span class="w"> </span><span class="nx">info</span><span class="w"> </span><span class="o">*</span><span class="nx">grpc</span><span class="p">.</span><span class="nx">UnaryServerInfo</span><span class="p">,</span><span class="w"> </span><span class="nx">handler</span><span class="w"> </span><span class="nx">grpc</span><span class="p">.</span><span class="nx">UnaryHandler</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">any</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 提取上游 trace 与 baggage</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">ctx</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">otel</span><span class="p">.</span><span class="nf">GetTextMapPropagator</span><span class="p">().</span><span class="nf">Extract</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nf">metadataCarrier</span><span class="p">(</span><span class="nf">mdFromIncoming</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">span</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">tracer</span><span class="p">.</span><span class="nf">Start</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">info</span><span class="p">.</span><span class="nx">FullMethod</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nx">span</span><span class="p">.</span><span class="nf">End</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nf">handler</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">req</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Unary Client</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">UnaryClientInterceptor</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">method</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">req</span><span class="p">,</span><span class="w"> </span><span class="nx">reply</span><span class="w"> </span><span class="kt">any</span><span class="p">,</span><span class="w"> </span><span class="nx">cc</span><span class="w"> </span><span class="o">*</span><span class="nx">grpc</span><span class="p">.</span><span class="nx">ClientConn</span><span class="p">,</span><span class="w"> </span><span class="nx">invoker</span><span class="w"> </span><span class="nx">grpc</span><span class="p">.</span><span class="nx">UnaryInvoker</span><span class="p">,</span><span class="w"> </span><span class="nx">opts</span><span class="w"> </span><span class="o">...</span><span class="nx">grpc</span><span class="p">.</span><span class="nx">CallOption</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 注入 trace 与 baggage</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">md</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">metadata</span><span class="p">.</span><span class="nf">FromOutgoingContext</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">md</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">md</span><span class="p">.</span><span class="nf">Copy</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">ctx</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">metadata</span><span class="p">.</span><span class="nf">NewOutgoingContext</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">md</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">otel</span><span class="p">.</span><span class="nf">GetTextMapPropagator</span><span class="p">().</span><span class="nf">Inject</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nf">metadataCarrier</span><span class="p">(</span><span class="nx">md</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nf">invoker</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">method</span><span class="p">,</span><span class="w"> </span><span class="nx">req</span><span class="p">,</span><span class="w"> </span><span class="nx">reply</span><span class="p">,</span><span class="w"> </span><span class="nx">cc</span><span class="p">,</span><span class="w"> </span><span class="nx">opts</span><span class="o">...</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">mdFromIncoming</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span><span class="w"> </span><span class="nx">metadata</span><span class="p">.</span><span class="nx">MD</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">md</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">metadata</span><span class="p">.</span><span class="nf">FromIncomingContext</span><span class="p">(</span><span class="nx">ctx</span><span class="p">);</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">md</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">metadata</span><span class="p">.</span><span class="nx">MD</span><span class="p">{}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+</li>
+</ul>
+</li>
+<li>MQ/异步（Kafka/NATS/RabbitMQ）：
+<ul>
+<li>Context 不会跨进程自动传播，必须显式将 trace/baggage 注入消息头，在消费侧提取后恢复。</li>
+<li>Kafka（sarama）示例：
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">injectKafka</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">msg</span><span class="w"> </span><span class="o">*</span><span class="nx">sarama</span><span class="p">.</span><span class="nx">ProducerMessage</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">carrier</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">propagation</span><span class="p">.</span><span class="nx">MapCarrier</span><span class="p">{}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">otel</span><span class="p">.</span><span class="nf">GetTextMapPropagator</span><span class="p">().</span><span class="nf">Inject</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">carrier</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">k</span><span class="p">,</span><span class="w"> </span><span class="nx">v</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">carrier</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">msg</span><span class="p">.</span><span class="nx">Headers</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="nx">Headers</span><span class="p">,</span><span class="w"> </span><span class="nx">sarama</span><span class="p">.</span><span class="nx">RecordHeader</span><span class="p">{</span><span class="nx">Key</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">k</span><span class="p">),</span><span class="w"> </span><span class="nx">Value</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">v</span><span class="p">)})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">extractKafka</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">msg</span><span class="w"> </span><span class="o">*</span><span class="nx">sarama</span><span class="p">.</span><span class="nx">ConsumerMessage</span><span class="p">)</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">carrier</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">propagation</span><span class="p">.</span><span class="nx">MapCarrier</span><span class="p">{}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">h</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">msg</span><span class="p">.</span><span class="nx">Headers</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">carrier</span><span class="p">[</span><span class="nb">string</span><span class="p">(</span><span class="nx">h</span><span class="p">.</span><span class="nx">Key</span><span class="p">)]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">string</span><span class="p">(</span><span class="nx">h</span><span class="p">.</span><span class="nx">Value</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">otel</span><span class="p">.</span><span class="nf">GetTextMapPropagator</span><span class="p">().</span><span class="nf">Extract</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">carrier</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">常见第三方“ctx”对象与标准 context 的边界
+    <div id="常见第三方ctx对象与标准-context-的边界" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%b8%b8%e8%a7%81%e7%ac%ac%e4%b8%89%e6%96%b9ctx%e5%af%b9%e8%b1%a1%e4%b8%8e%e6%a0%87%e5%87%86-context-%e7%9a%84%e8%be%b9%e7%95%8c" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>gin.Context：
+<ul>
+<li>不是标准 context.Context；非并发安全；请求结束后会被对象池复用，禁止跨请求持有。</li>
+<li>取消/超时：使用 c.Request.Context()；不要将 gin.Context 传入子 goroutine。</li>
+<li>注入/提取：
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">GinMiddleware</span><span class="p">(</span><span class="nx">c</span><span class="w"> </span><span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">ctx</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">otel</span><span class="p">.</span><span class="nf">GetTextMapPropagator</span><span class="p">().</span><span class="nf">Extract</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">Request</span><span class="p">.</span><span class="nf">Context</span><span class="p">(),</span><span class="w"> </span><span class="nx">propagation</span><span class="p">.</span><span class="nf">HeaderCarrier</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">Request</span><span class="p">.</span><span class="nx">Header</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">c</span><span class="p">.</span><span class="nx">Request</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">c</span><span class="p">.</span><span class="nx">Request</span><span class="p">.</span><span class="nf">WithContext</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span><span class="w"> </span><span class="c1">// 统一到标准 ctx</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">c</span><span class="p">.</span><span class="nf">Next</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+</li>
+</ul>
+</li>
+<li>echo.Context：
+<ul>
+<li>同 gin。使用 c.Request().Context()；将 ctx 写回 request 以便下游统一使用。</li>
+</ul>
+</li>
+<li>fiber/fasthttp（fasthttp.RequestCtx/fiber.Ctx）：
+<ul>
+<li>没有标准 context；fasthttp.RequestCtx 具备 Done() &lt;-chan struct{}（请求生命周期结束时关闭）。</li>
+<li>适配到标准 context：
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 将 fasthttp 的 RequestCtx 生命周期桥接到 context.Context</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">StdContextFromFastHTTP</span><span class="p">(</span><span class="nx">rc</span><span class="w"> </span><span class="o">*</span><span class="nx">fasthttp</span><span class="p">.</span><span class="nx">RequestCtx</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">CancelFunc</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">cancel</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nf">WithCancelCause</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">go</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">&lt;-</span><span class="nx">rc</span><span class="p">.</span><span class="nf">Done</span><span class="p">();</span><span class="w"> </span><span class="nf">cancel</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Canceled</span><span class="p">)</span><span class="w"> </span><span class="p">}()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 若有请求级超时，额外叠加 WithTimeout/WithDeadline</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">cancel</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+</li>
+<li>跨 goroutine 传递时，拷贝需要的数据（path/headers/trace id），不要传 fasthttp 的 ctx 指针。</li>
+</ul>
+</li>
+<li>gRPC metadata 与标准 ctx：
+<ul>
+<li>metadata 通过 ctx 承载（WithValue 内部封装），遵循 ctx 单向链。</li>
+<li>仅存小型只读数据（auth token、tenant、trace），避免大对象。</li>
+</ul>
+</li>
+<li>旧版 golang.org/x/net/context：
+<ul>
+<li>已过时。类型不兼容。遇到遗留库，优先升级库版本；无法升级时做适配包装但不建议长期保留。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">跨边界注入/提取与日志关联
+    <div id="跨边界注入提取与日志关联" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e8%b7%a8%e8%be%b9%e7%95%8c%e6%b3%a8%e5%85%a5%e6%8f%90%e5%8f%96%e4%b8%8e%e6%97%a5%e5%bf%97%e5%85%b3%e8%81%94" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>统一键策略（私有键 + 类型安全包装），避免第三方冲突。
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">key</span><span class="p">[</span><span class="nx">T</span><span class="w"> </span><span class="kt">any</span><span class="p">]</span><span class="w"> </span><span class="kd">struct</span><span class="p">{}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">var</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">kTraceID</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">key</span><span class="p">[</span><span class="kt">string</span><span class="p">]{}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">kUserID</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="nx">key</span><span class="p">[</span><span class="kt">string</span><span class="p">]{}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nx">CtxWith</span><span class="p">[</span><span class="nx">T</span><span class="w"> </span><span class="kt">any</span><span class="p">](</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">k</span><span class="w"> </span><span class="nx">key</span><span class="p">[</span><span class="nx">T</span><span class="p">],</span><span class="w"> </span><span class="nx">v</span><span class="w"> </span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nf">WithValue</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">k</span><span class="p">,</span><span class="w"> </span><span class="nx">v</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nx">CtxGet</span><span class="p">[</span><span class="nx">T</span><span class="w"> </span><span class="kt">any</span><span class="p">](</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">k</span><span class="w"> </span><span class="nx">key</span><span class="p">[</span><span class="nx">T</span><span class="p">])</span><span class="w"> </span><span class="p">(</span><span class="nx">T</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">v</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Value</span><span class="p">(</span><span class="nx">k</span><span class="p">).(</span><span class="nx">T</span><span class="p">);</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">v</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+</li>
+<li>日志关联（zap 例）：
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">LoggerFrom</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">base</span><span class="w"> </span><span class="o">*</span><span class="nx">zap</span><span class="p">.</span><span class="nx">Logger</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="nx">zap</span><span class="p">.</span><span class="nx">Logger</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">l</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">base</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">tid</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">CtxGet</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">kTraceID</span><span class="p">);</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">l</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">l</span><span class="p">.</span><span class="nf">With</span><span class="p">(</span><span class="nx">zap</span><span class="p">.</span><span class="nf">String</span><span class="p">(</span><span class="s">&#34;trace_id&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">tid</span><span class="p">))</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">uid</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">CtxGet</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">kUserID</span><span class="p">);</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">l</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">l</span><span class="p">.</span><span class="nf">With</span><span class="p">(</span><span class="nx">zap</span><span class="p">.</span><span class="nf">String</span><span class="p">(</span><span class="s">&#34;user_id&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">uid</span><span class="p">))</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">l</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+</li>
+<li>入口中间件：提取头部 -&gt; 写入 ctx -&gt; 写回 request -&gt; 下游统一用 ctx 获取。
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">CorrelationMiddleware</span><span class="p">(</span><span class="nx">next</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">Handler</span><span class="p">)</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">Handler</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nf">HandlerFunc</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">ctx</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nf">Context</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">v</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">Header</span><span class="p">.</span><span class="nf">Get</span><span class="p">(</span><span class="s">&#34;X-Request-ID&#34;</span><span class="p">);</span><span class="w"> </span><span class="nx">v</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s">&#34;&#34;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nx">ctx</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nf">CtxWith</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">kTraceID</span><span class="p">,</span><span class="w"> </span><span class="nx">v</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">r</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nf">WithContext</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">next</span><span class="p">.</span><span class="nf">ServeHTTP</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+</li>
+</ul>
+
+<h4 class="relative group">多 Context 合并/桥接（无官方 API）
+    <div id="多-context-合并桥接无官方-api" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%a4%9a-context-%e5%90%88%e5%b9%b6%e6%a1%a5%e6%8e%a5%e6%97%a0%e5%ae%98%e6%96%b9-api" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>需求：同时受多个取消源控制（例如：请求 ctx + 组件内部 stop ctx）。</li>
+<li>实现（OrContext）：任一父 ctx 取消则子取消。
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">OrContext</span><span class="p">(</span><span class="nx">parents</span><span class="w"> </span><span class="o">...</span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">CancelFunc</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">cancel</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nf">WithCancelCause</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">once</span><span class="w"> </span><span class="nx">sync</span><span class="p">.</span><span class="nx">Once</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">parents</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">continue</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">go</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">select</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="o">&lt;-</span><span class="nx">p</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="nx">once</span><span class="p">.</span><span class="nf">Do</span><span class="p">(</span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nf">cancel</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Cause</span><span class="p">(</span><span class="nx">p</span><span class="p">))</span><span class="w"> </span><span class="p">})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="o">&lt;-</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}(</span><span class="nx">p</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">cancel</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+</li>
+<li>代价与雷点：
+<ul>
+<li>每个父 ctx 一个 goroutine 监听；父数量大时造成 goroutine 膨胀。</li>
+<li>使用 cancelCause 传递最先触发者的原因，仅保留第一次取消。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">HTTP 出站统一注入（自定义 RoundTripper）
+    <div id="http-出站统一注入自定义-roundtripper" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#http-%e5%87%ba%e7%ab%99%e7%bb%9f%e4%b8%80%e6%b3%a8%e5%85%a5%e8%87%aa%e5%ae%9a%e4%b9%89-roundtripper" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">InjectRT</span><span class="w"> </span><span class="kd">struct</span><span class="p">{</span><span class="w"> </span><span class="nx">Base</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">RoundTripper</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">rt</span><span class="w"> </span><span class="nx">InjectRT</span><span class="p">)</span><span class="w"> </span><span class="nf">RoundTrip</span><span class="p">(</span><span class="nx">req</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Response</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">ctx</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nf">Context</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">otel</span><span class="p">.</span><span class="nf">GetTextMapPropagator</span><span class="p">().</span><span class="nf">Inject</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">propagation</span><span class="p">.</span><span class="nf">HeaderCarrier</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">Header</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 可选：将请求级 deadline 体现到下游（非标准，仅自定义 header）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">dl</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Deadline</span><span class="p">();</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">req</span><span class="p">.</span><span class="nx">Header</span><span class="p">.</span><span class="nf">Set</span><span class="p">(</span><span class="s">&#34;X-Deadline&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">strconv</span><span class="p">.</span><span class="nf">FormatInt</span><span class="p">(</span><span class="nx">dl</span><span class="p">.</span><span class="nf">UnixMilli</span><span class="p">(),</span><span class="w"> </span><span class="mi">10</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">bt</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">rt</span><span class="p">.</span><span class="nx">Base</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">bt</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">bt</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">DefaultTransport</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">bt</span><span class="p">.</span><span class="nf">RoundTrip</span><span class="p">(</span><span class="nx">req</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+
+<h4 class="relative group">与数据库/缓存客户端的 ctx 整合
+    <div id="与数据库缓存客户端的-ctx-整合" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e4%b8%8e%e6%95%b0%e6%8d%ae%e5%ba%93%e7%bc%93%e5%ad%98%e5%ae%a2%e6%88%b7%e7%ab%af%e7%9a%84-ctx-%e6%95%b4%e5%90%88" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>database/sql/redis：
+<ul>
+<li>统一传入请求 ctx；驱动 honor 取消后可打断阻塞（连接、IO）。对不支持取消的客户端，外层 select + goroutine 包装，避免 goroutine 泄露。</li>
+</ul>
+</li>
+<li>连接池与 ctx：
+<ul>
+<li>ctx 超时用来限制获取连接与执行时间；区分“排队时间”和“执行时间”的超时，必要时分阶段 ctx（取连接阶段一个短超时，执行阶段另一个）。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">消息消费侧的上下文恢复与阶段超时
+    <div id="消息消费侧的上下文恢复与阶段超时" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%b6%88%e6%81%af%e6%b6%88%e8%b4%b9%e4%be%a7%e7%9a%84%e4%b8%8a%e4%b8%8b%e6%96%87%e6%81%a2%e5%a4%8d%e4%b8%8e%e9%98%b6%e6%ae%b5%e8%b6%85%e6%97%b6" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">consume</span><span class="p">(</span><span class="nx">msg</span><span class="w"> </span><span class="o">*</span><span class="nx">sarama</span><span class="p">.</span><span class="nx">ConsumerMessage</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">base</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">ctx</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">extractKafka</span><span class="p">(</span><span class="nx">base</span><span class="p">,</span><span class="w"> </span><span class="nx">msg</span><span class="p">)</span><span class="w"> </span><span class="c1">// 恢复 trace/baggage</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 阶段性超时：解析阶段 50ms，处理阶段 200ms，落库阶段 100ms</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">parseCtx</span><span class="p">,</span><span class="w"> </span><span class="nx">cancel</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nf">WithTimeout</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="mi">50</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nf">cancel</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// ...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+
+<h4 class="relative group">与框架自带“ctx”的协作策略
+    <div id="与框架自带ctx的协作策略" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e4%b8%8e%e6%a1%86%e6%9e%b6%e8%87%aa%e5%b8%a6ctx%e7%9a%84%e5%8d%8f%e4%bd%9c%e7%ad%96%e7%95%a5" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>统一入口转为标准 context.Context，后续链路只使用标准 ctx。</li>
+<li>框架 ctx 仅在当前 goroutine/当前阶段使用，跨 goroutine 必须复制所需数据并基于标准 ctx 派生。</li>
+<li>倾向使用标准 ctx 存储少量只读元数据；大对象放显式参数或结构体字段，避免 Value 膨胀与 GC 压力。</li>
+</ul>
+
+<h4 class="relative group">雷点与权衡
+    <div id="雷点与权衡-1" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e9%9b%b7%e7%82%b9%e4%b8%8e%e6%9d%83%e8%a1%a1-1" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>雷点：
+<ul>
+<li>把 gin.Context/fiber.Ctx 存入后台 goroutine 或结构体字段，导致并发风险与对象池复用后的数据污染。</li>
+<li>标准 ctx 与框架 ctx 混用，导致取消/超时丢失（未把 request.Context() 写回）。</li>
+<li>在 ctx.Value 放 logger/DB 连接等重对象，扩大可达集与驻留。</li>
+<li>期望 HTTP 超时自动跨进程生效；事实并非如此，必须在每跳明确设置超时。</li>
+<li>未对 MQ 注入/提取 trace，链路断裂，无法关联日志与指标。</li>
+</ul>
+</li>
+<li>权衡：
+<ul>
+<li>完整 OTel 方案带来注入/提取与采样开销，但在生产是必须的可观测性基线；在高 QPS 下调低采样并减少 baggage。</li>
+<li>OrContext 提升灵活性但引入额外 goroutine；父数大时改为分层聚合。</li>
+<li>在 ctx 中存放“当前 span/trace id”方便日志打点，但仍保持只读、小体积，避免在热路径频繁 WithValue 链接层级过深。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">最小落地清单
+    <div id="最小落地清单" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%9c%80%e5%b0%8f%e8%90%bd%e5%9c%b0%e6%b8%85%e5%8d%95" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>入口中间件：标准化 r.Context()（提取 TraceContext/自定义 CorrelationID），写回 request。</li>
+<li>出口统一：自定义 RoundTripper/拦截器注入上下文；gRPC 使用 otelgrpc。</li>
+<li>全链路只传递标准 context.Context；第三方框架 ctx 仅作适配层。</li>
+<li>MQ 明确注入/提取 trace 与 baggage；消费方恢复后继续使用标准 ctx。</li>
+<li>严格控制 Value 内容与链深；键使用不导出类型；派生 ctx 必有 defer cancel。</li>
+</ul>
+
+          
+          
+          
+        </div>
+        
+          
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+    
+    
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+      
+      
+        
+        
+        
+      
+      <img
+        class="!mt-0 !mb-0 h-24 w-24 rounded-full me-4"
+        width="96"
+        height="96"
+        alt="yuliu"
+        src="/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-04-10_191453_343_hu_f1362339ce55e65e.jpg"
+        data-zoom-src="/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-04-10_191453_343_hu_86f827f1f71ecf20.jpg">
+    
+  
+  <div class="place-self-center">
+    
+      <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+        Author
+      </div>
+      <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+        yuliu
+      </div>
+    
+    
+      <div class="text-sm text-neutral-700 dark:text-neutral-400">人生海海</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500 space-x-2">
+    
+      
+        
+        <a
+          class="email-link hover:text-primary-700 dark:hover:text-primary-400"
+          href="#"
+          
+            data-email="eXVsaXU2NjY2NjZAb3V0bG9vay5jb20="
+          
+          target="_blank"
+          aria-label="Email"
+          title="Email"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+</span></span></a
+        >
+      
+    
+      
+        
+        <a
+          class=" hover:text-primary-700 dark:hover:text-primary-400"
+          href="yuliusw.github.io"
+          
+          target="_blank"
+          aria-label="Github"
+          title="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span></span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+  
+
+  
+
+  
+    <div class="mb-10"></div>
+  
+
+        
+        
+
+        
+
+        
+
+      </div>
+    </section>
+
+    
+    <footer class="pt-8 max-w-prose print:hidden">
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
+      <div class="flex justify-between pt-3">
+        <span class="flex flex-col">
+          
+            <a
+              class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B03-sync%E5%8C%85/">
+              <span class="leading-6">
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;并发编程03 Sync包
+              </span>
+            </a>
+            
+              <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2026-05-26T18:42:53&#43;08:00">26 May 2026</time>
+              </span>
+            
+          
+        </span>
+        <span class="flex flex-col items-end">
+          
+            <a
+              class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B05-%E5%B8%B8%E8%A7%81%E6%A8%A1%E5%9E%8B%E4%B8%8Ehappen-before/">
+              <span class="leading-6">
+                并发编程05 常见模型与happen Before&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
+              </span>
+            </a>
+            
+              <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2026-05-26T19:03:44&#43;08:00">26 May 2026</time>
+              </span>
+            
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        
+
+
+  
+
+
+
+
+
+
+<div
+  id="scroll-to-top"
+  class="fixed bottom-6 end-6 z-50 transform translate-y-4 opacity-0 duration-200">
+  <a
+    href="#the-top"
+    class="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top"
+    title="Scroll to top">
+    &uarr;
+  </a>
+</div>
+
+      </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+      
+      
+        
+      
+      
+      
+      
+      <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400 overflow-x-auto py-2">
+        <ul class="flex list-none flex-row">
+          
+            <li class=" flex mb-1 text-end sm:mb-0 sm:me-7 sm:last:me-0 me-4">
+              <a
+                class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center"
+                href=""
+                title="">
+                
+                
+              </a>
+            </li>
+          
+        </ul>
+      </nav>
+    
+  
+  <div class="flex items-center justify-between">
+    
+    
+      <p class="text-sm text-neutral-500 dark:text-neutral-400">
+          &copy;
+          2026
+          yuliu
+      </p>
+    
+
+    
+    
+      <p class="text-xs text-neutral-500 dark:text-neutral-400">
+        
+        
+        Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+          href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+          href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+      </p>
+    
+  </div>
+  
+    <script>
+      mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+        margin: 24,
+        background: "rgba(0,0,0,0.5)",
+        scrollOffset: 0,
+      });
+    </script>
+  
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh] z-500"
+  data-url="https://example.org/">
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800">
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0">
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+  
+</html>

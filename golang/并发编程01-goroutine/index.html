@@ -15,8 +15,8 @@
 
   
   
-    <title>运维/架构 &middot; yuliu&#39;s blog</title>
-    <meta name="title" content="运维/架构 &middot; yuliu&#39;s blog">
+    <title>并发编程01 Goroutine &middot; yuliu&#39;s blog</title>
+    <meta name="title" content="并发编程01 Goroutine &middot; yuliu&#39;s blog">
   
 
   
@@ -34,11 +34,8 @@
   
   
   
-  <link rel="canonical" href="https://example.org/%E8%BF%90%E7%BB%B4/">
+  <link rel="canonical" href="https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B01-goroutine/">
   
-  
-    
-      <link rel="alternate" type="application/rss+xml" href="/%E8%BF%90%E7%BB%B4/index.xml" title="yuliu's blog" />
   
 
   
@@ -62,15 +59,20 @@
   
 
   
-  <meta property="og:url" content="https://example.org/%E8%BF%90%E7%BB%B4/">
+  <meta property="og:url" content="https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B01-goroutine/">
   <meta property="og:site_name" content="yuliu&#39;s blog">
-  <meta property="og:title" content="运维/架构">
+  <meta property="og:title" content="并发编程01 Goroutine">
   <meta property="og:locale" content="en">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="golang">
+    <meta property="article:published_time" content="2026-05-26T14:31:03+08:00">
+    <meta property="article:modified_time" content="2026-05-26T14:31:03+08:00">
+    <meta property="og:image" content="https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B01-goroutine/featured.png">
 
   
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="运维/架构">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B01-goroutine/featured.png">
+  <meta name="twitter:title" content="并发编程01 Goroutine">
 
   
   
@@ -81,24 +83,9 @@
     
   
     
-      
-    
   
     
-      
-    
   
-  
-    
-      
-      
-        
-      
-      
-        <meta name="twitter:image" content="https://example.org/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-04-10_191453_343.jpg">
-        <meta property="og:image" content="https://example.org/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-04-10_191453_343.jpg">
-      
-    
   
 
   
@@ -140,6 +127,12 @@
   
   
   
+  
+    
+    <script
+      type="text/javascript"
+      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
+      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
   
   
     
@@ -236,12 +229,12 @@
   [{
     "@context": "https://schema.org",
     "@type": "Article",
-    "articleSection": "运维\/架构",
-    "name": "运维\/架构",
-    "headline": "运维\/架构",
+    "articleSection": "Golang",
+    "name": "并发编程01 Goroutine",
+    "headline": "并发编程01 Goroutine",
     
     "inLanguage": "en",
-    "url" : "https://example.org/%E8%BF%90%E7%BB%B4/",
+    "url" : "https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B01-goroutine/",
     "author" : {
       "@type": "Person",
       "name": "yuliu"
@@ -255,16 +248,21 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "1"
+    "wordCount": "717"
   },
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [{
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Golang",
+            "item": "https://example.org/golang/"
+          },{
         "@type": "ListItem",
-        "position":  1 ,
-        "name": "运维\/架构",
-        "item": "https://example.org/%E8%BF%90%E7%BB%B4/"
+        "position":  2 ,
+        "name": "并发编程01 Goroutine",
+        "item": "https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B01-goroutine/"
       }
     ]
   }]
@@ -882,18 +880,18 @@
       <main id="main-content" class="grow">
         
   
-  
-  
-
-  
-  
-
-  
-  <header>
+  <article>
     
-    <h1 class="mt-5 text-4xl font-extrabold text-neutral-900 dark:text-neutral">运维/架构</h1>
-    <div class="mt-1 mb-2 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+    
+
+    
+    <header id="single_header" class="mt-5 max-w-prose">
       
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        并发编程01 Goroutine
+      </h1>
+      <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        
 
 
 
@@ -903,6 +901,30 @@
   
 
 
+
+  
+
+  
+  
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
 
   
 
@@ -918,317 +940,548 @@
   <div class="flex flex-row flex-wrap items-center">
     
     
+      <time datetime="2026-05-26T14:31:03&#43;08:00">26 May 2026</time><span class="px-2 text-primary-500">&middot;</span><span>717 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">4 mins</span>
+    
+
+    
+    
   </div>
 
-
-    </div>
-  </header>
-
   
-  
-  
-  <section class="mt-0 prose flex max-w-full flex-col dark:prose-invert lg:flex-row mb-10">
-    
-    <div class="min-w-0 min-h-0 max-w-prose w-full">
-      <p>其实是因为我的</p>
 
-    </div>
-  </section>
-
-  
-  
-    
-    
-    
-    
-    
-
-    
-      <section class="space-y-10 w-full">
-        
-          
-            
-              <h2 class="mt-12 text-2xl font-bold text-neutral-700 first:mt-8 dark:text-neutral-300">
-                2026
-              </h2>
-            
-            
-              
-
-
-
-
-
-
-
-
-  
   
   
 
 
-
-
-
-
-
-
-  
-  
-    
-
-    
-    
-      
-      
-        
-      
-        
-      
-        
-      
-    
-
-    
-    
-      
-      
-    
-
-    
-    
-      
-    
-  
-
-
-
-<article class="article-link--simple flex flex-col md:flex-row relative">
-  
-  <div class=" mt-3 md:mt-0">
-    <header class="items-center text-start text-xl font-semibold">
-      <a
-        
-          href="/%E8%BF%90%E7%BB%B4/passward-and-program-script/"
-        
-        class="not-prose before:absolute before:inset-0 decoration-primary-500 dark:text-neutral text-xl font-bold text-neutral-800 hover:underline hover:underline-offset-2">
-        <h2>
-          passward-and-program-script
-          
-        </h2>
-      </a>
-      
+      </div>
       
     </header>
-    <div class="text-sm text-neutral-500 dark:text-neutral-400">
+
+    
+    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+      
+      
+      
+      
       
 
 
-
-
-
-
-
-  
-
-  
-  
-  
-    
-  
-
-  
-
-  
-    
-  
-
-  
-
-  
-    
-  
-
-  
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-  <div class="flex flex-row flex-wrap items-center">
-    
-    
-      <time datetime="2026-05-26T14:31:03&#43;08:00">26 May 2026</time><span class="px-2 text-primary-500">&middot;</span><span>468 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">3 mins</span>
-    
-
-    
-    
-  </div>
-
-  
-
-  
-  
-
-
-    </div>
-    
-  </div>
-  <div class="px-6 pt-4 pb-2"></div>
-</article>
-
-            
-              
-
-
-
-
-
-
-
-
-  
-  
-  
-
-
-
-
-
-
-
-
-  
-  
-    
-
-    
-    
-      
-      
+      <div class="min-w-0 min-h-0 max-w-fit">
         
-      
-        
-      
-        
-      
-    
 
-    
-    
-      
-      
-    
-
-    
-    
-      
-    
-  
-
-
-
-<article class="article-link--simple flex flex-col md:flex-row relative">
-  
-  <div class=" mt-3 md:mt-0">
-    <header class="items-center text-start text-xl font-semibold">
-      <a
-        
-          href="/%E8%BF%90%E7%BB%B4/k8s-with-kvm-1/"
-        
-        class="not-prose before:absolute before:inset-0 decoration-primary-500 dark:text-neutral text-xl font-bold text-neutral-800 hover:underline hover:underline-offset-2">
-        <h2>
-          k8s-with-KVM-1
+        <div class="article-content max-w-prose mb-20">
           
-        </h2>
-      </a>
+<h2 class="relative group">Goroutine 协程
+    <div id="goroutine-协程" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#goroutine-%e5%8d%8f%e7%a8%8b" aria-label="Anchor">#</a>
+    </span>
+    
+</h2>
+
+<h3 class="relative group">总体设计
+    <div id="总体设计" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%80%bb%e4%bd%93%e8%ae%be%e8%ae%a1" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+
+<h4 class="relative group">Goroutine 结构
+    <div id="goroutine-结构" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#goroutine-%e7%bb%93%e6%9e%84" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<p>在 Go 语言的底层 runtime（运行时）中，Goroutine 的核心数据结构是一个名为 <strong><code>g</code></strong> 的结构体（struct）。它主要定义在 Go 源码的 <code>src/runtime/runtime2.go</code> 文件中。</p>
+<p>当我们调用 <code>go func()</code> 时，Go 运行时实际上是做以下几件事：</p>
+<ol>
+<li>从空闲的 <code>g</code> 队列中获取或新建一个 <code>g</code> 结构体。</li>
+<li>为其分配初始栈。</li>
+<li>将传入的函数地址写入到其 <code>gobuf</code>（上下文）的 <code>pc</code>（程序计数器）中。</li>
+<li>将状态设置为 <code>_Grunnable</code>，并把它加入到某个逻辑处理器（P）的本地队列或全局运行队列中，等待被线程（M）调度执行。</li>
+</ol>
+
+<h5 class="relative group">1. 运行栈信息 (Stack)
+    <div id="1-运行栈信息-stack" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#1-%e8%bf%90%e8%a1%8c%e6%a0%88%e4%bf%a1%e6%81%af-stack" aria-label="Anchor">#</a>
+    </span>
+    
+</h5>
+<p>与操作系统线程通常拥有固定的几兆字节栈空间不同，Goroutine 的栈是动态分配且可变的（初始通常只有 2KB）。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">g</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 描述当前 goroutine 的栈内存范围 [lo, hi)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">stack</span><span class="w">       </span><span class="nx">stack</span><span class="w">   </span><span class="c1">// offset known to runtime/cgo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// stackguard0 和 stackguard1 用于抢占调度和栈溢出检查</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">stackguard0</span><span class="w"> </span><span class="kt">uintptr</span><span class="w"> </span><span class="c1">// offset known to liblink</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">stackguard1</span><span class="w"> </span><span class="kt">uintptr</span><span class="w"> </span><span class="c1">// offset known to liblink</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// ...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">stack</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">lo</span><span class="w"> </span><span class="kt">uintptr</span><span class="w"> </span><span class="c1">// 栈的下界内存地址</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">hi</span><span class="w"> </span><span class="kt">uintptr</span><span class="w"> </span><span class="c1">// 栈的上界内存地址</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+
+<h5 class="relative group">2. 调度上下文 (Scheduling Context)
+    <div id="2-调度上下文-scheduling-context" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#2-%e8%b0%83%e5%ba%a6%e4%b8%8a%e4%b8%8b%e6%96%87-scheduling-context" aria-label="Anchor">#</a>
+    </span>
+    
+</h5>
+<p>当 Goroutine 因为 IO 阻塞、通道（Channel）等待或时间片用完被切走时，Go 运行时需要保存它当前的执行状态，以便下次被唤醒时能接着执行。这部分数据保存在 <code>sched</code> 字段中。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">g</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// ...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">sched</span><span class="w">          </span><span class="nx">gobuf</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// ...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">gobuf</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">sp</span><span class="w">   </span><span class="kt">uintptr</span><span class="w"> </span><span class="c1">// Stack Pointer：当前栈指针位置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">pc</span><span class="w">   </span><span class="kt">uintptr</span><span class="w"> </span><span class="c1">// Program Counter：程序计数器（下一条要执行的指令地址）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">g</span><span class="w">    </span><span class="nx">guintptr</span><span class="w"> </span><span class="c1">// 指向当前属于的 g 结构体</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">ctxt</span><span class="w"> </span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="w"> </span><span class="c1">// 闭包上下文</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">ret</span><span class="w">  </span><span class="kt">uintptr</span><span class="w"> </span><span class="c1">// 系统调用返回值</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">bp</span><span class="w">   </span><span class="kt">uintptr</span><span class="w"> </span><span class="c1">// Base Pointer：基址指针</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p><strong>为什么 Goroutine 切换快？</strong> 操作系统线程切换需要陷入内核态，保存大量的寄存器状态；而 Goroutine 的切换完全在用户态进行，只需要保存/恢复 <code>gobuf</code> 中的这几个核心指针（主要是 <code>pc</code> 和 <code>sp</code>），代价极低。</p>
+
+<h5 class="relative group">3. Goroutine 的状态 (Status)
+    <div id="3-goroutine-的状态-status" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#3-goroutine-%e7%9a%84%e7%8a%b6%e6%80%81-status" aria-label="Anchor">#</a>
+    </span>
+    
+</h5>
+<p>Goroutine 在生命周期中会在多种状态之间流转。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">g</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// ...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">atomicstatus</span><span class="w"> </span><span class="kt">uint32</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// ...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>常见的状态包括：</p>
+<ul>
+<li><code>_Gidle</code> (0): 刚刚被分配并且还没有被初始化。</li>
+<li><code>_Grunnable</code> (1): <strong>就绪态</strong>。在运行队列中，等待被调度器（M）分配 CPU 执行。</li>
+<li><code>_Grunning</code> (2): <strong>运行态</strong>。正在某个 OS 线程（M）上执行代码。</li>
+<li><code>_Gsyscall</code> (3): <strong>系统调用态</strong>。正在执行系统调用，此时与其绑定的线程（M）也是阻塞的。</li>
+<li><code>_Gwaiting</code> (4): <strong>等待态</strong>。因为网络 IO、Channel、锁或 timer 等被阻塞，不在运行队列中。被唤醒后会回到 <code>_Grunnable</code> 状态。</li>
+<li><code>_Gdead</code> (6): <strong>消亡态</strong>。Goroutine 已经执行完毕或退出，它的 <code>g</code> 结构体会放入空闲池（free list）等待复用，而不是直接销毁。</li>
+</ul>
+
+<h5 class="relative group">4. 与 GMP 模型的绑定关系 (Identity &amp; Binding)
+    <div id="4-与-gmp-模型的绑定关系-identity--binding" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#4-%e4%b8%8e-gmp-%e6%a8%a1%e5%9e%8b%e7%9a%84%e7%bb%91%e5%ae%9a%e5%85%b3%e7%b3%bb-identity--binding" aria-label="Anchor">#</a>
+    </span>
+    
+</h5>
+<p>在 Go 的 GMP 并发模型中，<code>g</code> 需要依附于 <code>m</code>（Machine，即 OS 线程）并在 <code>p</code>（Processor，逻辑处理器）的管理下运行。</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">g</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// ...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">goid</span><span class="w">         </span><span class="kt">uint64</span><span class="w"> </span><span class="c1">// Goroutine 的唯一 ID</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">m</span><span class="w">            </span><span class="o">*</span><span class="nx">m</span><span class="w">     </span><span class="c1">// 指向当前正在运行该 goroutine 的 OS 线程 (M)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">lockedm</span><span class="w">      </span><span class="nx">muintptr</span><span class="w"> </span><span class="c1">// 如果 goroutine 调用了 runtime.LockOSThread()，会锁定到特定的 M 上</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// waiting 相关的字段，用于 channel 阻塞、锁阻塞等链表结构</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">waiting</span><span class="w">      </span><span class="o">*</span><span class="nx">sudog</span><span class="w">         
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// ...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p><em>(注：Go 官方为了防止开发者滥用 <code>goid</code> 实现类似于 Java 中的 ThreadLocal 机制，并没有对外暴露获取 <code>goid</code> 的 API。)</em></p>
+<hr>
+
+<h3 class="relative group">进程、线程、协程
+    <div id="进程线程协程" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e8%bf%9b%e7%a8%8b%e7%ba%bf%e7%a8%8b%e5%8d%8f%e7%a8%8b" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<table>
+  <thead>
+      <tr>
+          <th>维度</th>
+          <th>进程 (Process)</th>
+          <th>线程 (Thread)</th>
+          <th>协程 (Coroutine)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>本质定义</strong></td>
+          <td><strong>资源分配</strong>的基本单位</td>
+          <td><strong>CPU 调度</strong>的基本单位</td>
+          <td>用户态的轻量级线程</td>
+      </tr>
+      <tr>
+          <td><strong>内存与隔离</strong></td>
+          <td>拥有<strong>独立</strong>的虚拟地址空间、文件描述符等。</td>
+          <td><strong>共享</strong>所属进程的内存（堆、数据段等），但拥有<strong>独立</strong>的运行栈和程序计数器。</td>
+          <td><strong>共享</strong>所属线程的内存，拥有由 Runtime 动态分配的<strong>用户栈</strong>。</td>
+      </tr>
+      <tr>
+          <td><strong>上下文切换</strong></td>
+          <td><strong>极慢</strong>。需切换页表（TLB失效）、刷新硬件上下文、切换内核栈。</td>
+          <td><strong>较慢</strong>。需陷入内核态，保存和恢复寄存器、栈指针等硬件上下文。</td>
+          <td><strong>极快</strong>。完全在用户态完成，仅需保存/恢复极少量的寄存器状态（如 PC、SP）。</td>
+      </tr>
+      <tr>
+          <td><strong>调度控制</strong></td>
+          <td>由<strong>操作系统内核</strong>调度（抢占式）。</td>
+          <td>由<strong>操作系统内核</strong>调度（抢占式）。</td>
+          <td>由<strong>语言的 Runtime</strong>（如 Go 调度器）或用户代码调度（协作式或抢占式）。</td>
+      </tr>
+      <tr>
+          <td><strong>创建开销</strong></td>
+          <td><strong>极高</strong>。需要申请大量系统级别的资源。</td>
+          <td><strong>较高</strong>。操作系统需为其分配固定大小的栈空间（通常为 1~8 MB）。</td>
+          <td><strong>极低</strong>。按需动态分配栈空间（如 Goroutine 初始仅为 2 KB）。</td>
+      </tr>
+      <tr>
+          <td><strong>通信方式</strong></td>
+          <td>需借助 <strong>IPC</strong>（管道、信号量、共享内存、消息队列等）。</td>
+          <td>直接读写进程的<strong>共享内存</strong>（通常需借助锁机制处理数据竞争）。</td>
+          <td>读写共享内存，或使用语言提供的原生机制（如 Go 的 <strong>Channel</strong>）。</td>
+      </tr>
+      <tr>
+          <td><strong>并发承载力</strong></td>
+          <td>低。受限于物理内存和系统资源。</td>
+          <td>中。单机通常只能支撑几千到上万级别，过多会导致调度抖动。</td>
+          <td>高。单机可轻松支撑数十万甚至上百万级别。</td>
+      </tr>
+      <tr>
+          <td><strong>故障影响范围</strong></td>
+          <td><strong>完全隔离</strong>。一个进程崩溃通常不会影响其他进程。</td>
+          <td><strong>株连</strong>。一个线程发生致命错误（如段错误）会导致整个进程崩溃。</td>
+          <td><strong>株连</strong>。一个协程发生未捕获的 Panic 或致命错误，也会导致整个进程崩溃。</td>
+      </tr>
+  </tbody>
+</table>
+
+<h3 class="relative group">GMP过程
+    <div id="gmp过程" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#gmp%e8%bf%87%e7%a8%8b" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+<ul>
+<li>核心实体与状态
+<ul>
+<li>G（goroutine）：状态集约为 Gidle/Grunnable/Grunning/Gwaiting/Gdead。调度用的字段包含 stackguard0（栈溢出/抢占检查）、preempt、m、sched、waitreason 等。</li>
+<li>M（OS thread）：持有/释放 P，执行调度循环。状态包括 spinning（主动找活）、parked、in-syscall（阻塞于系统调用）。</li>
+<li>P（processor）：决定可运行队列、分配内存缓存（per-P mcache）、定时器与协助 GC 的工作者数量。状态含 Pidle/Prunning/Psyscall/Pgcstop/Pdead。</li>
+</ul>
+</li>
+</ul>
+<p>调度循环关键路径（runtime.schedule/findrunnable/execute）</p>
+<ul>
+<li>
+<p>运行队列与选择</p>
+<ul>
+<li>每个 P 有本地无锁环形队列 runq（容量 256）和一个 runnext 槽（优先下一个运行的 G，通常用于新建 goroutine 或唤醒的“局部优先”）。</li>
+<li>全局队列：作为压力缓冲和均衡点。默认每 61 次 push 向全局队列转移一个，以防本地过度膨胀。</li>
+<li>findrunnable 顺序：runnext → 本地 runq → 全局队列（比例抽取）→ 从其他 P 盗取（work-stealing，半数+1策略）→ netpoll（网络事件）→ timers（到期）→ 再判断是否需要新建/唤醒 M。</li>
+</ul>
+</li>
+<li>
+<p>M 的生命周期</p>
+<ul>
+<li>startm/wakep：当 P 有可运行 G 而无活跃 M 时，创建/唤醒一个 M 绑定该 P，减少调度延迟。</li>
+<li>stopm/park_m：当 P 空闲且无可运行 G，M 进入 parked 状态，交回 P 或置于 pidle 队列，避免线程过度占用。</li>
+<li>spinning：在短时间窗口内，M 自旋尝试偷取任务或从 netpoll 拿任务，以降低唤醒开销与延迟。</li>
+</ul>
+</li>
+<li>
+<p>goroutine 创建与入队</p>
+<ul>
+<li>go 语句：newg/casgstatus 将 G 置为 runnable，优先尝试写入当前 P 的 runnext（提升局部性和响应），退化到本地 runq；runq 满则向全局队列回流。</li>
+<li>唤醒（goready）：同样倾向局部 P 的队列，尽量避免跨 P 迁移。</li>
+</ul>
+</li>
+<li>
+<p>阻塞/唤醒路径</p>
+<ul>
+<li>gopark/goready：通用的阻塞原语（channel、mutex、cond、select、sem）。park 会切 G→Gwaiting，释放 M；ready 将其转回 Grunnable 并入队。</li>
+<li>syscall/cgo：M 进入 Psyscall，P 会被剥离并转交给其他 M 以维持并行度；sysmon 监控长时间 syscall 并强制夺回 P。</li>
+<li>netpoll：基于 epoll/kqueue/IOCP。findrunnable 与 sysmon 都会轮询就绪 fd，将关联 G 转为 runnable 并入队。避免专用 poller 线程的阻塞与竞争。</li>
+<li>timers：每个 P 维护最小堆；到期后将计时器回调对应 G 入队。checkTimers 集成在 findrunnable/schedule 内。</li>
+</ul>
+</li>
+</ul>
+<p>抢占与时间片</p>
+<ul>
+<li>
+<p>时间片与公平</p>
+<ul>
+<li>默认每 10ms 抢占一次（ticks via timer/sig），防止单 G 长时间占用；但不保证严格时间片调度，优先局部与低开销路径。</li>
+<li>runnext 提升唤醒/新建任务的即时性；全局队列与偷取确保跨 P 的负载均衡。</li>
+</ul>
+</li>
+<li>
+<p>抢占实现（Go 1.14+ 异步抢占）</p>
+<ul>
+<li>异步抢占通过向 M 发送信号，在安全点（safe-point：函数序言、回边、栈检查）将 G 置 preempt 值，触发在下一次栈检查或调度点让出。</li>
+<li>非安全点长循环仍可能延迟抢占，编译器在热路径插入更多抢占检查（循环后沿等）。</li>
+<li>cgo/非信号安全段不可异步抢占，仅可在函数边界或调用点让出。</li>
+</ul>
+</li>
+</ul>
+<p>P 与 GC 的耦合</p>
+<ul>
+<li>
+<p>STW 与 P 状态</p>
+<ul>
+<li>GC 进入 STW 时，将 P 置 Pgcstop，禁止调度，所有 M 停止 mutator，调度器仅允许 GC worker 与少数控制线程运行。</li>
+<li>并发标记阶段，mutator 的分配会被记账（assist credit），触发 G 的 GC assist（帮助做标记）以平衡吞吐与延迟。</li>
+</ul>
+</li>
+<li>
+<p>分配与 mcache</p>
+<ul>
+<li>每个 P 维护 mcache 与 tiny allocator，降低锁竞争。跨 P 迁移的 G 会导致 cache 热数据重建，产生额外分配与写屏障开销。</li>
+<li>垃圾收集与调度交互：高分配速率导致 G 经常进入 assist，增加尾延迟；pacer 根据堆增长目标调整标记速率以避免 STW 频繁触发。</li>
+</ul>
+</li>
+</ul>
+<p>关键函数/路径（runtime）</p>
+<ul>
+<li>schedule → execute → g.run(f)</li>
+<li>findrunnable：runqget/runnext → globrunqget → stealWork → netpoll → timers</li>
+<li>startm/wakep/acquirep/releasep：P 与 M 的绑定管理</li>
+<li>gopark/goready：阻塞与唤醒</li>
+<li>sysmon：长 syscall 监控、抢占触发、netpoll 轮询、timer 驱动</li>
+<li>gcStart/gcMarkWork → Pgcstop → worldsema：GC 与 STW</li>
+</ul>
+<p>性能边界与权衡</p>
+<ul>
+<li>
+<p>锁竞争 vs 局部性</p>
+<ul>
+<li>大量跨 P 的唤醒（例如在不同 P 上 ready G）会导致 mcache 热数据失效与 runq 争用增大；尽量局部唤醒。</li>
+<li>全局队列加锁与偷取在高并发短任务下可能成为瓶颈；合理控制 goroutine 粒度。</li>
+</ul>
+</li>
+<li>
+<p>抢占延迟 vs 吞吐</p>
+<ul>
+<li>异步抢占降低长循环占用，但信号与检查带来额外开销；CPU 绑定计算任务需在循环中显式调用可抢占点（例如调用小函数）以改善调度公平。</li>
+</ul>
+</li>
+<li>
+<p>GOMAXPROCS 与容器配额</p>
+<ul>
+<li>过大 GOMAXPROCS 导致超订阅、缓存抖动与 GC 标记开销线性拉高。应与 cgroup CPU quota 对齐；Go 运行时可自动识别配额，但需验证实际环境。</li>
+</ul>
+</li>
+<li>
+<p>网络轮询与可运行集</p>
+<ul>
+<li>高 QPS 下 netpoll 返回巨量就绪 G，若全部入本地队列易造成短期爆发与抢占风暴；在 I/O 线程中分批 ready 或在应用层限流。</li>
+</ul>
+</li>
+<li>
+<p>协作阻塞</p>
+<ul>
+<li>channel 缺乏配对导致 G 泄漏，runq 干涸但 M 仍自旋；需要在取消路径（context）与关闭语义中确保 goready。</li>
+<li>LockOSThread 破坏迁移与负载均衡，影响 P 的资源复用；除非与 GUI/驱动等严格绑定，避免使用。</li>
+</ul>
+</li>
+<li>
+<p>syscall/cgo</p>
+<ul>
+<li>长 syscall 未及时释放 P 会降低并行度；依赖 sysmon 抢回 P 有检测周期延迟。cgo 线程不可被 runtime 完全控制，易导致 M 膨胀与调度不可预期。</li>
+</ul>
+</li>
+</ul>
+<p>排雷</p>
+<ul>
+<li>Goroutine 泄漏：select 未覆盖 &lt;-ctx.Done()；channel send/recv 不对称；net.Conn 未设置 deadline 导致永久阻塞于 netpoll。</li>
+<li>自旋浪费：大量空闲 M 处于 spinning；在任务稀疏场景应避免“惊群”唤醒。</li>
+<li>runnext 滥用：频繁将大任务放入 runnext 使其他 runnable 饥饿。</li>
+<li>过度细粒度 goroutine：任务极短导致调度开销占比异常；应批处理或使用 worker 池。</li>
+<li>锁粒度过大：在调度热点（例如中心化队列/映射）使用全局锁，使 findrunnable 与 goready 出现串行化。</li>
+<li>非抢占热点：长时间的 tight loop 无函数调用，导致抢占不及时；应插入可抢占点或拆分。</li>
+</ul>
+<p>观测与调优</p>
+<ul>
+<li>GODEBUG=schedtrace=1000,scheddetail=1：观察 runq、steal、spinning、syscall 借出/归还 P。</li>
+<li>GODEBUG=asyncpreemptoff=1：排查抢占引入的抖动。</li>
+<li>runtime/trace 与 pprof（block/mutex/goroutine）：识别 gopark 位置、可运行堆积与锁争用。</li>
+<li>调整 GOMAXPROCS 与 GC 目标（GOGC），用 SetMemoryLimit 控制堆膨胀，降低 assist 压力。</li>
+<li>服务层面：限速 I/O，就地唤醒（尽量在同 P ready），避免跨 P 大量迁移；减少 cgo 交互与长 syscall。</li>
+</ul>
+
+          
+          
+          
+        </div>
+        
+          
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+    
+    
+<div class="flex author">
+  
+    
+    
+      
+    
+    
       
       
-    </header>
-    <div class="text-sm text-neutral-500 dark:text-neutral-400">
       
-
-
-
-
-
-
-
-  
-
-  
-  
-  
+        
+        
+        
+      
+      <img
+        class="!mt-0 !mb-0 h-24 w-24 rounded-full me-4"
+        width="96"
+        height="96"
+        alt="yuliu"
+        src="/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-04-10_191453_343_hu_f1362339ce55e65e.jpg"
+        data-zoom-src="/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-04-10_191453_343_hu_86f827f1f71ecf20.jpg">
     
   
-
-  
-
-  
+  <div class="place-self-center">
     
-  
-
-  
-
-  
-    
-  
-
-  
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-  <div class="flex flex-row flex-wrap items-center">
+      <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+        Author
+      </div>
+      <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+        yuliu
+      </div>
     
     
-      <time datetime="2026-05-26T14:31:03&#43;08:00">26 May 2026</time><span class="px-2 text-primary-500">&middot;</span><span>70 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">1 min</span>
+      <div class="text-sm text-neutral-700 dark:text-neutral-400">人生海海</div>
     
-
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500 space-x-2">
     
+      
+        
+        <a
+          class="email-link hover:text-primary-700 dark:hover:text-primary-400"
+          href="#"
+          
+            data-email="eXVsaXU2NjY2NjZAb3V0bG9vay5jb20="
+          
+          target="_blank"
+          aria-label="Email"
+          title="Email"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+</span></span></a
+        >
+      
+    
+      
+        
+        <a
+          class=" hover:text-primary-700 dark:hover:text-primary-400"
+          href="yuliusw.github.io"
+          
+          target="_blank"
+          aria-label="Github"
+          title="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span></span></a
+        >
+      
     
   </div>
 
-  
-
-  
-  
-
-
-    </div>
-    
+</div>
   </div>
-  <div class="px-6 pt-4 pb-2"></div>
-</article>
+</div>
 
+  
+
+  
+
+  
+    <div class="mb-10"></div>
+  
+
+        
+        
+
+        
+
+        
+
+      </div>
+    </section>
+
+    
+    <footer class="pt-8 max-w-prose print:hidden">
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
+      <div class="flex justify-between pt-3">
+        <span class="flex flex-col">
+          
+        </span>
+        <span class="flex flex-col items-end">
+          
+            <a
+              class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B02-channel/">
+              <span class="leading-6">
+                并发编程02 Channel&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
+              </span>
+            </a>
+            
+              <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2026-05-26T18:36:39&#43;08:00">26 May 2026</time>
+              </span>
             
           
-        
-      </section>
-    
-    
+        </span>
+      </div>
+    </div>
   
-  
-  
+
+
+      
+    </footer>
+  </article>
 
         
 

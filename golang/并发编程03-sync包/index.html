@@ -1,0 +1,2487 @@
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="dark"
+  data-auto-appearance="false"><head>
+  <meta charset="utf-8">
+  
+    <meta http-equiv="content-language" content="en">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color">
+
+  
+  
+    <title>并发编程03 Sync包 &middot; yuliu&#39;s blog</title>
+    <meta name="title" content="并发编程03 Sync包 &middot; yuliu&#39;s blog">
+  
+
+  
+  
+  
+  
+  
+    
+  
+    
+  
+    
+  
+  
+  
+  
+  
+  <link rel="canonical" href="https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B03-sync%E5%8C%85/">
+  
+  
+
+  
+  
+    <meta name="author" content="yuliu">
+  
+  
+    
+      
+        
+          <link href="yuliu666666@outlook.com" rel="me">
+        
+      
+    
+      
+        
+          <link href="yuliusw.github.io" rel="me">
+        
+      
+    
+  
+
+  
+  <meta property="og:url" content="https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B03-sync%E5%8C%85/">
+  <meta property="og:site_name" content="yuliu&#39;s blog">
+  <meta property="og:title" content="并发编程03 Sync包">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="golang">
+    <meta property="article:published_time" content="2026-05-26T18:42:53+08:00">
+    <meta property="article:modified_time" content="2026-05-26T18:42:53+08:00">
+    <meta property="og:image" content="https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B03-sync%E5%8C%85/featured.png">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B03-sync%E5%8C%85/featured.png">
+  <meta name="twitter:title" content="并发编程03 Sync包">
+
+  
+  
+  
+  
+    
+      
+    
+  
+    
+  
+    
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.d2cccdafaf18679d7fb87e5d649649d49e4bbf22203cdbb87d3c00da40b1269505d9deb5e119f97ac4921cb4ecb63985394a2eb7e7c47ddd502aebcbee7f5231.css"
+    integrity="sha512-0szNr68YZ51/uH5dZJZJ1J5LvyIgPNu4fTwA2kCxJpUF2d614Rn5esSSHLTstjmFOUout&#43;fEfd1QKuvL7n9SMQ==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.6f41174b3a05b680820fe08cadbfa5fb7a7ca347b76a0955cdc68b9d8aca1ce24f0547e138cea33bcc7904d551a90afcb1cc7f2d9fe8557075d501419046c08c.js"
+    integrity="sha512-b0EXSzoFtoCCD&#43;CMrb&#43;l&#43;3p8o0e3aglVzcaLnYrKHOJPBUfhOM6jO8x5BNVRqQr8scx/LZ/oVXB11QFBkEbAjA=="></script>
+  
+  
+    
+    <script src="/js/a11y.min.7eeed9f7a6fe7c8aa3b999966484369eb1b5380455116fc15c2b407140f3c2e3b174fc00201797dba34e4d4013213736ae375c9bcf2d7ad1fadb224355d8d54d.js" integrity="sha512-fu7Z96b&#43;fIqjuZmWZIQ2nrG1OARVEW/BXCtAcUDzwuOxdPwAIBeX26NOTUATITc2rjdcm88tetH62yJDVdjVTQ=="></script>
+  
+  
+  
+  
+    
+    <script
+      type="text/javascript"
+      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
+      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
+  
+  
+    
+    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
+  
+
+  
+  
+  
+    
+  
+  
+    
+    
+    
+  
+  
+    
+  
+  
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.8f75559c3b0987cc436337d462a0b075ebdd214d92a8eac880da424282daeece8759e586481872b873dc2eaa92c6a66f083e3be96ab847d926aea25777dfb292.js"
+      integrity="sha512-j3VVnDsJh8xDYzfUYqCwdevdIU2SqOrIgNpCQoLa7s6HWeWGSBhyuHPcLqqSxqZvCD476Wq4R9kmrqJXd9&#43;ykg=="
+      data-copy="Copy"
+      data-copied="Copied"></script>
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Golang",
+    "name": "并发编程03 Sync包",
+    "headline": "并发编程03 Sync包",
+    
+    "inLanguage": "en",
+    "url" : "https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B03-sync%E5%8C%85/",
+    "author" : {
+      "@type": "Person",
+      "name": "yuliu"
+    },
+    "copyrightYear": "2026",
+    "dateCreated": "2026-05-26T18:42:53\u002b08:00",
+    "datePublished": "2026-05-26T18:42:53\u002b08:00",
+    
+    "dateModified": "2026-05-26T18:42:53\u002b08:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1857"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Golang",
+            "item": "https://example.org/golang/"
+          },{
+        "@type": "ListItem",
+        "position":  2 ,
+        "name": "并发编程03 Sync包",
+        "item": "https://example.org/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B03-sync%E5%8C%85/"
+      }
+    ]
+  }]
+  </script>
+
+
+
+  
+  
+    
+
+
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+  
+</head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <body class="flex flex-col h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32 text-lg bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral bf-scrollbar">
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content">
+        <span class="font-bold text-primary-600 pe-2 dark:text-primary-400">&darr;</span>
+        Skip to main content
+      </a>
+    </div>
+    
+    
+      <div class="main-menu flex items-center w-full gap-2 p-1 pl-0">
+  
+  
+    <a href="/" class="text-base font-medium truncate min-w-0 shrink">
+      yuliu&rsquo;s blog
+    </a>
+  
+  <div class="flex items-center ms-auto">
+    <div class="hidden md:flex">
+      <nav class="flex items-center gap-x-5 h-12">
+  
+    
+      
+  
+    <a
+      href="/golang/"
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="Golang"
+      title="Golang">
+      
+        <span class="mr-1">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M287.9 0C297.1 0 305.5 5.25 309.5 13.52L378.1 154.8L531.4 177.5C540.4 178.8 547.8 185.1 550.7 193.7C553.5 202.4 551.2 211.9 544.8 218.2L433.6 328.4L459.9 483.9C461.4 492.9 457.7 502.1 450.2 507.4C442.8 512.7 432.1 513.4 424.9 509.1L287.9 435.9L150.1 509.1C142.9 513.4 133.1 512.7 125.6 507.4C118.2 502.1 114.5 492.9 115.1 483.9L142.2 328.4L31.11 218.2C24.65 211.9 22.36 202.4 25.2 193.7C28.03 185.1 35.5 178.8 44.49 177.5L197.7 154.8L266.3 13.52C270.4 5.249 278.7 0 287.9 0L287.9 0zM287.9 78.95L235.4 187.2C231.9 194.3 225.1 199.3 217.3 200.5L98.98 217.9L184.9 303C190.4 308.5 192.9 316.4 191.6 324.1L171.4 443.7L276.6 387.5C283.7 383.7 292.2 383.7 299.2 387.5L404.4 443.7L384.2 324.1C382.9 316.4 385.5 308.5 391 303L476.9 217.9L358.6 200.5C350.7 199.3 343.9 194.3 340.5 187.2L287.9 78.95z"/></svg></span>
+        </span>
+      
+      
+        <span class="text-base font-medium break-normal">
+          Golang
+        </span>
+      
+    </a>
+  
+
+    
+      
+  
+    <a
+      href="/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="杂谈"
+      title="杂谈">
+      
+        <span class="mr-1">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M421.7 220.3L188.5 453.4L154.6 419.5L158.1 416H112C103.2 416 96 408.8 96 400V353.9L92.51 357.4C87.78 362.2 84.31 368 82.42 374.4L59.44 452.6L137.6 429.6C143.1 427.7 149.8 424.2 154.6 419.5L188.5 453.4C178.1 463.8 165.2 471.5 151.1 475.6L30.77 511C22.35 513.5 13.24 511.2 7.03 504.1C.8198 498.8-1.502 489.7 .976 481.2L36.37 360.9C40.53 346.8 48.16 333.9 58.57 323.5L291.7 90.34L421.7 220.3zM492.7 58.75C517.7 83.74 517.7 124.3 492.7 149.3L444.3 197.7L314.3 67.72L362.7 19.32C387.7-5.678 428.3-5.678 453.3 19.32L492.7 58.75z"/></svg>
+</span>
+        </span>
+      
+      
+        <span class="text-base font-medium break-normal">
+          杂谈
+        </span>
+      
+    </a>
+  
+
+    
+      
+  
+    <a
+      href="/%E7%AE%97%E6%B3%95/"
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="算法"
+      title="">
+      
+        <span class="mr-1">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M502.285 159.704l-234-156c-7.987-4.915-16.511-4.96-24.571 0l-234 156C3.714 163.703 0 170.847 0 177.989v155.999c0 7.143 3.714 14.286 9.715 18.286l234 156.022c7.987 4.915 16.511 4.96 24.571 0l234-156.022c6-3.999 9.715-11.143 9.715-18.286V177.989c-.001-7.142-3.715-14.286-9.716-18.285zM278 63.131l172.286 114.858-76.857 51.429L278 165.703V63.131zm-44 0v102.572l-95.429 63.715-76.857-51.429L234 63.131zM44 219.132l55.143 36.857L44 292.846v-73.714zm190 229.715L61.714 333.989l76.857-51.429L234 346.275v102.572zm22-140.858l-77.715-52 77.715-52 77.715 52-77.715 52zm22 140.858V346.275l95.429-63.715 76.857 51.429L278 448.847zm190-156.001l-55.143-36.857L468 219.132v73.714z"/></svg>
+</span>
+        </span>
+      
+      
+        <span class="text-base font-medium break-normal">
+          算法
+        </span>
+      
+    </a>
+  
+
+    
+      
+  
+    <a
+      href="/%E8%BF%90%E7%BB%B4/"
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="运维/架构"
+      title="运维/架构">
+      
+        <span class="mr-1">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+<path fill="currentColor" d="M349.9 236.3h-66.1v-59.4h66.1v59.4zm0-204.3h-66.1v60.7h66.1V32zm78.2 144.8H362v59.4h66.1v-59.4zm-156.3-72.1h-66.1v60.1h66.1v-60.1zm78.1 0h-66.1v60.1h66.1v-60.1zm276.8 100c-14.4-9.7-47.6-13.2-73.1-8.4-3.3-24-16.7-44.9-41.1-63.7l-14-9.3-9.3 14c-18.4 27.8-23.4 73.6-3.7 103.8-8.7 4.7-25.8 11.1-48.4 10.7H2.4c-8.7 50.8 5.8 116.8 44 162.1 37.1 43.9 92.7 66.2 165.4 66.2 157.4 0 273.9-72.5 328.4-204.2 21.4.4 67.6.1 91.3-45.2 1.5-2.5 6.6-13.2 8.5-17.1l-13.3-8.9zm-511.1-27.9h-66v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm-78.1-72.1h-66.1v60.1h66.1v-60.1z"/></svg></span>
+        </span>
+      
+      
+        <span class="text-base font-medium break-normal">
+          运维/架构
+        </span>
+      
+    </a>
+  
+
+    
+      
+  
+    <a
+      href=""
+      
+      class="flex items-center bf-icon-color-hover"
+      
+      title="">
+      
+      
+    </a>
+  
+
+    
+  
+
+  
+
+  
+    <div class="flex items-center">
+  <button
+    id="desktop-a11y-toggle"
+    aria-label="Open accessibility panel"
+    aria-expanded="false"
+    type="button"
+    class="bf-icon-color-hover"
+    role="button"
+    aria-pressed="false">
+    <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm161.5-86.1c-12.2-5.2-26.3 .4-31.5 12.6s.4 26.3 12.6 31.5l11.9 5.1c17.3 7.4 35.2 12.9 53.6 16.3l0 50.1c0 4.3-.7 8.6-2.1 12.6l-28.7 86.1c-4.2 12.6 2.6 26.2 15.2 30.4s26.2-2.6 30.4-15.2l24.4-73.2c1.3-3.8 4.8-6.4 8.8-6.4s7.6 2.6 8.8 6.4l24.4 73.2c4.2 12.6 17.8 19.4 30.4 15.2s19.4-17.8 15.2-30.4l-28.7-86.1c-1.4-4.1-2.1-8.3-2.1-12.6l0-50.1c18.4-3.5 36.3-8.9 53.6-16.3l11.9-5.1c12.2-5.2 17.8-19.3 12.6-31.5s-19.3-17.8-31.5-12.6L338.7 175c-26.1 11.2-54.2 17-82.7 17s-56.5-5.8-82.7-17l-11.9-5.1zM256 160a40 40 0 1 0 0-80 40 40 0 1 0 0 80z"/></svg>
+</span>
+  </button>
+
+  <div id="desktop-a11y-overlay" class="fixed inset-0 hidden" style="z-index:9999;"></div>
+
+  <div
+    id="desktop-a11y-panel"
+    role="dialog"
+    aria-labelledby="desktop-a11y-panel-title"
+    class="a11y-panel-enter fixed hidden p-6 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 rounded-lg shadow-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700"
+    style="min-width: 20rem; z-index:9999;">
+    <div class="flex items-center justify-between mb-6">
+      <h3
+        id="desktop-a11y-panel-title"
+        class="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+        Accessibility settings
+      </h3>
+      <button
+        id="desktop-a11y-close"
+        class="text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200"
+        aria-label="Close a11y panel">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="space-y-5">
+      
+      
+      
+      
+        
+      
+      
+        <div class="flex items-center justify-between">
+          <label for="desktop-disable-blur" class="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+            Disable blur
+          </label>
+          <div class="ios-toggle">
+            <input type="checkbox" id="desktop-disable-blur">
+          </div>
+        </div>
+        <div class="flex items-center justify-between">
+          <label for="desktop-underline-links" class="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+            Show link underline
+          </label>
+          <div class="ios-toggle">
+            <input type="checkbox" id="desktop-underline-links">
+          </div>
+        </div>
+        <div class="flex items-center justify-between">
+          <label for="desktop-zen-mode" class="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+            Enable zen mode
+          </label>
+          <div class="ios-toggle">
+            <input type="checkbox" id="desktop-zen-mode">
+          </div>
+        </div>
+
+
+      <div class="flex items-center justify-between">
+        <label
+          for="desktop-font-size-select"
+          class="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+          Font size
+        </label>
+        <select
+          id="desktop-font-size-select"
+          class="border rounded-lg px-3 py-1.5 pr-8 text-neutral-900 text-sm dark:bg-neutral-700 dark:text-neutral-200 focus:ring-primary-500 focus:border-primary-500">
+          
+          
+            <option value="default">default</option>
+          
+            <option value="12px">12px</option>
+          
+            <option value="14px">14px</option>
+          
+            <option value="16px">16px</option>
+          
+            <option value="18px">18px</option>
+          
+            <option value="20px">20px</option>
+          
+            <option value="22px">22px</option>
+          
+            <option value="24px">24px</option>
+          
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+  
+    <button
+      id="search-button"
+      aria-label="Search"
+      class="text-base bf-icon-color-hover"
+      title="Search (/)">
+      <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+    </button>
+  
+
+  
+    <div class="flex items-center">
+      <button
+        id="appearance-switcher"
+        aria-label="Dark mode switcher"
+        type="button"
+        class="text-base bf-icon-color-hover">
+        <div class="flex items-center justify-center dark:hidden">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+        </div>
+        <div class="items-center justify-center hidden dark:flex">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+        </div>
+      </button>
+    </div>
+  
+</nav>
+
+
+
+    </div>
+    <div class="flex md:hidden">
+      <div class="flex items-center h-14 gap-4">
+  
+    <button
+      id="search-button-mobile"
+      aria-label="Search"
+      class="flex items-center justify-center bf-icon-color-hover"
+      title="Search (/)">
+      <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+    </button>
+  
+
+  
+    <button
+      id="appearance-switcher-mobile"
+      type="button"
+      aria-label="Dark mode switcher"
+      class="flex items-center justify-center text-neutral-900 hover:text-primary-600 dark:text-neutral-200 dark:hover:text-primary-400">
+      <div class="dark:hidden">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+      </div>
+      <div class="hidden dark:block">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+      </div>
+    </button>
+  
+
+  
+    <input type="checkbox" id="mobile-menu-toggle" autocomplete="off" class="hidden peer">
+    <label for="mobile-menu-toggle" class="flex items-center justify-center cursor-pointer bf-icon-color-hover">
+      <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+</span>
+    </label>
+
+    <div
+      role="dialog"
+      aria-modal="true"
+      style="scrollbar-gutter: stable;"
+      class="fixed inset-0 z-50 invisible overflow-y-auto px-6 py-20 opacity-0 transition-[opacity,visibility] duration-300 peer-checked:visible peer-checked:opacity-100 bg-neutral-50/97 dark:bg-neutral-900/99
+      bf-scrollbar">
+      <label
+        for="mobile-menu-toggle"
+        class="fixed end-8 top-5 flex items-center justify-center z-50 h-12 w-12 cursor-pointer select-none rounded-full bf-icon-color-hover border bf-border-color bf-border-color-hover bg-neutral-50 dark:bg-neutral-900">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </label>
+      <nav class="mx-auto max-w-md space-y-6">
+        
+  
+    
+    <div class="px-2">
+      <a
+        href="/golang/"
+        aria-label="Golang"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+          <span class="flex items-center justify-center h-8 w-8 text-2xl">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M287.9 0C297.1 0 305.5 5.25 309.5 13.52L378.1 154.8L531.4 177.5C540.4 178.8 547.8 185.1 550.7 193.7C553.5 202.4 551.2 211.9 544.8 218.2L433.6 328.4L459.9 483.9C461.4 492.9 457.7 502.1 450.2 507.4C442.8 512.7 432.1 513.4 424.9 509.1L287.9 435.9L150.1 509.1C142.9 513.4 133.1 512.7 125.6 507.4C118.2 502.1 114.5 492.9 115.1 483.9L142.2 328.4L31.11 218.2C24.65 211.9 22.36 202.4 25.2 193.7C28.03 185.1 35.5 178.8 44.49 177.5L197.7 154.8L266.3 13.52C270.4 5.249 278.7 0 287.9 0L287.9 0zM287.9 78.95L235.4 187.2C231.9 194.3 225.1 199.3 217.3 200.5L98.98 217.9L184.9 303C190.4 308.5 192.9 316.4 191.6 324.1L171.4 443.7L276.6 387.5C283.7 383.7 292.2 383.7 299.2 387.5L404.4 443.7L384.2 324.1C382.9 316.4 385.5 308.5 391 303L476.9 217.9L358.6 200.5C350.7 199.3 343.9 194.3 340.5 187.2L287.9 78.95z"/></svg></span>
+          </span>
+        
+        <span title="Golang" class="text-2xl font-bold tracking-tight">
+          Golang
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+    
+    <div class="px-2">
+      <a
+        href="/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"
+        aria-label="杂谈"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+          <span class="flex items-center justify-center h-8 w-8 text-2xl">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M421.7 220.3L188.5 453.4L154.6 419.5L158.1 416H112C103.2 416 96 408.8 96 400V353.9L92.51 357.4C87.78 362.2 84.31 368 82.42 374.4L59.44 452.6L137.6 429.6C143.1 427.7 149.8 424.2 154.6 419.5L188.5 453.4C178.1 463.8 165.2 471.5 151.1 475.6L30.77 511C22.35 513.5 13.24 511.2 7.03 504.1C.8198 498.8-1.502 489.7 .976 481.2L36.37 360.9C40.53 346.8 48.16 333.9 58.57 323.5L291.7 90.34L421.7 220.3zM492.7 58.75C517.7 83.74 517.7 124.3 492.7 149.3L444.3 197.7L314.3 67.72L362.7 19.32C387.7-5.678 428.3-5.678 453.3 19.32L492.7 58.75z"/></svg>
+</span>
+          </span>
+        
+        <span title="杂谈" class="text-2xl font-bold tracking-tight">
+          杂谈
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+    
+    <div class="px-2">
+      <a
+        href="/%E7%AE%97%E6%B3%95/"
+        aria-label="算法"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+          <span class="flex items-center justify-center h-8 w-8 text-2xl">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M502.285 159.704l-234-156c-7.987-4.915-16.511-4.96-24.571 0l-234 156C3.714 163.703 0 170.847 0 177.989v155.999c0 7.143 3.714 14.286 9.715 18.286l234 156.022c7.987 4.915 16.511 4.96 24.571 0l234-156.022c6-3.999 9.715-11.143 9.715-18.286V177.989c-.001-7.142-3.715-14.286-9.716-18.285zM278 63.131l172.286 114.858-76.857 51.429L278 165.703V63.131zm-44 0v102.572l-95.429 63.715-76.857-51.429L234 63.131zM44 219.132l55.143 36.857L44 292.846v-73.714zm190 229.715L61.714 333.989l76.857-51.429L234 346.275v102.572zm22-140.858l-77.715-52 77.715-52 77.715 52-77.715 52zm22 140.858V346.275l95.429-63.715 76.857 51.429L278 448.847zm190-156.001l-55.143-36.857L468 219.132v73.714z"/></svg>
+</span>
+          </span>
+        
+        <span title="" class="text-2xl font-bold tracking-tight">
+          算法
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+    
+    <div class="px-2">
+      <a
+        href="/%E8%BF%90%E7%BB%B4/"
+        aria-label="运维/架构"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+          <span class="flex items-center justify-center h-8 w-8 text-2xl">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+<path fill="currentColor" d="M349.9 236.3h-66.1v-59.4h66.1v59.4zm0-204.3h-66.1v60.7h66.1V32zm78.2 144.8H362v59.4h66.1v-59.4zm-156.3-72.1h-66.1v60.1h66.1v-60.1zm78.1 0h-66.1v60.1h66.1v-60.1zm276.8 100c-14.4-9.7-47.6-13.2-73.1-8.4-3.3-24-16.7-44.9-41.1-63.7l-14-9.3-9.3 14c-18.4 27.8-23.4 73.6-3.7 103.8-8.7 4.7-25.8 11.1-48.4 10.7H2.4c-8.7 50.8 5.8 116.8 44 162.1 37.1 43.9 92.7 66.2 165.4 66.2 157.4 0 273.9-72.5 328.4-204.2 21.4.4 67.6.1 91.3-45.2 1.5-2.5 6.6-13.2 8.5-17.1l-13.3-8.9zm-511.1-27.9h-66v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm-78.1-72.1h-66.1v60.1h66.1v-60.1z"/></svg></span>
+          </span>
+        
+        <span title="运维/架构" class="text-2xl font-bold tracking-tight">
+          运维/架构
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+    
+    <div class="px-2">
+      <a
+        href=""
+        
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+        <span title="" class="text-2xl font-bold tracking-tight">
+          
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+
+        
+  
+
+        
+  
+    <div
+      class="flex flex-wrap items-center [&_span]:text-2xl [&_.translation_button_.icon]:text-4xl! [&_.translation_button_span]:text-base! [&_.translation_.menuhide_span]:text-sm! gap-x-6 ps-2 mt-8 pt-8 border-t bf-border-color">
+      
+
+
+      
+        <div class="flex items-center">
+  <button
+    id="mobile-menu-a11y-toggle"
+    aria-label="Open accessibility panel"
+    aria-expanded="false"
+    type="button"
+    class="bf-icon-color-hover"
+    role="button"
+    aria-pressed="false">
+    <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm161.5-86.1c-12.2-5.2-26.3 .4-31.5 12.6s.4 26.3 12.6 31.5l11.9 5.1c17.3 7.4 35.2 12.9 53.6 16.3l0 50.1c0 4.3-.7 8.6-2.1 12.6l-28.7 86.1c-4.2 12.6 2.6 26.2 15.2 30.4s26.2-2.6 30.4-15.2l24.4-73.2c1.3-3.8 4.8-6.4 8.8-6.4s7.6 2.6 8.8 6.4l24.4 73.2c4.2 12.6 17.8 19.4 30.4 15.2s19.4-17.8 15.2-30.4l-28.7-86.1c-1.4-4.1-2.1-8.3-2.1-12.6l0-50.1c18.4-3.5 36.3-8.9 53.6-16.3l11.9-5.1c12.2-5.2 17.8-19.3 12.6-31.5s-19.3-17.8-31.5-12.6L338.7 175c-26.1 11.2-54.2 17-82.7 17s-56.5-5.8-82.7-17l-11.9-5.1zM256 160a40 40 0 1 0 0-80 40 40 0 1 0 0 80z"/></svg>
+</span>
+  </button>
+
+  <div id="mobile-menu-a11y-overlay" class="fixed inset-0 hidden" style="z-index:9999;"></div>
+
+  <div
+    id="mobile-menu-a11y-panel"
+    role="dialog"
+    aria-labelledby="mobile-menu-a11y-panel-title"
+    class="a11y-panel-enter fixed hidden p-6 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 rounded-lg shadow-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700"
+    style="min-width: 20rem; z-index:9999;">
+    <div class="flex items-center justify-between mb-6">
+      <h3
+        id="mobile-menu-a11y-panel-title"
+        class="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+        Accessibility settings
+      </h3>
+      <button
+        id="mobile-menu-a11y-close"
+        class="text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200"
+        aria-label="Close a11y panel">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="space-y-5">
+      
+      
+      
+      
+        
+      
+      
+        <div class="flex items-center justify-between">
+          <label for="mobile-menu-disable-blur" class="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+            Disable blur
+          </label>
+          <div class="ios-toggle">
+            <input type="checkbox" id="mobile-menu-disable-blur">
+          </div>
+        </div>
+        <div class="flex items-center justify-between">
+          <label for="mobile-menu-underline-links" class="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+            Show link underline
+          </label>
+          <div class="ios-toggle">
+            <input type="checkbox" id="mobile-menu-underline-links">
+          </div>
+        </div>
+        <div class="flex items-center justify-between">
+          <label for="mobile-menu-zen-mode" class="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+            Enable zen mode
+          </label>
+          <div class="ios-toggle">
+            <input type="checkbox" id="mobile-menu-zen-mode">
+          </div>
+        </div>
+
+
+      <div class="flex items-center justify-between">
+        <label
+          for="mobile-menu-font-size-select"
+          class="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+          Font size
+        </label>
+        <select
+          id="mobile-menu-font-size-select"
+          class="border rounded-lg px-3 py-1.5 pr-8 text-neutral-900 text-sm dark:bg-neutral-700 dark:text-neutral-200 focus:ring-primary-500 focus:border-primary-500">
+          
+          
+            <option value="default">default</option>
+          
+            <option value="12px">12px</option>
+          
+            <option value="14px">14px</option>
+          
+            <option value="16px">16px</option>
+          
+            <option value="18px">18px</option>
+          
+            <option value="20px">20px</option>
+          
+            <option value="22px">22px</option>
+          
+            <option value="24px">24px</option>
+          
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+    </div>
+  
+
+      </nav>
+    </div>
+  
+</div>
+
+
+
+
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+    
+    <div class="relative flex flex-col grow">
+      <main id="main-content" class="grow">
+        
+  
+  <article>
+    
+    
+
+    
+    <header id="single_header" class="mt-5 max-w-prose">
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        并发编程03 Sync包
+      </h1>
+      <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2026-05-26T18:42:53&#43;08:00">26 May 2026</time><span class="px-2 text-primary-500">&middot;</span><span>1857 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">9 mins</span>
+    
+
+    
+    
+  </div>
+
+  
+
+  
+  
+
+
+      </div>
+      
+    </header>
+
+    
+    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+      
+      
+      
+      
+      
+
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+
+        <div class="article-content max-w-prose mb-20">
+          
+<h3 class="relative group">Sync.Mutex
+    <div id="syncmutex" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#syncmutex" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+
+<h4 class="relative group">sync.Mutex：实现与语义
+    <div id="syncmutex实现与语义" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#syncmutex%e5%ae%9e%e7%8e%b0%e4%b8%8e%e8%af%ad%e4%b9%89" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>零值可用。非可重入，不跟踪“所有者”，同一 goroutine 重入会自锁死（最终触发“all goroutines are asleep – deadlock!”），非同一 goroutine重复 Unlock 触发 panic: sync: unlock of unlocked mutex。</li>
+<li>Go 1.18+ 提供 TryLock，非阻塞获取锁。</li>
+<li>Happens-Before：Unlock 对 Lock 是 release-acquire 屏障，保证临界区内写在 Unlock 前对随后 Lock 后可见。</li>
+</ul>
+
+<h4 class="relative group">内部结构与状态位（Go 运行时）
+    <div id="内部结构与状态位go-运行时" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%86%85%e9%83%a8%e7%bb%93%e6%9e%84%e4%b8%8e%e7%8a%b6%e6%80%81%e4%bd%8dgo-%e8%bf%90%e8%a1%8c%e6%97%b6" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>结构体：
+<ul>
+<li>state int32</li>
+<li>sema uint32</li>
+</ul>
+</li>
+<li>state 位语义：
+<ul>
+<li>mutexLocked = 1&laquo;0</li>
+<li>mutexWoken = 1&laquo;1</li>
+<li>mutexStarving = 1&laquo;2</li>
+<li>mutexWaiterShift = 3（从该位开始存 waiter 计数）</li>
+</ul>
+</li>
+<li>只做原子整型 CAS/加减，线程停放/唤醒通过信号量 runtime_SemacquireMutex / runtime_Semrelease。</li>
+</ul>
+
+<h5 class="relative group">Lock 快慢路径
+    <div id="lock-快慢路径" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#lock-%e5%bf%ab%e6%85%a2%e8%b7%af%e5%be%84" aria-label="Anchor">#</a>
+    </span>
+    
+</h5>
+<ul>
+<li>快路径：CAS state 的 mutexLocked 位为 0→1 成功即返回。</li>
+<li>慢路径（lockSlow）：
+<ul>
+<li>自适应自旋：满足可自旋条件（GOMAXPROCS&gt;1、无饥饿、当前 G 未被抢占、运行队列可用）下最多自旋数次（受运行时启发式限制），期间尝试 CAS 抢锁。</li>
+<li>若有竞争：增加 waiter 计数，必要时设置 mutexWoken，走 sema 阻塞；阻塞时可能进入饥饿模式（见下）。</li>
+<li>被唤醒后根据是否饥饿模式决定是否“接力交接”（handoff）或重新竞争。</li>
+</ul>
+</li>
+</ul>
+
+<h5 class="relative group">Unlock 快慢路径
+    <div id="unlock-快慢路径" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#unlock-%e5%bf%ab%e6%85%a2%e8%b7%af%e5%be%84" aria-label="Anchor">#</a>
+    </span>
+    
+</h5>
+<ul>
+<li>快路径：原子减去 mutexLocked；若无 waiter 且非饥饿，直接返回。</li>
+<li>慢路径（unlockSlow）：
+<ul>
+<li>有 waiter 或饥饿：选择一个 waiter 通过 sema 唤醒。饥饿模式下采用 handoff，直接把锁交给被唤醒的 waiter（避免其他 goroutine 抢占）。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">公平性与饥饿模式
+    <div id="公平性与饥饿模式" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%85%ac%e5%b9%b3%e6%80%a7%e4%b8%8e%e9%a5%a5%e9%a5%bf%e6%a8%a1%e5%bc%8f" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>默认是偏向吞吐的“竞争模式”：允许新到 goroutine 抢占刚释放的锁，牺牲严格公平以换高吞吐（减少上下文切换）。</li>
+<li>饥饿阈值：当某个 waiter 等待时间超过 ~1ms（mutexStarvationThresholdNs = 1e6ns），锁进入“饥饿模式”：
+<ul>
+<li>设置 mutexStarving，退出竞争队列化，Unlock 采用 handoff 直接把锁交给队首 waiter。</li>
+<li>饥饿模式在某个 waiter 获锁且队列显著缓解后恢复到竞争模式。</li>
+</ul>
+</li>
+<li>结果：无严格 FIFO，但在极端竞争下避免长期饥饿。</li>
+</ul>
+
+<h4 class="relative group">自适应自旋
+    <div id="自适应自旋" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e8%87%aa%e9%80%82%e5%ba%94%e8%87%aa%e6%97%8b" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>在用户态忙等数次（含 PAUSE 指令），避免立即陷入内核阻塞，降低锁竞争延迟。</li>
+<li>自旋的前提：目标锁可能很快释放（例如 unlock 即将发生）；否则直接阻塞避免浪费 CPU。</li>
+<li>上界保守，防止过久 busy-wait 影响调度公平。</li>
+</ul>
+
+<h4 class="relative group">TryLock 语义（Go 1.18+）
+    <div id="trylock-语义go-118" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#trylock-%e8%af%ad%e4%b9%89go-118" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>非阻塞：仅在 state 的 mutexLocked 位为 0 时 CAS 成功；不会改变 waiter/woken/starving 状态。</li>
+<li>使用场景：避免锁冲突下的尾延迟叠加，可退避或降级处理。</li>
+</ul>
+
+<h4 class="relative group">内存模型
+    <div id="内存模型" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%86%85%e5%ad%98%e6%a8%a1%e5%9e%8b" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>Lock 是 acquire 屏障；Unlock 是 release 屏障。</li>
+<li>不需要额外的 sync/atomic 内存序指令；在临界区内的普通读写通过 Lock/Unlock 建立 happens-before。</li>
+<li>与原子操作混用：要么全程在锁内进行非原子访问，要么用原子并清晰定义边界，避免“读一半靠锁、写一半靠原子”的数据竞争。</li>
+</ul>
+
+<h4 class="relative group">性能与工程策略
+    <div id="性能与工程策略" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%80%a7%e8%83%bd%e4%b8%8e%e5%b7%a5%e7%a8%8b%e7%ad%96%e7%95%a5" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>批处理临界区：减少 Lock/Unlock 次数，合并写入，降低原子和调度开销。</li>
+<li>减少竞争：
+<ul>
+<li>分片加锁（sharded locks）：按 key hash 到不同的 Mutex，降低热锁。</li>
+<li>数据局部化与避免 false sharing：高并发下为不同热点锁/数据做 cacheline 对齐（结构体填充或 runtime/debug.SetGCPercent 辅助不相关）。</li>
+</ul>
+</li>
+<li>缩短临界区：
+<ul>
+<li>不在临界区内做 I/O、RPC、长计算、阻塞操作。</li>
+<li>defer Unlock 仅限短小临界区；热路径建议显式 Unlock 以减少 defer 开销。</li>
+</ul>
+</li>
+<li>指标与分析：
+<ul>
+<li>runtime.SetMutexProfileFraction 启用 mutex profile（pprof “mutex”）。查看锁阻塞时间与热点。</li>
+<li>搭配 block profile、sched trace 识别调度与锁交互问题。</li>
+</ul>
+</li>
+<li>GOMAXPROCS：过高可能放大竞争与上下文切换；结合压测调优。</li>
+</ul>
+
+<h4 class="relative group">典型误用与排雷
+    <div id="典型误用与排雷" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%85%b8%e5%9e%8b%e8%af%af%e7%94%a8%e4%b8%8e%e6%8e%92%e9%9b%b7" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>复制已使用过的 Mutex（值拷贝）：
+<ul>
+<li>一旦发生复制，两个副本状态分离，任意 Lock/Unlock 顺序都会导致数据竞争或 panic。</li>
+<li>避免将包含 Mutex 的结构体按值传递或作为 map 元素（map 赋值会复制）；使用指针或将锁分离管理。</li>
+</ul>
+</li>
+<li>在临界区内调用可能再次 Lock 同一把锁的回调/接口，导致自死锁。避免回调内重入；若需要递归，必须改造为显式状态机或拆分锁。</li>
+<li>长时间持锁 + 调度抢占：会放大尾延迟与 P 上队列阻塞。将重计算移出临界区。</li>
+<li>试图用 Mutex 做定时/可取消等待：sync.Mutex 不支持超时；若需要超时可用 TryLock + 退避，或换成基于 channel/select 的同步原语。</li>
+<li>过度使用 RWMutex 替代 Mutex：在写多或写周期性突发的场景，RWMutex 的写者优先导致读吞吐抖动，甚至全局停顿；严格压测再替换。</li>
+<li>Panic 安全：Unlock 必须在成功 Lock 之后；恢复机制中要确保不会重复 Unlock。</li>
+</ul>
+
+<h4 class="relative group">选型权衡
+    <div id="选型权衡" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e9%80%89%e5%9e%8b%e6%9d%83%e8%a1%a1" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>Mutex vs RWMutex：
+<ul>
+<li>读远大于写（&gt;10:1，且读临界区短）的场景 RWMutex 才可能收益；否则 Mutex 更稳健、开销更低。</li>
+<li>高度竞争下 RWMutex 读方也会自旋/休眠，实际收益可能有限。</li>
+</ul>
+</li>
+<li>Mutex vs 原子：
+<ul>
+<li>原子适合简单计数/标志/CAS 链接；复杂不变量（多字段一致性）用 Mutex 更安全。</li>
+</ul>
+</li>
+<li>Mutex vs Channel：
+<ul>
+<li>Channel 适合有界/无界队列和显式通信；纯内存保护优先 Mutex。用 channel 模拟互斥通常更慢且易出 goroutine 泄漏。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">调度与 GC 交互
+    <div id="调度与-gc-交互" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e8%b0%83%e5%ba%a6%e4%b8%8e-gc-%e4%ba%a4%e4%ba%92" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>阻塞在 Mutex 上的 goroutine 会被 park，M 继续运行其他 G；不占用用户线程，避免内核调度开销。</li>
+<li>GC 与 Mutex 无直接额外交互；但长临界区可能延迟其他 goroutine 到达安全点，间接影响 STW 前后相位时间分布。</li>
+</ul>
+
+<h4 class="relative group">版本要点（Go 1.9+）
+    <div id="版本要点go-19" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%89%88%e6%9c%ac%e8%a6%81%e7%82%b9go-19" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>Go 1.9 引入饥饿模式与自适应自旋改进，显著改善高竞争尾延迟。</li>
+<li>Go 1.18 增加 TryLock。</li>
+<li>Go 1.20+ 在调度与自旋启发式上有微调，整体语义不变；Go 1.22 语义未变。</li>
+</ul>
+
+<h4 class="relative group">最小实践片段
+    <div id="最小实践片段" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%9c%80%e5%b0%8f%e5%ae%9e%e8%b7%b5%e7%89%87%e6%ae%b5" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>
+<p>非阻塞降级（TryLock）：</p>
+<ul>
+<li>if mu.TryLock() { critical(); mu.Unlock(); return }</li>
+<li>fallback() // 降级或延迟，避免放大竞争</li>
+</ul>
+</li>
+<li>
+<p>分片加锁：</p>
+<ul>
+<li>type Sharded[T any] struct { shards []struct{ mu sync.Mutex; v T } }</li>
+<li>i := fastHash(key) &amp; (len(shards)-1); with(&amp;shards[i].mu, func(){ &hellip; })</li>
+</ul>
+</li>
+<li>
+<p>避免复制：</p>
+<ul>
+<li>type S struct { mu sync.Mutex; /* &hellip; */ } // 不要把 S 作为 map 值或通过值传参</li>
+<li>使用 *S 在容器中存放指针</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">工具与观测
+    <div id="工具与观测" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%b7%a5%e5%85%b7%e4%b8%8e%e8%a7%82%e6%b5%8b" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>开启互斥体剖析：runtime.SetMutexProfileFraction(n&gt;0)，用 go tool pprof 分析 “mutex”。</li>
+<li>结合 trace（runtime/trace）观察 goroutine park/unpark、锁竞争与调度关系。</li>
+<li>压测必须覆盖：
+<ul>
+<li>高并发、突发流量、长尾分布；观测 99/99.9 延迟与锁阻塞时间分位数。</li>
+</ul>
+</li>
+</ul>
+
+<h3 class="relative group">Sync.Pool
+    <div id="syncpool" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#syncpool" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+
+<h4 class="relative group">sync.Pool：语义与适用边界
+    <div id="syncpool语义与适用边界" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#syncpool%e8%af%ad%e4%b9%89%e4%b8%8e%e9%80%82%e7%94%a8%e8%be%b9%e7%95%8c" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>面向“短期可丢弃”的对象重用。GC 可以在任意一次标记期开始时丢弃池中对象（至多保留一轮 victim 缓存），不可用于容量受控或强占有的缓存。</li>
+<li>Get/Put 非配对同步原语，不提供跨 goroutine 的业务级发布-订阅语义；取出对象应视为未初始化，调用方需自定义初始化/Reset。</li>
+<li>Put 之后对象不得再被引用；否则数据竞争与逻辑破坏。</li>
+<li>New 可选，用于缺货时创建新对象；未设置时缺货返回 nil。</li>
+</ul>
+
+<h4 class="relative group">运行时实现：每 P 分片 + 私有/共享 + 受控生存期
+    <div id="运行时实现每-p-分片--私有共享--受控生存期" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e8%bf%90%e8%a1%8c%e6%97%b6%e5%ae%9e%e7%8e%b0%e6%af%8f-p-%e5%88%86%e7%89%87--%e7%a7%81%e6%9c%89%e5%85%b1%e4%ba%ab--%e5%8f%97%e6%8e%a7%e7%94%9f%e5%ad%98%e6%9c%9f" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>结构体关键字段（简化）：
+<ul>
+<li>local/ localSize：每 P 的 poolLocal 列表（长度为 GOMAXPROCS），local 存放在 noscan 区域。</li>
+<li>victim/ victimSize：上一 GC 周期的备份，用于“一次性宽恕”，让对象最多再活一轮。</li>
+<li>New func() any。</li>
+</ul>
+</li>
+<li>poolLocal：
+<ul>
+<li>private any：仅当前 P 使用的私有槽，读写无需原子。</li>
+<li>shared poolDequeue：无锁环形队列，pushHead/popHead 在拥有者 P 上为无锁，其他 P 只可 popTail（steal）。</li>
+<li>cacheline 填充避免伪共享。</li>
+</ul>
+</li>
+<li>Get（快路径→慢路径）：
+<ul>
+<li>pin 到当前 P（procPin，禁止抢占），尝试取 local.private；</li>
+<li>miss 则从 local.shared popHead；</li>
+<li>再 miss 尝试从其他 P 的 shared popTail（steal）；</li>
+<li>仍 miss 尝试从 victim 对称结构获取；</li>
+<li>最终走 New 或返回 nil；unpin（procUnpin）。</li>
+</ul>
+</li>
+<li>Put：
+<ul>
+<li>pin 当前 P；</li>
+<li>若 local.private 为空，放入 private；否则 pushHead 到 shared；</li>
+<li>unpin。</li>
+</ul>
+</li>
+<li>GC 交互（关键点）：
+<ul>
+<li>GC 启动的 STW 早期钩子执行 poolCleanup：
+<ul>
+<li>丢弃上一轮 victim；</li>
+<li>将当前 local 迁移为 victim（这轮受 GC 标记保护），并清空 local；</li>
+</ul>
+</li>
+<li>local 置于 noscan，存活判定仅经由 victim 引用；因此对象“最多存活一个 GC 周期不被触及就会被回收”。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">内存模型与可见性
+    <div id="内存模型与可见性" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%86%85%e5%ad%98%e6%a8%a1%e5%9e%8b%e4%b8%8e%e5%8f%af%e8%a7%81%e6%80%a7" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>Pool 不提供“Put 与随后某次 Get”之间的显式 happens-before 语义。内部原子操作可确保结构一致性，但不保证业务字段初始化对下一消费者的可见性约束。</li>
+<li>工程策略：Get 后总是重置/重新初始化；Put 前可 Reset/裁剪容量，避免把脏状态或超大容量回收到池中。</li>
+</ul>
+
+<h4 class="relative group">性能模型
+    <div id="性能模型" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%80%a7%e8%83%bd%e6%a8%a1%e5%9e%8b" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>快路径无锁（private）与单 P 无锁队列（shared）提供极低延迟；跨 P 偷取为少量原子开销。</li>
+<li>pin/unpin 成本低但非零；极高 QPS 下仍显著优于全局锁。</li>
+<li>对象在池中不扫描（local 为 noscan），仅 victim 被扫描一轮。大量“含指针的巨型对象”会在 victim 阶段产生一次性扫描成本。</li>
+<li>适合“频繁创建、生命周期短、可重置”的对象（bytes.Buffer、[]byte、临时解码器/编码器、map 重用等）。</li>
+</ul>
+
+<h4 class="relative group">典型实践
+    <div id="典型实践" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%85%b8%e5%9e%8b%e5%ae%9e%e8%b7%b5" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>有界重用与降级：
+<ul>
+<li>对 bytes.Buffer/[]byte 等，在 Put 前截断超大容量，避免“容量记忆”导致内存膨胀：
+<ul>
+<li>if cap(b) &gt; 64&laquo;10 { return } else { b = b[:0]; pool.Put(b) }</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>尺寸分桶（避免碎片与抖动）：
+<ul>
+<li>以 2 的幂次或 jemalloc 类 size class 建桶；Get 选最近上界；Put 回原桶，超大直接丢弃。</li>
+</ul>
+</li>
+<li>类型安全封装（Go 1.18+）：
+<ul>
+<li>使用泛型包装减少类型断言噪音（仍然通过 any 存取；避免对非指针小值类型的装箱）。</li>
+<li>约束 T 为指针或切片/映射，避免值类型入池产生额外分配。</li>
+</ul>
+</li>
+</ul>
+<p>示例：bytes.Buffer 池（容量裁剪）</p>
+<ul>
+<li>var bufPool = sync.Pool{New: func() any { return new(bytes.Buffer) }}</li>
+<li>func GetBuf() *bytes.Buffer {
+b := bufPool.Get().(*bytes.Buffer)
+b.Reset()
+return b
+}</li>
+<li>func PutBuf(b *bytes.Buffer) {
+if b.Cap() &gt; 64&laquo;10 { return } // 大缓冲直接丢弃
+b.Reset()
+bufPool.Put(b)
+}</li>
+</ul>
+<p>示例：按尺寸分桶的 []byte 池</p>
+<ul>
+<li>type BytePool struct {
+pools [N]sync.Pool // N 覆盖 2^k 尺寸
+}</li>
+<li>func (bp *BytePool) class(n int) int { return bits.Len(uint(n-1)) } // 向上取 2^k</li>
+<li>func (bp *BytePool) Get(n int) []byte {
+i := bp.class(n)
+if v := bp.pools[i].Get(); v != nil {
+b := v.([]byte)
+return b[:n]
+}
+return make([]byte, 1&laquo;i)[:n]
+}</li>
+<li>func (bp *BytePool) Put(b []byte) {
+i := bp.class(cap(b))
+if i &gt;= len(bp.pools) { return } // 超大直接丢弃
+bp.pools[i].Put(b[:0])
+}</li>
+</ul>
+<p>示例：泛型轻封装（仅限指针/引用类型）</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">Pool</span><span class="p">[</span><span class="nx">T</span><span class="w"> </span><span class="kt">any</span><span class="p">]</span><span class="w"> </span><span class="kd">struct</span><span class="p">{</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="nx">sync</span><span class="p">.</span><span class="nx">Pool</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="o">*</span><span class="nx">Pool</span><span class="p">[</span><span class="nx">T</span><span class="p">])</span><span class="w"> </span><span class="nf">Init</span><span class="p">(</span><span class="nx">newFn</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nx">p</span><span class="p">.</span><span class="nx">p</span><span class="p">.</span><span class="nx">New</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="kt">any</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nf">newFn</span><span class="p">()</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="o">*</span><span class="nx">Pool</span><span class="p">[</span><span class="nx">T</span><span class="p">])</span><span class="w"> </span><span class="nf">Get</span><span class="p">()</span><span class="w"> </span><span class="nx">T</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="nx">v</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">p</span><span class="p">.</span><span class="nf">Get</span><span class="p">();</span><span class="w"> </span><span class="nx">v</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">v</span><span class="p">.(</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="kd">var</span><span class="w"> </span><span class="nx">zero</span><span class="w"> </span><span class="nx">T</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">p</span><span class="p">.</span><span class="nx">New</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">p</span><span class="p">.</span><span class="nf">New</span><span class="p">().(</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="nx">zero</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="o">*</span><span class="nx">Pool</span><span class="p">[</span><span class="nx">T</span><span class="p">])</span><span class="w"> </span><span class="nf">Put</span><span class="p">(</span><span class="nx">v</span><span class="w"> </span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">p</span><span class="p">.</span><span class="nf">Put</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span><span class="w"> </span><span class="p">}</span></span></span></code></pre></div></div>
+
+<h4 class="relative group">排雷
+    <div id="排雷" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%8e%92%e9%9b%b7" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>资源语义错误：不要用 Pool 复用需要显式释放的外部资源（文件句柄、连接）；GC 可随时丢弃，泄漏或失效。</li>
+<li>跨 goroutine 可见性：不要假设 Put 的初始化对下一次 Get 有强可见性；务必在 Get 后重置/初始化。</li>
+<li>过度池化小对象：Go 分配器对小对象极快；Pool 带来类型装箱、pin/unpin 与 GC victim 扫描成本，收益未必正。以基准测试为准。</li>
+<li>值类型装箱：将小值（非指针）放入 any 会触发装箱分配，得不偿失；仅池化指针/切片/映射/大型结构指针。</li>
+<li>逃逸与内存占用：错误的封装方式可能迫使对象更早逃逸到堆；务必基准与 -gcflags=-m 分析。</li>
+<li>超大对象回收不及时：若长时间无 GC，超大对象会滞留池中；Put 前加容量阈值丢弃。</li>
+<li>Finalizer 干扰：带 finalizer 的对象入池可能延迟回收或引入额外成本；避免。</li>
+<li>数据竞争：Put 后继续使用或多处重复 Put 都是不安全的典型错误；race 检测未必总能捕捉。</li>
+</ul>
+
+<h4 class="relative group">权衡点
+    <div id="权衡点" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%9d%83%e8%a1%a1%e7%82%b9" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>吞吐 vs 内存峰值：保留更多对象可降低分配开销，但放大 victim 扫描与堆峰值；通过容量裁剪与 GCPercent 调整。</li>
+<li>延迟 vs 公平：跨 P 偷取提升命中率但引入原子竞争；GOMAXPROCS 增大时收益与抖动需实测。</li>
+<li>Pool vs 自建对象缓存：若需要容量上限、TTL、精确淘汰或度量，应使用专用缓存（LRU/ARC）或 slab/arena（实验）而非 sync.Pool。</li>
+</ul>
+
+<h4 class="relative group">版本要点（Go 1.13+ 至 1.22）
+    <div id="版本要点go-113-至-122" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%89%88%e6%9c%ac%e8%a6%81%e7%82%b9go-113-%e8%87%b3-122" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>每 P poolDequeue + victim 机制稳定；local noscan + GC 周期切换策略确定对象“最多存活一轮”。</li>
+<li>API 未引入泛型类型参数；需要类型安全可自行包装。</li>
+<li>调度与偷取/原子实现有细节优化，但语义不变。</li>
+</ul>
+
+<h3 class="relative group">Sync.WaitGroup
+    <div id="syncwaitgroup" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#syncwaitgroup" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+
+<h4 class="relative group">语义与使用边界
+    <div id="语义与使用边界" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e8%af%ad%e4%b9%89%e4%b8%8e%e4%bd%bf%e7%94%a8%e8%be%b9%e7%95%8c" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>用途：等待一组并发执行的任务完成。Add(delta)累加任务数；Done()等价于Add(-1)；Wait()阻塞直到计数归零。</li>
+<li>约束：
+<ul>
+<li>Add 与 Wait 不可并发交错使用（即在可能已经调用 Wait 的窗口内再调用 Add）。违反将触发 panic: &ldquo;sync: WaitGroup misuse: Add called concurrently with Wait&rdquo;.</li>
+<li>计数不可为负，负数会 panic。</li>
+<li>值不可在使用后拷贝（存在 noCopy 标记；go vet 可检测）。拷贝后多处对同一底层状态的并发操作将引入数据竞争与未定义行为。</li>
+<li>Zero-value 可直接用；WaitGroup 可复用，但需确保前一轮 Wait 已返回且后续的 Add 在下一轮 Wait 开始前完成。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">内部实现细节（Go 1.21+）
+    <div id="内部实现细节go-121" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%86%85%e9%83%a8%e5%ae%9e%e7%8e%b0%e7%bb%86%e8%8a%82go-121" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>WaitGroup 内部状态由三个 32-bit 字段组成：
+<ul>
+<li>counter：当前剩余任务数（Add/Done 更新）。</li>
+<li>waiters：当前正在等待的 goroutine 数（Wait 增加，计数归零时一次性唤醒）。</li>
+<li>sema：用于阻塞/唤醒的信号量（runtime_Semacquire/runtime_Semrelease）。</li>
+</ul>
+</li>
+<li>原子性：
+<ul>
+<li>Add/Done 使用原子加法更新 counter。</li>
+<li>Wait 原子地增加 waiters，然后检查 counter；若为 0，直接返回；否则通过 sema 阻塞。</li>
+<li>当 Done 使 counter 归零，代码计算 waiters 并调用 runtime_SemreleaseN(sema, waiters) 一次性唤醒全部 Wait 的 goroutine。</li>
+</ul>
+</li>
+<li>对齐与平台兼容：
+<ul>
+<li>结构体包含双份状态布局以适配不同平台的对齐要求（确保原子操作安全）。对调用者透明。</li>
+</ul>
+</li>
+<li>误用检测：
+<ul>
+<li>如果 Wait 已有 waiters&gt;0 的同时发生 Add&gt;0，属于并发误用，触发 panic。</li>
+<li>计数 &lt; 0 触发 panic。</li>
+</ul>
+</li>
+<li>内存模型：
+<ul>
+<li>对 Wait 的唤醒建立 happens-before：每个 goroutine 在调用 Done 之前的写入，对 Wait 返回的 goroutine可见。因为释放信号量的原子操作与阻塞/唤醒的语义建立了同步边界。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">与 GMP 调度的交互
+    <div id="与-gmp-调度的交互" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e4%b8%8e-gmp-%e8%b0%83%e5%ba%a6%e7%9a%84%e4%ba%a4%e4%ba%92" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>Wait 阻塞通过 runtime.Semacquire 实现，goroutine 转入等待队列，P 可调度其他 G，避免主动自旋。</li>
+<li>Done 触发计数归零时调用 SemreleaseN，runtime 将等待队列中的 G 标记为可运行并入队，尽快被调度。</li>
+<li>避免在热点路径频繁调用 Wait/Done 造成过多的调度切换；对高 QPS/短生命周期任务倾向用批量 Add/Done 或合并信号减少 semaphore 往返。</li>
+</ul>
+
+<h4 class="relative group">正确用法模式
+    <div id="正确用法模式" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%ad%a3%e7%a1%ae%e7%94%a8%e6%b3%95%e6%a8%a1%e5%bc%8f" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>典型并发 fan-out/fan-in：
+<ul>
+<li>主 goroutine：确定任务数 N，先 Add(N)，再启动 N 个 goroutine；每个 goroutine 最终 Done()。</li>
+<li>主 goroutine：Wait() 直到全部完成。</li>
+</ul>
+</li>
+<li>与 Context 协同：
+<ul>
+<li>WaitGroup 仅提供“完成等待”，不提供取消。若需超时/取消，使用 context 控制 goroutine 的退出，再 Done()。</li>
+</ul>
+</li>
+<li>Go 1.22+ 循环变量作用域修订：
+<ul>
+<li>for-range 中启动 goroutine 时，循环变量按迭代隔离，减少闭包捕获错误。但仍需关注对引用类型或外部变量的共享写入，确保每个 goroutine 的输入不可变或有明确同步。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">雷点排查
+    <div id="雷点排查" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e9%9b%b7%e7%82%b9%e6%8e%92%e6%9f%a5" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>并发误用：
+<ul>
+<li>在 Wait 可能已经执行后再 Add（常见于任务数不确定的动态场景）。处理策略：在派发前计算好任务数；或以 channel 驱动并在关闭通道后再 Wait。</li>
+</ul>
+</li>
+<li>Done 遗漏：
+<ul>
+<li>漏调用 Done 导致 Wait 永久阻塞。优先在 goroutine 头部 defer wg.Done()，仅在必须条件失败且 goroutine不应计入时，才在启动前避免 Add。</li>
+</ul>
+</li>
+<li>负计数：
+<ul>
+<li>多次 Done 或错误的 delta 导致负数，触发 panic。避免将 Done 放入可能被多次执行的 defer 链中。</li>
+</ul>
+</li>
+<li>复用时机：
+<ul>
+<li>Wait 返回后立即复用可行，但任何在上一轮 Wait 未完成前对下一轮的 Add 都是未定义的竞态。分轮的边界明确：Wait 返回后才开始下一轮 Add。</li>
+</ul>
+</li>
+<li>拷贝：
+<ul>
+<li>将 WaitGroup 当作参数按值传递导致拷贝，后续对副本操作与原始值不一致，引发数据竞争。只以指针传递。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">性能与权衡
+    <div id="性能与权衡" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%80%a7%e8%83%bd%e4%b8%8e%e6%9d%83%e8%a1%a1" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>原子操作与信号量唤醒开销：
+<ul>
+<li>Add/Done 为原子加法，Wait 为阻塞/唤醒；在大量微任务场景下，信号量开销与调度抖动显著。考虑批处理或 worker 池降低 goroutine 数。</li>
+</ul>
+</li>
+<li>锁竞争 vs 并发粒度：
+<ul>
+<li>WaitGroup 本身无显式互斥锁，但 semaphore 唤醒存在全局队列竞争。高并发下对 Wait 的集中唤醒会形成突发调度风暴（thundering herd）。</li>
+</ul>
+</li>
+<li>可重入性与层级化：
+<ul>
+<li>在深层调用栈中嵌套使用多个 WaitGroup 增加调度复杂性。替代策略：单层 WaitGroup + channel 聚合结果，或任务队列化。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">与其他原语的对比
+    <div id="与其他原语的对比" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e4%b8%8e%e5%85%b6%e4%bb%96%e5%8e%9f%e8%af%ad%e7%9a%84%e5%af%b9%e6%af%94" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>channel close + range：
+<ul>
+<li>适合“生产-消费”直到数据耗尽的场景；隐式建立结束信号，无需计数，但不适合已知固定任务数的无共享队列场景。</li>
+</ul>
+</li>
+<li>sync.Cond：
+<ul>
+<li>状态等待/条件通知；复杂性更高，适合自定义条件非简单计数的场景。</li>
+</ul>
+</li>
+<li>atomic 计数 + 自旋：
+<ul>
+<li>避免阻塞但浪费 CPU；仅限极短等待且对延迟敏感的场景，通常不推荐。</li>
+</ul>
+</li>
+<li>WaitGroup：
+<ul>
+<li>固定计数、一次性完成等待的最简抽象；不解决取消与错误聚合。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">最小可靠代码片段
+    <div id="最小可靠代码片段" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%9c%80%e5%b0%8f%e5%8f%af%e9%9d%a0%e4%bb%a3%e7%a0%81%e7%89%87%e6%ae%b5" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>fan-out/fan-in：
+<ul>
+<li>先 Add，再启动；goroutine defer Done；最后 Wait。</li>
+</ul>
+</li>
+<li>与 context：
+<ul>
+<li>goroutine 内 select ctx.Done() 或工作完成后 Done；主流程 Wait + 额外等待 ctx 或定时器以确保退出。</li>
+</ul>
+</li>
+</ul>
+<p>示例：</p>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span><span class="w"> </span><span class="nx">wg</span><span class="w"> </span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">n</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">go</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">task</span><span class="w"> </span><span class="nx">Task</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">defer</span><span class="w"> </span><span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 执行 task</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}(</span><span class="nx">tasks</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span></span></span></code></pre></div></div>
+<ul>
+<li>动态生产消费（避免 Wait 与 Add 并发）：</li>
+</ul>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">jobs</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">chan</span><span class="w"> </span><span class="nx">Job</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">var</span><span class="w"> </span><span class="nx">wg</span><span class="w"> </span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// workers</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">m</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">go</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">defer</span><span class="w"> </span><span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="nx">job</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">jobs</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c1">// 处理 job</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 生产</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nf">produce</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">jobs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nx">j</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nb">close</span><span class="p">(</span><span class="nx">jobs</span><span class="p">)</span><span class="w"> </span><span class="c1">// 关闭后，所有 worker 退出</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span></span></span></code></pre></div></div>
+
+<h4 class="relative group">实战建议
+    <div id="实战建议" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%ae%9e%e6%88%98%e5%bb%ba%e8%ae%ae" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>将 WaitGroup 的生命周期与任务批次绑定；设计清晰的“添加—执行—等待—复用”边界。</li>
+<li>使用 defer wg.Done() 作为强约束；避免在多重返回路径遗漏。</li>
+<li>在高并发服务端，将 WaitGroup 用于批处理或短生命周期汇聚；长生命周期并发更适合使用 channel/worker-pool 管理，避免大规模 goroutine 的唤醒风暴。</li>
+</ul>
+
+<h3 class="relative group">Sync.Map
+    <div id="syncmap" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#syncmap" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+
+<h4 class="relative group">定位与适用场景
+    <div id="定位与适用场景" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%ae%9a%e4%bd%8d%e4%b8%8e%e9%80%82%e7%94%a8%e5%9c%ba%e6%99%af" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>读多写少、键集合基本稳定、存在热点读的场景（例如一次构建后长期读取的缓存、字典、反射元数据缓存）。</li>
+<li>非目标：高写入吞吐、频繁“全量遍历一致性”需求的场景。此时分片map+RWMutex通常更优。</li>
+</ul>
+
+<h4 class="relative group">结构与状态机（核心实现）
+    <div id="结构与状态机核心实现" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%bb%93%e6%9e%84%e4%b8%8e%e7%8a%b6%e6%80%81%e6%9c%ba%e6%a0%b8%e5%bf%83%e5%ae%9e%e7%8e%b0" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>两层结构：
+<ul>
+<li>read: 原子替换的只读快照（readOnly），无锁读。结构：map[any]*entry + amended 标志。</li>
+<li>dirty: 可变写层（map[any]*entry），受全局 mu 保护。</li>
+</ul>
+</li>
+<li>entry（值单元）：
+<ul>
+<li>持有 p unsafe.Pointer，指向 heap 上的 any（接口装箱对象）。</li>
+<li>三态：
+<ul>
+<li>p == nil：已删除（可被“复活”，但需看是否已被expunge）。</li>
+<li>p == expunged（哨兵指针）：已清除且不可直接在 read 中复活，需进入 dirty 再在下一轮提升时回读。</li>
+<li>p 指向有效值：已存活。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>read.amended：
+<ul>
+<li>true 表示 dirty 中存在 read 未包含的新键。驱动 Load 慢路径与后续提升。</li>
+</ul>
+</li>
+<li>misses 计数：
+<ul>
+<li>每次读在 read 未命中且 amended=true 时++。当 misses &gt;= len(dirty) 触发“提升”（promote）：read=dirty 的拷贝，dirty=nil，misses=0。摊销读成本。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">读路径（Load）
+    <div id="读路径load" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e8%af%bb%e8%b7%af%e5%be%84load" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>快路径：从 read.m 取 entry，原子读 entry.p。p 有效即返回；p==nil/expunged 视为未命中。</li>
+<li>慢路径（read 未命中且 amended=true）：加锁在 dirty 查找；misses++，必要时触发提升。</li>
+<li>特征：无锁读命中是纯原子开销。读未命中在高 churn 键空间时会频繁走慢路径并导致提升抖动。</li>
+</ul>
+
+<h4 class="relative group">写路径（Store/LoadOrStore/Swap/Compare*）
+    <div id="写路径storeloadorstoreswapcompare" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%86%99%e8%b7%af%e5%be%84storeloadorstoreswapcompare" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>Store：
+<ul>
+<li>优先尝试 read 快路径：若 key 在 read 且 entry 未 expunged，CAS 替换 entry.p 成功则结束。</li>
+<li>否则加锁：
+<ul>
+<li>若 read 中为 expunged：将其搬运至 dirty（复活路径），再写入。</li>
+<li>若 key 不在 read：确保 dirty 初始化、read.amended=true，写入 dirty。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>LoadOrStore：
+<ul>
+<li>先读 read，失败则加锁在 dirty 再判断；返回已存在或新存值，避免双写。</li>
+</ul>
+</li>
+<li>Swap：
+<ul>
+<li>原子替换值，返回旧值。底层走与 Store 类似但返回旧的 entry 内容。</li>
+</ul>
+</li>
+<li>CompareAndSwap / CompareAndDelete（Go 1.20+）：
+<ul>
+<li>在当前值与给定 old 相等时才写/删。相等性使用 Go 的“==”语义，要求值可比较，否则运行时恐慌。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">删除（Delete/LoadAndDelete）与回收
+    <div id="删除deleteloadanddelete与回收" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%88%a0%e9%99%a4deleteloadanddelete%e4%b8%8e%e5%9b%9e%e6%94%b6" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>Delete：将 entry.p 设为 nil；必要时将状态推进为 expunged 以防 read 复活。实际从 read 的键位移除要等到“提升”重建 read。</li>
+<li>LoadAndDelete：原子读出再删除，减少竞态窗口。</li>
+<li>内存：
+<ul>
+<li>每个值一次额外装箱对象分配（*any），entry 通过 unsafe.Pointer 指向它，便于CAS。</li>
+<li>删除后的键在 read 中的“洞”要等到提升时才被真正清理，存在一定惰性内存占用。</li>
+<li>真正释放依赖 GC，可达关系由 read/dirty 持有决定。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">Range 语义
+    <div id="range-语义" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#range-%e8%af%ad%e4%b9%89" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>非快照、非强一致；遍历期间的并发写入可能被看见或看不见，但每个键最多被回调一次。</li>
+<li>顺序未定义。</li>
+<li>实现细节：
+<ul>
+<li>先遍历 read.m（无锁，逐条判断 entry.load()）。</li>
+<li>若 read.amended 为真，再加锁遍历 dirty 中“read 未包含”的剩余键；调用回调前会暂时释放锁再重入，避免死锁，但增加锁频度。</li>
+</ul>
+</li>
+<li>影响：
+<ul>
+<li>大量键且 amended=true 时，Range 会经历多次加/解锁，回调里再对 Map 操作是允许的，但需承受额外锁开销与非确定性可见性。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">性能特征与权衡
+    <div id="性能特征与权衡" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%80%a7%e8%83%bd%e7%89%b9%e5%be%81%e4%b8%8e%e6%9d%83%e8%a1%a1" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>优点：
+<ul>
+<li>极高读命中吞吐（原子读，无锁）。</li>
+<li>写对读的影响低于全局RWMutex（读不被写阻塞，除非读走慢路径）。</li>
+</ul>
+</li>
+<li>缺点/雷点：
+<ul>
+<li>全局 mu 保护 dirty，写入并发度受限；高写比例下退化。</li>
+<li>键 churn 大时，misses 频繁触发提升（O(len(dirty)) 重建），引入尾延迟尖刺。</li>
+<li>每个元素一个额外装箱对象（*any），比 map+RWMutex 多一跳间接与一次分配。</li>
+<li>CompareAndSwap/CompareAndDelete 要求值可比较，错误类型会 panic。</li>
+<li>键必须可比较（底层 map[any]），存入不可比较键会 panic。</li>
+<li>无法预分配容量；大规模预热只能通过批量 Store。</li>
+<li>无 Len，统计需 Range，且开销与一致性都不适合作为实时指标。</li>
+</ul>
+</li>
+<li>经验规则：
+<ul>
+<li>读:写 &gt;= 80:20，多热点重复读，键集合稳定 → sync.Map 占优。</li>
+<li>高频插入/删除、键集合剧烈波动 → 分片 map + RWMutex 更好。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">与 map+RWMutex 对比
+    <div id="与-maprwmutex-对比" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e4%b8%8e-maprwmutex-%e5%af%b9%e6%af%94" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>sync.Map：读命中无锁、写串行在全局 mu、删除惰性清理；遍历非常态成本高于普通 map。</li>
+<li>map+RWMutex：读需R锁、写需W锁。高写时更可控（可分片）。内存更紧凑、无装箱额外分配。</li>
+<li>典型优化：分片数 64~256，按哈希落 shard，读R锁、写W锁，减少锁竞争与提升尖刺。</li>
+</ul>
+
+<h4 class="relative group">Go 版本要点（截至 Go 1.22+）
+    <div id="go-版本要点截至-go-122" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#go-%e7%89%88%e6%9c%ac%e8%a6%81%e7%82%b9%e6%88%aa%e8%87%b3-go-122" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>初始方法：Load/Store/Delete/LoadOrStore/LoadAndDelete/Range。</li>
+<li>新增（Go 1.20+ 已稳定在主流版本）：Swap、CompareAndSwap、CompareAndDelete。</li>
+<li>循环变量作用域变更（1.22）不影响 sync.Map 内部，但影响用户 Range 回调闭包捕获行为（避免旧式 for-range 捕获陷阱）。</li>
+</ul>
+
+<h4 class="relative group">典型模式与实现细节提示
+    <div id="典型模式与实现细节提示" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%85%b8%e5%9e%8b%e6%a8%a1%e5%bc%8f%e4%b8%8e%e5%ae%9e%e7%8e%b0%e7%bb%86%e8%8a%82%e6%8f%90%e7%a4%ba" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>惰性构建（避免惊群）：
+<ul>
+<li>直接用 LoadOrStore 会导致并发计算重复，只有一个结果入表。计算昂贵时应配合 singleflight 合并。</li>
+</ul>
+</li>
+<li>避免大值装箱复制：
+<ul>
+<li>存指针或不可变小值。大切片/结构请存 *T，减少接口装箱拷贝与CAS路径开销。</li>
+</ul>
+</li>
+<li>控制键 churn：
+<ul>
+<li>周期性热点键适合；若需 TTL/逐出策略，使用专门缓存库（如分片+时轮/heap）而非 sync.Map。</li>
+</ul>
+</li>
+<li>在 Range 回调内修改同一 Map：
+<ul>
+<li>可行但有锁往返。回调应短小，避免在锁持有期内做阻塞操作（尽管调用前会解锁，仍有频繁加锁成本）。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">代码片段
+    <div id="代码片段" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e4%bb%a3%e7%a0%81%e7%89%87%e6%ae%b5" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+
+<h5 class="relative group">分片 map（高写比例替代方案，泛型）
+    <div id="分片-map高写比例替代方案泛型" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%88%86%e7%89%87-map%e9%ab%98%e5%86%99%e6%af%94%e4%be%8b%e6%9b%bf%e4%bb%a3%e6%96%b9%e6%a1%88%e6%b3%9b%e5%9e%8b" aria-label="Anchor">#</a>
+    </span>
+    
+</h5>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">ShardedMap</span><span class="p">[</span><span class="nx">K</span><span class="w"> </span><span class="nx">comparable</span><span class="p">,</span><span class="w"> </span><span class="nx">V</span><span class="w"> </span><span class="kt">any</span><span class="p">]</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">shards</span><span class="w"> </span><span class="p">[]</span><span class="kd">struct</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">mu</span><span class="w"> </span><span class="nx">sync</span><span class="p">.</span><span class="nx">RWMutex</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">m</span><span class="w">  </span><span class="kd">map</span><span class="p">[</span><span class="nx">K</span><span class="p">]</span><span class="nx">V</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nx">NewShardedMap</span><span class="p">[</span><span class="nx">K</span><span class="w"> </span><span class="nx">comparable</span><span class="p">,</span><span class="w"> </span><span class="nx">V</span><span class="w"> </span><span class="kt">any</span><span class="p">](</span><span class="nx">n</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="nx">ShardedMap</span><span class="p">[</span><span class="nx">K</span><span class="p">,</span><span class="nx">V</span><span class="p">]</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">ShardedMap</span><span class="p">[</span><span class="nx">K</span><span class="p">,</span><span class="nx">V</span><span class="p">]{</span><span class="nx">shards</span><span class="p">:</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kd">struct</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">mu</span><span class="w"> </span><span class="nx">sync</span><span class="p">.</span><span class="nx">RWMutex</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">m</span><span class="w">  </span><span class="kd">map</span><span class="p">[</span><span class="nx">K</span><span class="p">]</span><span class="nx">V</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">},</span><span class="w"> </span><span class="nx">n</span><span class="p">)}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">shards</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">s</span><span class="p">.</span><span class="nx">shards</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">m</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="nx">K</span><span class="p">]</span><span class="nx">V</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">*</span><span class="nx">ShardedMap</span><span class="p">[</span><span class="nx">K</span><span class="p">,</span><span class="nx">V</span><span class="p">])</span><span class="w"> </span><span class="nf">hash</span><span class="p">(</span><span class="nx">k</span><span class="w"> </span><span class="nx">K</span><span class="p">)</span><span class="w"> </span><span class="kt">uint64</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c1">// 依据需求实现：如使用 xxhash/64 或 go1.21+ maps.Hash（实验性不可用）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nb">uint64</span><span class="p">(</span><span class="nf">fnv32</span><span class="p">(</span><span class="nx">k</span><span class="p">))</span><span class="w"> </span><span class="c1">// 占位；生产使用更好的哈希</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">*</span><span class="nx">ShardedMap</span><span class="p">[</span><span class="nx">K</span><span class="p">,</span><span class="nx">V</span><span class="p">])</span><span class="w"> </span><span class="nf">shard</span><span class="p">(</span><span class="nx">k</span><span class="w"> </span><span class="nx">K</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="kd">struct</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">mu</span><span class="w"> </span><span class="nx">sync</span><span class="p">.</span><span class="nx">RWMutex</span><span class="p">;</span><span class="w"> </span><span class="nx">m</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="nx">K</span><span class="p">]</span><span class="nx">V</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">s</span><span class="p">.</span><span class="nx">shards</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nf">hash</span><span class="p">(</span><span class="nx">k</span><span class="p">))</span><span class="o">%</span><span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">shards</span><span class="p">)]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">*</span><span class="nx">ShardedMap</span><span class="p">[</span><span class="nx">K</span><span class="p">,</span><span class="nx">V</span><span class="p">])</span><span class="w"> </span><span class="nf">Load</span><span class="p">(</span><span class="nx">k</span><span class="w"> </span><span class="nx">K</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">V</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">sh</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nf">shard</span><span class="p">(</span><span class="nx">k</span><span class="p">);</span><span class="w"> </span><span class="nx">sh</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">RLock</span><span class="p">();</span><span class="w"> </span><span class="k">defer</span><span class="w"> </span><span class="nx">sh</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">RUnlock</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">v</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sh</span><span class="p">.</span><span class="nx">m</span><span class="p">[</span><span class="nx">k</span><span class="p">];</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">v</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">*</span><span class="nx">ShardedMap</span><span class="p">[</span><span class="nx">K</span><span class="p">,</span><span class="nx">V</span><span class="p">])</span><span class="w"> </span><span class="nf">Store</span><span class="p">(</span><span class="nx">k</span><span class="w"> </span><span class="nx">K</span><span class="p">,</span><span class="w"> </span><span class="nx">v</span><span class="w"> </span><span class="nx">V</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">sh</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nf">shard</span><span class="p">(</span><span class="nx">k</span><span class="p">);</span><span class="w"> </span><span class="nx">sh</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">();</span><span class="w"> </span><span class="nx">sh</span><span class="p">.</span><span class="nx">m</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">v</span><span class="p">;</span><span class="w"> </span><span class="nx">sh</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">*</span><span class="nx">ShardedMap</span><span class="p">[</span><span class="nx">K</span><span class="p">,</span><span class="nx">V</span><span class="p">])</span><span class="w"> </span><span class="nf">LoadOrStore</span><span class="p">(</span><span class="nx">k</span><span class="w"> </span><span class="nx">K</span><span class="p">,</span><span class="w"> </span><span class="nx">v</span><span class="w"> </span><span class="nx">V</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">V</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">sh</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nf">shard</span><span class="p">(</span><span class="nx">k</span><span class="p">);</span><span class="w"> </span><span class="nx">sh</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">();</span><span class="w"> </span><span class="k">defer</span><span class="w"> </span><span class="nx">sh</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="nx">old</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sh</span><span class="p">.</span><span class="nx">m</span><span class="p">[</span><span class="nx">k</span><span class="p">];</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">old</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">sh</span><span class="p">.</span><span class="nx">m</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">v</span><span class="p">;</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">v</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+
+<h5 class="relative group">sync.Map 泛型轻量包装（仅消除调用端类型断言）
+    <div id="syncmap-泛型轻量包装仅消除调用端类型断言" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#syncmap-%e6%b3%9b%e5%9e%8b%e8%bd%bb%e9%87%8f%e5%8c%85%e8%a3%85%e4%bb%85%e6%b6%88%e9%99%a4%e8%b0%83%e7%94%a8%e7%ab%af%e7%b1%bb%e5%9e%8b%e6%96%ad%e8%a8%80" aria-label="Anchor">#</a>
+    </span>
+    
+</h5>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">MapOf</span><span class="p">[</span><span class="nx">K</span><span class="w"> </span><span class="nx">comparable</span><span class="p">,</span><span class="w"> </span><span class="nx">V</span><span class="w"> </span><span class="kt">any</span><span class="p">]</span><span class="w"> </span><span class="kd">struct</span><span class="p">{</span><span class="w"> </span><span class="nx">m</span><span class="w"> </span><span class="nx">sync</span><span class="p">.</span><span class="nx">Map</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">m</span><span class="w"> </span><span class="o">*</span><span class="nx">MapOf</span><span class="p">[</span><span class="nx">K</span><span class="p">,</span><span class="nx">V</span><span class="p">])</span><span class="w"> </span><span class="nf">Load</span><span class="p">(</span><span class="nx">k</span><span class="w"> </span><span class="nx">K</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">V</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="nx">v</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">m</span><span class="p">.</span><span class="nx">m</span><span class="p">.</span><span class="nf">Load</span><span class="p">(</span><span class="nx">k</span><span class="p">);</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">v</span><span class="p">.(</span><span class="nx">V</span><span class="p">),</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">zero</span><span class="w"> </span><span class="nx">V</span><span class="p">;</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">zero</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">m</span><span class="w"> </span><span class="o">*</span><span class="nx">MapOf</span><span class="p">[</span><span class="nx">K</span><span class="p">,</span><span class="nx">V</span><span class="p">])</span><span class="w"> </span><span class="nf">Store</span><span class="p">(</span><span class="nx">k</span><span class="w"> </span><span class="nx">K</span><span class="p">,</span><span class="w"> </span><span class="nx">v</span><span class="w"> </span><span class="nx">V</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">m</span><span class="p">.</span><span class="nx">m</span><span class="p">.</span><span class="nf">Store</span><span class="p">(</span><span class="nx">k</span><span class="p">,</span><span class="w"> </span><span class="nx">v</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">m</span><span class="w"> </span><span class="o">*</span><span class="nx">MapOf</span><span class="p">[</span><span class="nx">K</span><span class="p">,</span><span class="nx">V</span><span class="p">])</span><span class="w"> </span><span class="nf">LoadOrStore</span><span class="p">(</span><span class="nx">k</span><span class="w"> </span><span class="nx">K</span><span class="p">,</span><span class="w"> </span><span class="nx">v</span><span class="w"> </span><span class="nx">V</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">V</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">vv</span><span class="p">,</span><span class="w"> </span><span class="nx">loaded</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">m</span><span class="p">.</span><span class="nx">m</span><span class="p">.</span><span class="nf">LoadOrStore</span><span class="p">(</span><span class="nx">k</span><span class="p">,</span><span class="w"> </span><span class="nx">v</span><span class="p">);</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">vv</span><span class="p">.(</span><span class="nx">V</span><span class="p">),</span><span class="w"> </span><span class="nx">loaded</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">m</span><span class="w"> </span><span class="o">*</span><span class="nx">MapOf</span><span class="p">[</span><span class="nx">K</span><span class="p">,</span><span class="nx">V</span><span class="p">])</span><span class="w"> </span><span class="nf">Delete</span><span class="p">(</span><span class="nx">k</span><span class="w"> </span><span class="nx">K</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">m</span><span class="p">.</span><span class="nx">m</span><span class="p">.</span><span class="nf">Delete</span><span class="p">(</span><span class="nx">k</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">m</span><span class="w"> </span><span class="o">*</span><span class="nx">MapOf</span><span class="p">[</span><span class="nx">K</span><span class="p">,</span><span class="nx">V</span><span class="p">])</span><span class="w"> </span><span class="nf">Range</span><span class="p">(</span><span class="nx">f</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">K</span><span class="p">,</span><span class="w"> </span><span class="nx">V</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">m</span><span class="p">.</span><span class="nx">m</span><span class="p">.</span><span class="nf">Range</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">k</span><span class="p">,</span><span class="w"> </span><span class="nx">v</span><span class="w"> </span><span class="kt">any</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="nx">k</span><span class="p">.(</span><span class="nx">K</span><span class="p">),</span><span class="w"> </span><span class="nx">v</span><span class="p">.(</span><span class="nx">V</span><span class="p">))</span><span class="w"> </span><span class="p">})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+
+<h5 class="relative group">计算合并（避免 LoadOrStore 惊群）
+    <div id="计算合并避免-loadorstore-惊群" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e8%ae%a1%e7%ae%97%e5%90%88%e5%b9%b6%e9%81%bf%e5%85%8d-loadorstore-%e6%83%8a%e7%be%a4" aria-label="Anchor">#</a>
+    </span>
+    
+</h5>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">ComputeMap</span><span class="p">[</span><span class="nx">K</span><span class="w"> </span><span class="nx">comparable</span><span class="p">,</span><span class="w"> </span><span class="nx">V</span><span class="w"> </span><span class="kt">any</span><span class="p">]</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">m</span><span class="w"> </span><span class="nx">MapOf</span><span class="p">[</span><span class="nx">K</span><span class="p">,</span><span class="w"> </span><span class="nx">V</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">gf</span><span class="w"> </span><span class="nx">singleflight</span><span class="p">.</span><span class="nx">Group</span><span class="w"> </span><span class="c1">// golang.org/x/sync/singleflight</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">cm</span><span class="w"> </span><span class="o">*</span><span class="nx">ComputeMap</span><span class="p">[</span><span class="nx">K</span><span class="p">,</span><span class="nx">V</span><span class="p">])</span><span class="w"> </span><span class="nf">LoadOrCompute</span><span class="p">(</span><span class="nx">key</span><span class="w"> </span><span class="nx">K</span><span class="p">,</span><span class="w"> </span><span class="nx">fn</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="nx">V</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">))</span><span class="w"> </span><span class="p">(</span><span class="nx">V</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="nx">v</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">cm</span><span class="p">.</span><span class="nx">m</span><span class="p">.</span><span class="nf">Load</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">v</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">cm</span><span class="p">.</span><span class="nx">gf</span><span class="p">.</span><span class="nf">Do</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%#v&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">key</span><span class="p">),</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="kt">any</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">v</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">cm</span><span class="p">.</span><span class="nx">m</span><span class="p">.</span><span class="nf">Load</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">v</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="c1">// 双检</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">val</span><span class="p">,</span><span class="w"> </span><span class="nx">e</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">fn</span><span class="p">();</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nx">e</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="nx">e</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">cm</span><span class="p">.</span><span class="nx">m</span><span class="p">.</span><span class="nf">Store</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">val</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">val</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nx">zero</span><span class="w"> </span><span class="nx">V</span><span class="p">;</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">zero</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">x</span><span class="p">.(</span><span class="nx">V</span><span class="p">),</span><span class="w"> </span><span class="kc">nil</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>注意：singleflight 的 key 为字符串，复杂键需提供稳定无冲突的序列化；或自行实现 K 作为 key 的泛型 singleflight。</p>
+
+<h4 class="relative group">排雷清单
+    <div id="排雷清单" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%8e%92%e9%9b%b7%e6%b8%85%e5%8d%95" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>键/Compare* 值必须可比较，错误类型导致运行时恐慌。</li>
+<li>计算昂贵+LoadOrStore 直接并发调用会“重复计算”，用 singleflight 合并。</li>
+<li>高频删除/插入导致频繁“提升”，出现尾延迟尖刺与额外 CPU。</li>
+<li>Range 回调重操作与阻塞会放大锁往返成本；回调应短小，业务逻辑外移。</li>
+<li>大值直存导致装箱与原子路径额外拷贝，尽量存指针或不可变小值。</li>
+<li>需要严格一致性遍历或精确长度统计时不要使用 sync.Map。</li>
+</ul>
+
+          
+          
+          
+        </div>
+        
+          
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+    
+    
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+      
+      
+        
+        
+        
+      
+      <img
+        class="!mt-0 !mb-0 h-24 w-24 rounded-full me-4"
+        width="96"
+        height="96"
+        alt="yuliu"
+        src="/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-04-10_191453_343_hu_f1362339ce55e65e.jpg"
+        data-zoom-src="/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-04-10_191453_343_hu_86f827f1f71ecf20.jpg">
+    
+  
+  <div class="place-self-center">
+    
+      <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+        Author
+      </div>
+      <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+        yuliu
+      </div>
+    
+    
+      <div class="text-sm text-neutral-700 dark:text-neutral-400">人生海海</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500 space-x-2">
+    
+      
+        
+        <a
+          class="email-link hover:text-primary-700 dark:hover:text-primary-400"
+          href="#"
+          
+            data-email="eXVsaXU2NjY2NjZAb3V0bG9vay5jb20="
+          
+          target="_blank"
+          aria-label="Email"
+          title="Email"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+</span></span></a
+        >
+      
+    
+      
+        
+        <a
+          class=" hover:text-primary-700 dark:hover:text-primary-400"
+          href="yuliusw.github.io"
+          
+          target="_blank"
+          aria-label="Github"
+          title="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span></span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+  
+
+  
+
+  
+    <div class="mb-10"></div>
+  
+
+        
+        
+
+        
+
+        
+
+      </div>
+    </section>
+
+    
+    <footer class="pt-8 max-w-prose print:hidden">
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
+      <div class="flex justify-between pt-3">
+        <span class="flex flex-col">
+          
+            <a
+              class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B02-channel/">
+              <span class="leading-6">
+                <span class="inline-block rtl:rotate-180">&larr;</span>&ensp;并发编程02 Channel
+              </span>
+            </a>
+            
+              <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2026-05-26T18:36:39&#43;08:00">26 May 2026</time>
+              </span>
+            
+          
+        </span>
+        <span class="flex flex-col items-end">
+          
+            <a
+              class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/golang/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B04-context/">
+              <span class="leading-6">
+                并发编程04 Context&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
+              </span>
+            </a>
+            
+              <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2026-05-26T18:54:56&#43;08:00">26 May 2026</time>
+              </span>
+            
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        
+
+
+  
+
+
+
+
+
+
+<div
+  id="scroll-to-top"
+  class="fixed bottom-6 end-6 z-50 transform translate-y-4 opacity-0 duration-200">
+  <a
+    href="#the-top"
+    class="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top"
+    title="Scroll to top">
+    &uarr;
+  </a>
+</div>
+
+      </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+      
+      
+        
+      
+      
+      
+      
+      <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400 overflow-x-auto py-2">
+        <ul class="flex list-none flex-row">
+          
+            <li class=" flex mb-1 text-end sm:mb-0 sm:me-7 sm:last:me-0 me-4">
+              <a
+                class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center"
+                href=""
+                title="">
+                
+                
+              </a>
+            </li>
+          
+        </ul>
+      </nav>
+    
+  
+  <div class="flex items-center justify-between">
+    
+    
+      <p class="text-sm text-neutral-500 dark:text-neutral-400">
+          &copy;
+          2026
+          yuliu
+      </p>
+    
+
+    
+    
+      <p class="text-xs text-neutral-500 dark:text-neutral-400">
+        
+        
+        Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+          href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+          href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+      </p>
+    
+  </div>
+  
+    <script>
+      mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+        margin: 24,
+        background: "rgba(0,0,0,0.5)",
+        scrollOffset: 0,
+      });
+    </script>
+  
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh] z-500"
+  data-url="https://example.org/">
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800">
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0">
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+  
+</html>
