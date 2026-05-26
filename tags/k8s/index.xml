@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>K8s on yuliu&#39;s blog</title>
+    <link>http://localhost:1313/tags/k8s/</link>
+    <description>Recent content in K8s on yuliu&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© 2026 </copyright>
+    <lastBuildDate>Thu, 23 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>k8s-with-KVM-1</title>
+      <link>http://localhost:1313/%E8%BF%90%E7%BB%B4/k8s-with-kvm-1/</link>
+      <pubDate>Thu, 23 Apr 2026 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/%E8%BF%90%E7%BB%B4/k8s-with-kvm-1/</guid>
+      <description></description>
+      
+    </item>
+    
+  </channel>
+</rss>
