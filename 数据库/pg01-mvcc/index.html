@@ -1,0 +1,1897 @@
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="dark"
+  data-auto-appearance="false"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+  
+    <meta http-equiv="content-language" content="en">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color">
+
+  
+  
+    <title>PG01 MVCC、隔离级别 &middot; yuliu&#39;s blog</title>
+    <meta name="title" content="PG01 MVCC、隔离级别 &middot; yuliu&#39;s blog">
+  
+
+  
+  
+  
+  
+  
+    
+  
+    
+  
+    
+  
+  
+  
+  
+  
+  <link rel="canonical" href="http://localhost:1313/%E6%95%B0%E6%8D%AE%E5%BA%93/pg01-mvcc/">
+  
+  
+
+  
+  
+    <meta name="author" content="yuliu">
+  
+  
+    
+      
+        
+          <link href="yuliu666666@outlook.com" rel="me">
+        
+      
+    
+      
+        
+          <link href="yuliusw.github.io" rel="me">
+        
+      
+    
+  
+
+  
+  <meta property="og:url" content="http://localhost:1313/%E6%95%B0%E6%8D%AE%E5%BA%93/pg01-mvcc/">
+  <meta property="og:site_name" content="yuliu&#39;s blog">
+  <meta property="og:title" content="PG01 MVCC、隔离级别">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="数据库">
+    <meta property="article:published_time" content="2026-05-28T14:36:12+08:00">
+    <meta property="article:modified_time" content="2026-05-28T14:36:12+08:00">
+    <meta property="og:image" content="http://localhost:1313/%E6%95%B0%E6%8D%AE%E5%BA%93/pg01-mvcc/featured.jpg">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/%E6%95%B0%E6%8D%AE%E5%BA%93/pg01-mvcc/featured.jpg">
+  <meta name="twitter:title" content="PG01 MVCC、隔离级别">
+
+  
+  
+  
+  
+    
+      
+    
+  
+    
+  
+    
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.f0d1cb007b64144f564a99767f809eee7e4e190c90f5b910323d49469c86835a955db5d06899102761a81b8268c8a3821d89b989255023e5668b0c9ebb02a23e.css"
+    integrity="sha512-8NHLAHtkFE9WSpl2f4Ce7n5OGQyQ9bkQMj1JRpyGg1qVXbXQaJkQJ2GoG4JoyKOCHYm5iSVQI&#43;VmiwyeuwKiPg==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.6f41174b3a05b680820fe08cadbfa5fb7a7ca347b76a0955cdc68b9d8aca1ce24f0547e138cea33bcc7904d551a90afcb1cc7f2d9fe8557075d501419046c08c.js"
+    integrity="sha512-b0EXSzoFtoCCD&#43;CMrb&#43;l&#43;3p8o0e3aglVzcaLnYrKHOJPBUfhOM6jO8x5BNVRqQr8scx/LZ/oVXB11QFBkEbAjA=="></script>
+  
+  
+    
+    <script src="/js/a11y.min.7eeed9f7a6fe7c8aa3b999966484369eb1b5380455116fc15c2b407140f3c2e3b174fc00201797dba34e4d4013213736ae375c9bcf2d7ad1fadb224355d8d54d.js" integrity="sha512-fu7Z96b&#43;fIqjuZmWZIQ2nrG1OARVEW/BXCtAcUDzwuOxdPwAIBeX26NOTUATITc2rjdcm88tetH62yJDVdjVTQ=="></script>
+  
+  
+  
+  
+    
+    <script
+      type="text/javascript"
+      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
+      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
+  
+  
+    
+    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
+  
+
+  
+  
+  
+    
+  
+  
+    
+    
+    
+  
+  
+    
+  
+  
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.8f75559c3b0987cc436337d462a0b075ebdd214d92a8eac880da424282daeece8759e586481872b873dc2eaa92c6a66f083e3be96ab847d926aea25777dfb292.js"
+      integrity="sha512-j3VVnDsJh8xDYzfUYqCwdevdIU2SqOrIgNpCQoLa7s6HWeWGSBhyuHPcLqqSxqZvCD476Wq4R9kmrqJXd9&#43;ykg=="
+      data-copy="Copy"
+      data-copied="Copied"></script>
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posgres",
+    "name": "PG01 MVCC、隔离级别",
+    "headline": "PG01 MVCC、隔离级别",
+    
+    "inLanguage": "en",
+    "url" : "http://localhost:1313/%E6%95%B0%E6%8D%AE%E5%BA%93/pg01-mvcc/",
+    "author" : {
+      "@type": "Person",
+      "name": "yuliu"
+    },
+    "copyrightYear": "2026",
+    "dateCreated": "2026-05-28T14:36:12\u002b08:00",
+    "datePublished": "2026-05-28T14:36:12\u002b08:00",
+    
+    "dateModified": "2026-05-28T14:36:12\u002b08:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "872"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Posgres",
+            "item": "http://localhost:1313/%E6%95%B0%E6%8D%AE%E5%BA%93/"
+          },{
+        "@type": "ListItem",
+        "position":  2 ,
+        "name": "PG01 MVCC、隔离级别",
+        "item": "http://localhost:1313/%E6%95%B0%E6%8D%AE%E5%BA%93/pg01-mvcc/"
+      }
+    ]
+  }]
+  </script>
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+</head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <body class="flex flex-col h-screen m-auto leading-7 max-w-7xl px-6 sm:px-14 md:px-24 lg:px-32 text-lg bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral bf-scrollbar">
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content">
+        <span class="font-bold text-primary-600 pe-2 dark:text-primary-400">&darr;</span>
+        Skip to main content
+      </a>
+    </div>
+    
+    
+      <div class="main-menu flex items-center w-full gap-2 p-1 pl-0">
+  
+  
+    <a href="/" class="text-base font-medium truncate min-w-0 shrink">
+      yuliu&rsquo;s blog
+    </a>
+  
+  <div class="flex items-center ms-auto">
+    <div class="hidden md:flex">
+      <nav class="flex items-center gap-x-5 h-12">
+  
+    
+      
+  
+    <a
+      href="/golang/"
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="Golang"
+      title="Golang">
+      
+        <span class="mr-1">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M287.9 0C297.1 0 305.5 5.25 309.5 13.52L378.1 154.8L531.4 177.5C540.4 178.8 547.8 185.1 550.7 193.7C553.5 202.4 551.2 211.9 544.8 218.2L433.6 328.4L459.9 483.9C461.4 492.9 457.7 502.1 450.2 507.4C442.8 512.7 432.1 513.4 424.9 509.1L287.9 435.9L150.1 509.1C142.9 513.4 133.1 512.7 125.6 507.4C118.2 502.1 114.5 492.9 115.1 483.9L142.2 328.4L31.11 218.2C24.65 211.9 22.36 202.4 25.2 193.7C28.03 185.1 35.5 178.8 44.49 177.5L197.7 154.8L266.3 13.52C270.4 5.249 278.7 0 287.9 0L287.9 0zM287.9 78.95L235.4 187.2C231.9 194.3 225.1 199.3 217.3 200.5L98.98 217.9L184.9 303C190.4 308.5 192.9 316.4 191.6 324.1L171.4 443.7L276.6 387.5C283.7 383.7 292.2 383.7 299.2 387.5L404.4 443.7L384.2 324.1C382.9 316.4 385.5 308.5 391 303L476.9 217.9L358.6 200.5C350.7 199.3 343.9 194.3 340.5 187.2L287.9 78.95z"/></svg></span>
+        </span>
+      
+      
+        <span class="text-base font-medium break-normal">
+          Golang
+        </span>
+      
+    </a>
+  
+
+    
+      
+  
+    <a
+      href="/%E6%95%B0%E6%8D%AE%E5%BA%93/"
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="数据库"
+      title="Posgres">
+      
+        <span class="mr-1">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<path fill="currentColor" d="M256 0c4.6 0 9.2 1 13.4 2.9L457.7 82.8c22 9.3 38.4 31 38.3 57.2c-.5 99.2-41.3 280.7-213.7 363.2c-16.7 8-36.1 8-52.8 0C57.3 420.7 16.5 239.2 16 140c-.1-26.2 16.3-47.9 38.3-57.2L242.7 2.9C246.8 1 251.4 0 256 0zm0 66.8V444.8C394 378 431.1 230.1 432 141.4L256 66.8l0 0z"/></svg></span>
+        </span>
+      
+      
+        <span class="text-base font-medium break-normal">
+          数据库
+        </span>
+      
+    </a>
+  
+
+    
+      
+  
+    <a
+      href="/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="杂谈"
+      title="杂谈">
+      
+        <span class="mr-1">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M421.7 220.3L188.5 453.4L154.6 419.5L158.1 416H112C103.2 416 96 408.8 96 400V353.9L92.51 357.4C87.78 362.2 84.31 368 82.42 374.4L59.44 452.6L137.6 429.6C143.1 427.7 149.8 424.2 154.6 419.5L188.5 453.4C178.1 463.8 165.2 471.5 151.1 475.6L30.77 511C22.35 513.5 13.24 511.2 7.03 504.1C.8198 498.8-1.502 489.7 .976 481.2L36.37 360.9C40.53 346.8 48.16 333.9 58.57 323.5L291.7 90.34L421.7 220.3zM492.7 58.75C517.7 83.74 517.7 124.3 492.7 149.3L444.3 197.7L314.3 67.72L362.7 19.32C387.7-5.678 428.3-5.678 453.3 19.32L492.7 58.75z"/></svg>
+</span>
+        </span>
+      
+      
+        <span class="text-base font-medium break-normal">
+          杂谈
+        </span>
+      
+    </a>
+  
+
+    
+      
+  
+    <a
+      href="/%E7%AE%97%E6%B3%95/"
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="算法"
+      title="">
+      
+        <span class="mr-1">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M502.285 159.704l-234-156c-7.987-4.915-16.511-4.96-24.571 0l-234 156C3.714 163.703 0 170.847 0 177.989v155.999c0 7.143 3.714 14.286 9.715 18.286l234 156.022c7.987 4.915 16.511 4.96 24.571 0l234-156.022c6-3.999 9.715-11.143 9.715-18.286V177.989c-.001-7.142-3.715-14.286-9.716-18.285zM278 63.131l172.286 114.858-76.857 51.429L278 165.703V63.131zm-44 0v102.572l-95.429 63.715-76.857-51.429L234 63.131zM44 219.132l55.143 36.857L44 292.846v-73.714zm190 229.715L61.714 333.989l76.857-51.429L234 346.275v102.572zm22-140.858l-77.715-52 77.715-52 77.715 52-77.715 52zm22 140.858V346.275l95.429-63.715 76.857 51.429L278 448.847zm190-156.001l-55.143-36.857L468 219.132v73.714z"/></svg>
+</span>
+        </span>
+      
+      
+        <span class="text-base font-medium break-normal">
+          算法
+        </span>
+      
+    </a>
+  
+
+    
+      
+  
+    <a
+      href="/%E8%BF%90%E7%BB%B4/"
+      
+      class="flex items-center bf-icon-color-hover"
+      aria-label="运维/架构"
+      title="运维/架构">
+      
+        <span class="mr-1">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+<path fill="currentColor" d="M349.9 236.3h-66.1v-59.4h66.1v59.4zm0-204.3h-66.1v60.7h66.1V32zm78.2 144.8H362v59.4h66.1v-59.4zm-156.3-72.1h-66.1v60.1h66.1v-60.1zm78.1 0h-66.1v60.1h66.1v-60.1zm276.8 100c-14.4-9.7-47.6-13.2-73.1-8.4-3.3-24-16.7-44.9-41.1-63.7l-14-9.3-9.3 14c-18.4 27.8-23.4 73.6-3.7 103.8-8.7 4.7-25.8 11.1-48.4 10.7H2.4c-8.7 50.8 5.8 116.8 44 162.1 37.1 43.9 92.7 66.2 165.4 66.2 157.4 0 273.9-72.5 328.4-204.2 21.4.4 67.6.1 91.3-45.2 1.5-2.5 6.6-13.2 8.5-17.1l-13.3-8.9zm-511.1-27.9h-66v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm-78.1-72.1h-66.1v60.1h66.1v-60.1z"/></svg></span>
+        </span>
+      
+      
+        <span class="text-base font-medium break-normal">
+          运维/架构
+        </span>
+      
+    </a>
+  
+
+    
+      
+  
+    <a
+      href=""
+      
+      class="flex items-center bf-icon-color-hover"
+      
+      title="">
+      
+      
+    </a>
+  
+
+    
+  
+
+  
+
+  
+    <div class="flex items-center">
+  <button
+    id="desktop-a11y-toggle"
+    aria-label="Open accessibility panel"
+    aria-expanded="false"
+    type="button"
+    class="bf-icon-color-hover"
+    role="button"
+    aria-pressed="false">
+    <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm161.5-86.1c-12.2-5.2-26.3 .4-31.5 12.6s.4 26.3 12.6 31.5l11.9 5.1c17.3 7.4 35.2 12.9 53.6 16.3l0 50.1c0 4.3-.7 8.6-2.1 12.6l-28.7 86.1c-4.2 12.6 2.6 26.2 15.2 30.4s26.2-2.6 30.4-15.2l24.4-73.2c1.3-3.8 4.8-6.4 8.8-6.4s7.6 2.6 8.8 6.4l24.4 73.2c4.2 12.6 17.8 19.4 30.4 15.2s19.4-17.8 15.2-30.4l-28.7-86.1c-1.4-4.1-2.1-8.3-2.1-12.6l0-50.1c18.4-3.5 36.3-8.9 53.6-16.3l11.9-5.1c12.2-5.2 17.8-19.3 12.6-31.5s-19.3-17.8-31.5-12.6L338.7 175c-26.1 11.2-54.2 17-82.7 17s-56.5-5.8-82.7-17l-11.9-5.1zM256 160a40 40 0 1 0 0-80 40 40 0 1 0 0 80z"/></svg>
+</span>
+  </button>
+
+  <div id="desktop-a11y-overlay" class="fixed inset-0 hidden" style="z-index:9999;"></div>
+
+  <div
+    id="desktop-a11y-panel"
+    role="dialog"
+    aria-labelledby="desktop-a11y-panel-title"
+    class="a11y-panel-enter fixed hidden p-6 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 rounded-lg shadow-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700"
+    style="min-width: 20rem; z-index:9999;">
+    <div class="flex items-center justify-between mb-6">
+      <h3
+        id="desktop-a11y-panel-title"
+        class="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+        Accessibility settings
+      </h3>
+      <button
+        id="desktop-a11y-close"
+        class="text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200"
+        aria-label="Close a11y panel">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="space-y-5">
+      
+      
+      
+      
+        
+      
+      
+        <div class="flex items-center justify-between">
+          <label for="desktop-disable-blur" class="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+            Disable blur
+          </label>
+          <div class="ios-toggle">
+            <input type="checkbox" id="desktop-disable-blur">
+          </div>
+        </div>
+        <div class="flex items-center justify-between">
+          <label for="desktop-underline-links" class="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+            Show link underline
+          </label>
+          <div class="ios-toggle">
+            <input type="checkbox" id="desktop-underline-links">
+          </div>
+        </div>
+        <div class="flex items-center justify-between">
+          <label for="desktop-zen-mode" class="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+            Enable zen mode
+          </label>
+          <div class="ios-toggle">
+            <input type="checkbox" id="desktop-zen-mode">
+          </div>
+        </div>
+
+
+      <div class="flex items-center justify-between">
+        <label
+          for="desktop-font-size-select"
+          class="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+          Font size
+        </label>
+        <select
+          id="desktop-font-size-select"
+          class="border rounded-lg px-3 py-1.5 pr-8 text-neutral-900 text-sm dark:bg-neutral-700 dark:text-neutral-200 focus:ring-primary-500 focus:border-primary-500">
+          
+          
+            <option value="default">default</option>
+          
+            <option value="12px">12px</option>
+          
+            <option value="14px">14px</option>
+          
+            <option value="16px">16px</option>
+          
+            <option value="18px">18px</option>
+          
+            <option value="20px">20px</option>
+          
+            <option value="22px">22px</option>
+          
+            <option value="24px">24px</option>
+          
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+  
+    <button
+      id="search-button"
+      aria-label="Search"
+      class="text-base bf-icon-color-hover"
+      title="Search (/)">
+      <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+    </button>
+  
+
+  
+    <div class="flex items-center">
+      <button
+        id="appearance-switcher"
+        aria-label="Dark mode switcher"
+        type="button"
+        class="text-base bf-icon-color-hover">
+        <div class="flex items-center justify-center dark:hidden">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+        </div>
+        <div class="items-center justify-center hidden dark:flex">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+        </div>
+      </button>
+    </div>
+  
+</nav>
+
+
+
+    </div>
+    <div class="flex md:hidden">
+      <div class="flex items-center h-14 gap-4">
+  
+    <button
+      id="search-button-mobile"
+      aria-label="Search"
+      class="flex items-center justify-center bf-icon-color-hover"
+      title="Search (/)">
+      <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+    </button>
+  
+
+  
+    <button
+      id="appearance-switcher-mobile"
+      type="button"
+      aria-label="Dark mode switcher"
+      class="flex items-center justify-center text-neutral-900 hover:text-primary-600 dark:text-neutral-200 dark:hover:text-primary-400">
+      <div class="dark:hidden">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+      </div>
+      <div class="hidden dark:block">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+      </div>
+    </button>
+  
+
+  
+    <input type="checkbox" id="mobile-menu-toggle" autocomplete="off" class="hidden peer">
+    <label for="mobile-menu-toggle" class="flex items-center justify-center cursor-pointer bf-icon-color-hover">
+      <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+</span>
+    </label>
+
+    <div
+      role="dialog"
+      aria-modal="true"
+      style="scrollbar-gutter: stable;"
+      class="fixed inset-0 z-50 invisible overflow-y-auto px-6 py-20 opacity-0 transition-[opacity,visibility] duration-300 peer-checked:visible peer-checked:opacity-100 bg-neutral-50/97 dark:bg-neutral-900/99
+      bf-scrollbar">
+      <label
+        for="mobile-menu-toggle"
+        class="fixed end-8 top-5 flex items-center justify-center z-50 h-12 w-12 cursor-pointer select-none rounded-full bf-icon-color-hover border bf-border-color bf-border-color-hover bg-neutral-50 dark:bg-neutral-900">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </label>
+      <nav class="mx-auto max-w-md space-y-6">
+        
+  
+    
+    <div class="px-2">
+      <a
+        href="/golang/"
+        aria-label="Golang"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+          <span class="flex items-center justify-center h-8 w-8 text-2xl">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M287.9 0C297.1 0 305.5 5.25 309.5 13.52L378.1 154.8L531.4 177.5C540.4 178.8 547.8 185.1 550.7 193.7C553.5 202.4 551.2 211.9 544.8 218.2L433.6 328.4L459.9 483.9C461.4 492.9 457.7 502.1 450.2 507.4C442.8 512.7 432.1 513.4 424.9 509.1L287.9 435.9L150.1 509.1C142.9 513.4 133.1 512.7 125.6 507.4C118.2 502.1 114.5 492.9 115.1 483.9L142.2 328.4L31.11 218.2C24.65 211.9 22.36 202.4 25.2 193.7C28.03 185.1 35.5 178.8 44.49 177.5L197.7 154.8L266.3 13.52C270.4 5.249 278.7 0 287.9 0L287.9 0zM287.9 78.95L235.4 187.2C231.9 194.3 225.1 199.3 217.3 200.5L98.98 217.9L184.9 303C190.4 308.5 192.9 316.4 191.6 324.1L171.4 443.7L276.6 387.5C283.7 383.7 292.2 383.7 299.2 387.5L404.4 443.7L384.2 324.1C382.9 316.4 385.5 308.5 391 303L476.9 217.9L358.6 200.5C350.7 199.3 343.9 194.3 340.5 187.2L287.9 78.95z"/></svg></span>
+          </span>
+        
+        <span title="Golang" class="text-2xl font-bold tracking-tight">
+          Golang
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+    
+    <div class="px-2">
+      <a
+        href="/%E6%95%B0%E6%8D%AE%E5%BA%93/"
+        aria-label="数据库"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+          <span class="flex items-center justify-center h-8 w-8 text-2xl">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<path fill="currentColor" d="M256 0c4.6 0 9.2 1 13.4 2.9L457.7 82.8c22 9.3 38.4 31 38.3 57.2c-.5 99.2-41.3 280.7-213.7 363.2c-16.7 8-36.1 8-52.8 0C57.3 420.7 16.5 239.2 16 140c-.1-26.2 16.3-47.9 38.3-57.2L242.7 2.9C246.8 1 251.4 0 256 0zm0 66.8V444.8C394 378 431.1 230.1 432 141.4L256 66.8l0 0z"/></svg></span>
+          </span>
+        
+        <span title="Posgres" class="text-2xl font-bold tracking-tight">
+          数据库
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+    
+    <div class="px-2">
+      <a
+        href="/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"
+        aria-label="杂谈"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+          <span class="flex items-center justify-center h-8 w-8 text-2xl">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M421.7 220.3L188.5 453.4L154.6 419.5L158.1 416H112C103.2 416 96 408.8 96 400V353.9L92.51 357.4C87.78 362.2 84.31 368 82.42 374.4L59.44 452.6L137.6 429.6C143.1 427.7 149.8 424.2 154.6 419.5L188.5 453.4C178.1 463.8 165.2 471.5 151.1 475.6L30.77 511C22.35 513.5 13.24 511.2 7.03 504.1C.8198 498.8-1.502 489.7 .976 481.2L36.37 360.9C40.53 346.8 48.16 333.9 58.57 323.5L291.7 90.34L421.7 220.3zM492.7 58.75C517.7 83.74 517.7 124.3 492.7 149.3L444.3 197.7L314.3 67.72L362.7 19.32C387.7-5.678 428.3-5.678 453.3 19.32L492.7 58.75z"/></svg>
+</span>
+          </span>
+        
+        <span title="杂谈" class="text-2xl font-bold tracking-tight">
+          杂谈
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+    
+    <div class="px-2">
+      <a
+        href="/%E7%AE%97%E6%B3%95/"
+        aria-label="算法"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+          <span class="flex items-center justify-center h-8 w-8 text-2xl">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M502.285 159.704l-234-156c-7.987-4.915-16.511-4.96-24.571 0l-234 156C3.714 163.703 0 170.847 0 177.989v155.999c0 7.143 3.714 14.286 9.715 18.286l234 156.022c7.987 4.915 16.511 4.96 24.571 0l234-156.022c6-3.999 9.715-11.143 9.715-18.286V177.989c-.001-7.142-3.715-14.286-9.716-18.285zM278 63.131l172.286 114.858-76.857 51.429L278 165.703V63.131zm-44 0v102.572l-95.429 63.715-76.857-51.429L234 63.131zM44 219.132l55.143 36.857L44 292.846v-73.714zm190 229.715L61.714 333.989l76.857-51.429L234 346.275v102.572zm22-140.858l-77.715-52 77.715-52 77.715 52-77.715 52zm22 140.858V346.275l95.429-63.715 76.857 51.429L278 448.847zm190-156.001l-55.143-36.857L468 219.132v73.714z"/></svg>
+</span>
+          </span>
+        
+        <span title="" class="text-2xl font-bold tracking-tight">
+          算法
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+    
+    <div class="px-2">
+      <a
+        href="/%E8%BF%90%E7%BB%B4/"
+        aria-label="运维/架构"
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+          <span class="flex items-center justify-center h-8 w-8 text-2xl">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+<path fill="currentColor" d="M349.9 236.3h-66.1v-59.4h66.1v59.4zm0-204.3h-66.1v60.7h66.1V32zm78.2 144.8H362v59.4h66.1v-59.4zm-156.3-72.1h-66.1v60.1h66.1v-60.1zm78.1 0h-66.1v60.1h66.1v-60.1zm276.8 100c-14.4-9.7-47.6-13.2-73.1-8.4-3.3-24-16.7-44.9-41.1-63.7l-14-9.3-9.3 14c-18.4 27.8-23.4 73.6-3.7 103.8-8.7 4.7-25.8 11.1-48.4 10.7H2.4c-8.7 50.8 5.8 116.8 44 162.1 37.1 43.9 92.7 66.2 165.4 66.2 157.4 0 273.9-72.5 328.4-204.2 21.4.4 67.6.1 91.3-45.2 1.5-2.5 6.6-13.2 8.5-17.1l-13.3-8.9zm-511.1-27.9h-66v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm-78.1-72.1h-66.1v60.1h66.1v-60.1z"/></svg></span>
+          </span>
+        
+        <span title="运维/架构" class="text-2xl font-bold tracking-tight">
+          运维/架构
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+    
+    <div class="px-2">
+      <a
+        href=""
+        
+        
+        class="flex items-center gap-4 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+        
+        <span title="" class="text-2xl font-bold tracking-tight">
+          
+        </span>
+        
+      </a>
+
+      
+    </div>
+  
+
+        
+  
+
+        
+  
+    <div
+      class="flex flex-wrap items-center [&_span]:text-2xl [&_.translation_button_.icon]:text-4xl! [&_.translation_button_span]:text-base! [&_.translation_.menuhide_span]:text-sm! gap-x-6 ps-2 mt-8 pt-8 border-t bf-border-color">
+      
+
+
+      
+        <div class="flex items-center">
+  <button
+    id="mobile-menu-a11y-toggle"
+    aria-label="Open accessibility panel"
+    aria-expanded="false"
+    type="button"
+    class="bf-icon-color-hover"
+    role="button"
+    aria-pressed="false">
+    <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm161.5-86.1c-12.2-5.2-26.3 .4-31.5 12.6s.4 26.3 12.6 31.5l11.9 5.1c17.3 7.4 35.2 12.9 53.6 16.3l0 50.1c0 4.3-.7 8.6-2.1 12.6l-28.7 86.1c-4.2 12.6 2.6 26.2 15.2 30.4s26.2-2.6 30.4-15.2l24.4-73.2c1.3-3.8 4.8-6.4 8.8-6.4s7.6 2.6 8.8 6.4l24.4 73.2c4.2 12.6 17.8 19.4 30.4 15.2s19.4-17.8 15.2-30.4l-28.7-86.1c-1.4-4.1-2.1-8.3-2.1-12.6l0-50.1c18.4-3.5 36.3-8.9 53.6-16.3l11.9-5.1c12.2-5.2 17.8-19.3 12.6-31.5s-19.3-17.8-31.5-12.6L338.7 175c-26.1 11.2-54.2 17-82.7 17s-56.5-5.8-82.7-17l-11.9-5.1zM256 160a40 40 0 1 0 0-80 40 40 0 1 0 0 80z"/></svg>
+</span>
+  </button>
+
+  <div id="mobile-menu-a11y-overlay" class="fixed inset-0 hidden" style="z-index:9999;"></div>
+
+  <div
+    id="mobile-menu-a11y-panel"
+    role="dialog"
+    aria-labelledby="mobile-menu-a11y-panel-title"
+    class="a11y-panel-enter fixed hidden p-6 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 rounded-lg shadow-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700"
+    style="min-width: 20rem; z-index:9999;">
+    <div class="flex items-center justify-between mb-6">
+      <h3
+        id="mobile-menu-a11y-panel-title"
+        class="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+        Accessibility settings
+      </h3>
+      <button
+        id="mobile-menu-a11y-close"
+        class="text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200"
+        aria-label="Close a11y panel">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="space-y-5">
+      
+      
+      
+      
+        
+      
+      
+        <div class="flex items-center justify-between">
+          <label for="mobile-menu-disable-blur" class="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+            Disable blur
+          </label>
+          <div class="ios-toggle">
+            <input type="checkbox" id="mobile-menu-disable-blur">
+          </div>
+        </div>
+        <div class="flex items-center justify-between">
+          <label for="mobile-menu-underline-links" class="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+            Show link underline
+          </label>
+          <div class="ios-toggle">
+            <input type="checkbox" id="mobile-menu-underline-links">
+          </div>
+        </div>
+        <div class="flex items-center justify-between">
+          <label for="mobile-menu-zen-mode" class="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+            Enable zen mode
+          </label>
+          <div class="ios-toggle">
+            <input type="checkbox" id="mobile-menu-zen-mode">
+          </div>
+        </div>
+
+
+      <div class="flex items-center justify-between">
+        <label
+          for="mobile-menu-font-size-select"
+          class="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+          Font size
+        </label>
+        <select
+          id="mobile-menu-font-size-select"
+          class="border rounded-lg px-3 py-1.5 pr-8 text-neutral-900 text-sm dark:bg-neutral-700 dark:text-neutral-200 focus:ring-primary-500 focus:border-primary-500">
+          
+          
+            <option value="default">default</option>
+          
+            <option value="12px">12px</option>
+          
+            <option value="14px">14px</option>
+          
+            <option value="16px">16px</option>
+          
+            <option value="18px">18px</option>
+          
+            <option value="20px">20px</option>
+          
+            <option value="22px">22px</option>
+          
+            <option value="24px">24px</option>
+          
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+    </div>
+  
+
+      </nav>
+    </div>
+  
+</div>
+
+
+
+
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+    
+    <div class="relative flex flex-col grow">
+      <main id="main-content" class="grow">
+        
+  
+  <article>
+    
+    
+
+    
+    <header id="single_header" class="mt-5 max-w-prose">
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        PG01 MVCC、隔离级别
+      </h1>
+      <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2026-05-28T14:36:12&#43;08:00">28 May 2026</time><span class="px-2 text-primary-500">&middot;</span><span>872 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">5 mins</span>
+    
+
+    
+    
+  </div>
+
+  
+
+  
+  
+
+
+      </div>
+      
+    </header>
+
+    
+    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+      
+      
+      
+      
+      
+
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+
+        <div class="article-content max-w-prose mb-20">
+          
+<h3 class="relative group">隔离级别
+    <div id="隔离级别" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+
+<h4 class="relative group">PostgreSQL 隔离级别速览（与业务语义映射）
+    <div id="postgresql-隔离级别速览与业务语义映射" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#postgresql-%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab%e9%80%9f%e8%a7%88%e4%b8%8e%e4%b8%9a%e5%8a%a1%e8%af%ad%e4%b9%89%e6%98%a0%e5%b0%84" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>Read Committed（RC，默认）
+<ul>
+<li>语义：每条语句获取自己的快照；同一事务内多条查询可能看到不同版本。</li>
+<li>可见异常：经典“检查后再更新”的TOCTOU、写偏（write skew）在无约束/无锁时可能发生。</li>
+<li>并发控制：行级锁足够时能保证被锁定行的强一致。</li>
+<li>用途：绝大多数在线业务，配合唯一/排他约束、SELECT … FOR UPDATE、UPSERT 能达成强约束。</li>
+</ul>
+</li>
+<li>Repeatable Read（RR，PG实现为快照隔离 SI）
+<ul>
+<li>语义：事务级快照；事务内多查询一致；无不可重复读；“幻读”被快照屏蔽（读侧看不到新行），但写偏依然可能。</li>
+<li>用途：报表/一致性读取窗口；对强一致写约束无直接增益。</li>
+</ul>
+</li>
+<li>Serializable（SER，SSI）
+<ul>
+<li>语义：通过SSI + predicate lock 实现可串行化；在检测到不可串行化冲突时回滚（SQLSTATE 40001）。</li>
+<li>用途：跨行/跨范围业务约束且无法用约束表达时作为兜底，但需可接受重试开销。</li>
+</ul>
+</li>
+</ul>
+<p>注：PostgreSQL无“真正的”Read Uncommitted；其行为与RC一致。</p>
+
+<h4 class="relative group">MVCC与长事务影响
+    <div id="mvcc与长事务影响" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#mvcc%e4%b8%8e%e9%95%bf%e4%ba%8b%e5%8a%a1%e5%bd%b1%e5%93%8d" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>RC/RR/SER都依赖MVCC旧版本可见性；长事务会阻滞VACUUM回收，造成bloat、执行计划受影响。业务层需将事务尽量短路，禁止在事务内做网络/RPC。</li>
+<li>RR/SER用于只读报表时，建议只读+deferrable以避免SSI冲突开销。</li>
+</ul>
+
+<h4 class="relative group">选型原则（工程化）
+    <div id="选型原则工程化" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e9%80%89%e5%9e%8b%e5%8e%9f%e5%88%99%e5%b7%a5%e7%a8%8b%e5%8c%96" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ol>
+<li>优先“约束即规则”：唯一索引、部分唯一索引、EXCLUDE约束（GiST/BTREE+范围/空间）、DEFERRABLE约束，将业务不变量下沉到存储层。</li>
+<li>在线OLTP默认RC，配合：
+<ul>
+<li>SELECT … FOR UPDATE/SHARE（或 FOR NO KEY UPDATE/KEY SHARE）约束行级并发；</li>
+<li>INSERT … ON CONFLICT DO UPDATE/NOTHING 实现幂等与原子Upsert；</li>
+<li>SKIP LOCKED/NOWAIT 控制阻塞特性。</li>
+</ul>
+</li>
+<li>需要一致性快照读取（读多写无）选RR read-only；跨事务一致性或快照稳定视图选 RR read-only deferrable。</li>
+<li>无法用结构化约束表达且包含“跨集合谓词”的强不变量（典型写偏风险），再考虑SER + 重试；权衡吞吐与尾延迟。</li>
+</ol>
+
+<h4 class="relative group">典型业务链路与推荐隔离级别/手段
+    <div id="典型业务链路与推荐隔离级别手段" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%85%b8%e5%9e%8b%e4%b8%9a%e5%8a%a1%e9%93%be%e8%b7%af%e4%b8%8e%e6%8e%a8%e8%8d%90%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab%e6%89%8b%e6%ae%b5" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>幂等下单/去重（“同一 idempotency_key 只生成一笔单”）
+<ul>
+<li>RC + UNIQUE(idempotency_key) + INSERT ON CONFLICT；无显式锁。失败则由约束拒绝，幂等自然成立。</li>
+</ul>
+</li>
+<li>账户扣款/转账（强一致余额，不允许超额）
+<ul>
+<li>RC + SELECT … FOR UPDATE 按账户ID一致顺序加锁，避免死锁；UPDATE 基于约束检查余额&gt;=0，失败则回滚。</li>
+<li>并发高且涉及多行不变量（如跨账户组合上限）可保留RC+行锁；除非存在难以覆盖的写偏才考虑SER。</li>
+</ul>
+</li>
+<li>排班/预约（时间段不可重叠）
+<ul>
+<li>RC + EXCLUDE USING GIST (resource_id WITH =, tsrange WITH &amp;&amp;) DEFERRABLE INITIALLY DEFERRED；由约束在提交时判定冲突。无需SER。</li>
+</ul>
+</li>
+<li>队列/任务抢占
+<ul>
+<li>RC + SELECT … FOR UPDATE SKIP LOCKED 批量提取；NOWAIT 控制尾延迟。避免全表锁或SER。</li>
+</ul>
+</li>
+<li>配额/计数器（原子累加/扣减）
+<ul>
+<li>RC + UPDATE t SET used = used + $1 WHERE id=$id AND used + $1 &lt;= quota RETURNING *；检查失败无返回；幂等与原子性由单语句保证。</li>
+</ul>
+</li>
+<li>报表/导出（时点一致）
+<ul>
+<li>RR READ ONLY DEFERRABLE；或快照导出+逻辑复制的时间点。禁止在事务内长时间空转。</li>
+</ul>
+</li>
+<li>审计/账本（追加写，不回写）
+<ul>
+<li>RC + 仅追加表 + 约束（外键/唯一）+ 实时汇总视图（物化或在线聚合）；避免SER吞吐塌陷。</li>
+</ul>
+</li>
+<li>依赖副本读（读多写少）
+<ul>
+<li>隔离级别受副本一致性与延迟支配；即使RR也仅对该副本的快照一致，不得做决策性写。需要强一致决策必须回源Primary。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">关键SQL模式（避免隔离级别误用）
+    <div id="关键sql模式避免隔离级别误用" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%85%b3%e9%94%aesql%e6%a8%a1%e5%bc%8f%e9%81%bf%e5%85%8d%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab%e8%af%af%e7%94%a8" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>行级并发控制
+<ul>
+<li>SELECT … FOR UPDATE/NO KEY UPDATE 锁定更新目标；同事务内必须先读后写，保持固定加锁顺序避免死锁。</li>
+</ul>
+</li>
+<li>范围/谓词约束
+<ul>
+<li>PostgreSQL无MySQL式gap lock；不要依赖SER以外等级阻止范围并发。用EXCLUDE或唯一索引变换键空间（如“活动期内唯一”→部分唯一索引 WHERE active=true）。</li>
+</ul>
+</li>
+<li>提交期约束
+<ul>
+<li>DEFERRABLE INITIALLY DEFERRED 可把检查推迟到COMMIT，提高并发（减少热点期间的早期冲突），且与RC兼容。</li>
+</ul>
+</li>
+<li>Upsert
+<ul>
+<li>INSERT … ON CONFLICT(col) DO UPDATE SET … 避免“先查后插”的TOCTOU；RC足够。</li>
+</ul>
+</li>
+<li>阻塞控制
+<ul>
+<li>FOR UPDATE SKIP LOCKED 实现多消费者争抢；NOWAIT 提前失败；配合锁超时（lock_timeout）与语句超时（statement_timeout）。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">Go 落地要点（database/sql 或 pgx）
+    <div id="go-落地要点databasesql-或-pgx" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#go-%e8%90%bd%e5%9c%b0%e8%a6%81%e7%82%b9databasesql-%e6%88%96-pgx" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>事务启动（pgx示例）
+<ul>
+<li>事务选项由驱动传递，避免会话级 SET 污染连接池。</li>
+<li>只读+deferrable用于RR/SER只读快照。</li>
+</ul>
+</li>
+</ul>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// Go 1.20+，pgx v5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">TxFunc</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">tx</span><span class="w"> </span><span class="nx">pgx</span><span class="p">.</span><span class="nx">Tx</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">WithTx</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">pool</span><span class="w"> </span><span class="o">*</span><span class="nx">pgxpool</span><span class="p">.</span><span class="nx">Pool</span><span class="p">,</span><span class="w"> </span><span class="nx">iso</span><span class="w"> </span><span class="nx">pgx</span><span class="p">.</span><span class="nx">TxIsoLevel</span><span class="p">,</span><span class="w"> </span><span class="nx">readOnly</span><span class="p">,</span><span class="w"> </span><span class="nx">deferrable</span><span class="w"> </span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="nx">fn</span><span class="w"> </span><span class="nx">TxFunc</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">tx</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">pool</span><span class="p">.</span><span class="nf">BeginTx</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">pgx</span><span class="p">.</span><span class="nx">TxOptions</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">IsoLevel</span><span class="p">:</span><span class="w"> </span><span class="nx">iso</span><span class="p">,</span><span class="w"> </span><span class="nx">AccessMode</span><span class="p">:</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">bool</span><span class="p">]</span><span class="nx">pgx</span><span class="p">.</span><span class="nx">TxAccessMode</span><span class="p">{</span><span class="kc">true</span><span class="p">:</span><span class="w"> </span><span class="nx">pgx</span><span class="p">.</span><span class="nx">ReadOnly</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">:</span><span class="w"> </span><span class="nx">pgx</span><span class="p">.</span><span class="nx">ReadWrite</span><span class="p">}[</span><span class="nx">readOnly</span><span class="p">],</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">DeferrableMode</span><span class="p">:</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">bool</span><span class="p">]</span><span class="nx">pgx</span><span class="p">.</span><span class="nx">TxDeferrableMode</span><span class="p">{</span><span class="kc">true</span><span class="p">:</span><span class="w"> </span><span class="nx">pgx</span><span class="p">.</span><span class="nx">Deferrable</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">:</span><span class="w"> </span><span class="nx">pgx</span><span class="p">.</span><span class="nx">NotDeferrable</span><span class="p">}[</span><span class="nx">deferrable</span><span class="p">],</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">defer</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nx">tx</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">tx</span><span class="p">.</span><span class="nf">Rollback</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="c1">// 建议设置局部超时，避免卡死连接</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">tx</span><span class="p">.</span><span class="nf">Exec</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;SET LOCAL lock_timeout = &#39;1s&#39;; SET LOCAL statement_timeout = &#39;5s&#39;; SET LOCAL idle_in_transaction_session_timeout = &#39;5s&#39;&#34;</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="nx">err</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nf">fn</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">tx</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">tx</span><span class="p">.</span><span class="nf">Commit</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">tx</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">err</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<ul>
+<li>Serializable 重试封装（处理 SQLSTATE 40001、40P01）</li>
+</ul>
+<div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">WithSerializableRetry</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">pool</span><span class="w"> </span><span class="o">*</span><span class="nx">pgxpool</span><span class="p">.</span><span class="nx">Pool</span><span class="p">,</span><span class="w"> </span><span class="nx">maxRetry</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="nx">fn</span><span class="w"> </span><span class="nx">TxFunc</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="kd">var</span><span class="w"> </span><span class="nx">attempt</span><span class="w"> </span><span class="kt">int</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">WithTx</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">pool</span><span class="p">,</span><span class="w"> </span><span class="nx">pgx</span><span class="p">.</span><span class="nx">Serializable</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">fn</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="kd">var</span><span class="w"> </span><span class="nx">pgerr</span><span class="w"> </span><span class="o">*</span><span class="nx">pgconn</span><span class="p">.</span><span class="nx">PgError</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">ser</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nf">As</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">pgerr</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="nx">pgerr</span><span class="p">.</span><span class="nx">Code</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&#34;40001&#34;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">pgerr</span><span class="p">.</span><span class="nx">Code</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&#34;40P01&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">ser</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">attempt</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="nx">maxRetry</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="c1">// 简单退避</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Duration</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="nx">attempt</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">attempt</span><span class="o">++</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<ul>
+<li>避免事项
+<ul>
+<li>禁止在事务内做RPC/HTTP或长时计算；保证上下文有deadline/cancel。</li>
+<li>不要用会话级 SET TRANSACTION ISOLATION LEVEL 作为全局默认，连接池会复用连接导致跨请求污染；使用 BeginTx 传递。</li>
+<li>GORM/其他ORM需确认隔离级别传递到驱动；避免隐式重试吞掉 40001 导致“幽灵提交”假象。</li>
+<li>统一处理 Commit/Exec 返回的错误，Commit 失败即整个事务失败，需要上层幂等。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">什么时候必须抬升到 Serializable
+    <div id="什么时候必须抬升到-serializable" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e4%bb%80%e4%b9%88%e6%97%b6%e5%80%99%e5%bf%85%e9%a1%bb%e6%8a%ac%e5%8d%87%e5%88%b0-serializable" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>业务不变量是“跨行/跨集合谓词”，且无法用唯一/部分唯一/EXCLUDE/触发器在提交期准确判定。</li>
+<li>写偏典型：两个医生排班，各插入不相交行，谓词“每时段至少一名医生在岗”在RC/RR下可能破坏；若无法转换为EXCLUDE/聚合约束，使用SER并实现重试。</li>
+<li>读写交叉高、热点谓词多时，SER的SSI开销与abort率会迅速上升；优先改造为结构化约束或显式行/资源锁。</li>
+</ul>
+
+<h4 class="relative group">雷点（必须规避）
+    <div id="雷点必须规避" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e9%9b%b7%e7%82%b9%e5%bf%85%e9%a1%bb%e8%a7%84%e9%81%bf" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>长事务（RR/SER只读也一样）导致VACUUM冻结延缓、索引膨胀、计划退化；对报表使用批量游标+分段，限制事务生命周期。</li>
+<li>依赖副本读进行决策再写入主库：副本延迟破坏因果一致性；禁止。</li>
+<li>RC下“先查后写”无锁：竞态窗口；必须使用行锁或单语句原子写（UPDATE … WHERE 条件）。</li>
+<li>过度使用SER：在高并发下冲突检测与SIREAD锁暴涨，引发频繁 40001 和尾延迟；吞吐塌陷。</li>
+<li>会话级参数污染连接池：隔离级别/时区/search_path跨请求泄漏；只在事务内 SET LOCAL。</li>
+<li>锁顺序不一致导致死锁（40P01）：跨多资源更新必须全局排序锁顺序；或使用 advisory lock + 统一key顺序。</li>
+</ul>
+
+<h4 class="relative group">决策矩阵（简版）
+    <div id="决策矩阵简版" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%86%b3%e7%ad%96%e7%9f%a9%e9%98%b5%e7%ae%80%e7%89%88" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>只读一致性快照 → RR Read Only（deferrable优先）。</li>
+<li>写入有结构化约束可表达 → RC + 约束/Upsert/行锁。</li>
+<li>写入涉及跨集合谓词且难以约束 → SER + 重试；能约束则回退RC。</li>
+<li>高并发队列 → RC + SKIP LOCKED。</li>
+<li>计数/配额 → RC + 单语句原子条件更新。</li>
+<li>分布式流程（跨库/消息） → RC + outbox/inbox/幂等键；隔离级别不是一致性替代品。</li>
+</ul>
+
+<h3 class="relative group">MVCC
+    <div id="mvcc" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#mvcc" aria-label="Anchor">#</a>
+    </span>
+    
+</h3>
+
+<h4 class="relative group">MVCC实现内核
+    <div id="mvcc实现内核" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#mvcc%e5%ae%9e%e7%8e%b0%e5%86%85%e6%a0%b8" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>
+<p>元组版本化（Heap Tuple）</p>
+<ul>
+<li>每条可见行是堆页上的一个版本（tuple）。头部包含 xmin/xmax/ctid/infomask 等。</li>
+<li>xmin：创建该版本的事务ID；xmax：使该版本失效（删除/更新）的事务ID；ctid：指向最新版本或下一版本（更新链）。</li>
+<li>可见性位（hint bits，infomask 中如 HEAP_XMIN_COMMITTED/INVALID 等）作为加速缓存，首次判定需查 pg_xact（CLOG/pg_xact SLRU），之后在页内写入 hint bits 降低后续判定成本（非 WAL 记录，崩溃后可回退为未设置状态）。</li>
+</ul>
+</li>
+<li>
+<p>索引与可见性</p>
+<ul>
+<li>索引元组不含可见性信息，索引扫描必须回表判定；若 VM（Visibility Map）标记页为 all-visible/all-frozen，可执行 Index Only Scan 跳过回表。</li>
+<li>HOT（Heap-Only Tuple）更新：若更新未修改任何索引列且目标页留有空间，生成新版本仍驻留同页，索引条目不新增，仅指向链头，显著降低索引膨胀与回表开销。</li>
+</ul>
+</li>
+<li>
+<p>事务ID与快照</p>
+<ul>
+<li>XID 32 位，按 epoch 比较避免回绕比较错误；wraparound 由冻结（FREEZE）机制处理：将非常老的 xmin 标记为 FrozenXID，避免访问 pg_xact。</li>
+<li>快照包含 Xmax 边界与活动事务集合（ProcArray），判定规则：创建者已提交且不在活动集合内；且不存在已提交的删除者（xmax）在快照点之前。</li>
+</ul>
+</li>
+<li>
+<p>锁与多事务（MultiXact）</p>
+<ul>
+<li>行级共享/更新锁（SELECT FOR SHARE/UPDATE）通过 MultiXact 记录在 pg_multixact（offsets/members SLRU）。高并发锁模式会放大 multixact 空间与 wraparound 风险（独立于 XID 冻结）。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">可见性判定路径
+    <div id="可见性判定路径" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%8f%af%e8%a7%81%e6%80%a7%e5%88%a4%e5%ae%9a%e8%b7%af%e5%be%84" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>索引扫描
+<ol>
+<li>命中索引元组获取 TID→2) 若目标页 all-visible 且无 hint 冲突，直接返回（Index Only Scan）；否则→3) 回表读取元组头→4) 若无 hint，查 pg_xact，设置 hint bits→5) 判定 xmin/xmax 与快照的关系→6) 若为更新链，沿 ctid 追链到可见版本（heap_hot_search_buffer）。</li>
+</ol>
+</li>
+<li>顺序/堆扫描
+<ul>
+<li>在 buffer 内可触发 page prune：若链上所有旧版本对当前全局最老快照（GlobalXmin）都不可见，剪断并回收 LPDEAD，减少后续遍历。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">VACUUM/PRUNE/FREEZE
+    <div id="vacuumprunefreeze" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#vacuumprunefreeze" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>VACUUM（lazy）
+<ul>
+<li>标记、清理死元组，回收空间到页空闲链（free space map），更新 VM all-visible/all-frozen 位。</li>
+<li>并行索引 VACUUM（PG13+）受 maintenance_work_mem 限制；VACUUM 不移动可见行位置，不收缩文件末端（除非触发截断）。</li>
+</ul>
+</li>
+<li>FREEZE
+<ul>
+<li>将老龄 xmin/xmax 冻结，避免 pg_xact 访问与 wraparound。autovacuum_freeze_max_age 接近阈值时触发 aggressive vacuum，扫描全表；all-frozen 页可跳过未来扫描。</li>
+</ul>
+</li>
+<li>HOT 链剪除（prune）
+<ul>
+<li>运行时或 VACUUM 中进行，缩短链长度，降低回表成本。</li>
+</ul>
+</li>
+<li>VACUUM FULL/CLUSTER
+<ul>
+<li>重写表文件，压缩外部空洞，独占锁，IO/WAL 成本高；作为重度膨胀的兜底手段。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">隔离级别与 SSI
+    <div id="隔离级别与-ssi" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab%e4%b8%8e-ssi" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>READ COMMITTED：每语句独立快照，最廉价。</li>
+<li>REPEATABLE READ：事务级快照，无幻读防护。</li>
+<li>SERIALIZABLE（SSI）：通过谓词锁（SIREAD）与冲突图检测序列化冲突，内存与锁开销大；max_pred_locks_* 限制。仅在确需强一致事务时使用。</li>
+</ul>
+
+<h4 class="relative group">性能优化策略（面向高并发与更新密集型）
+    <div id="性能优化策略面向高并发与更新密集型" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%80%a7%e8%83%bd%e4%bc%98%e5%8c%96%e7%ad%96%e7%95%a5%e9%9d%a2%e5%90%91%e9%ab%98%e5%b9%b6%e5%8f%91%e4%b8%8e%e6%9b%b4%e6%96%b0%e5%af%86%e9%9b%86%e5%9e%8b" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>
+<p>限制长事务</p>
+<ul>
+<li>设置 idle_in_transaction_session_timeout、statement_timeout。避免长快照阻止 prune/vacuum/freeze，导致膨胀与 pg_xact 压力。</li>
+<li>连接池侧避免会话级长事务（包括长游标）。监控 pg_stat_activity，清理 idle in transaction。</li>
+</ul>
+</li>
+<li>
+<p>Autovacuum 分层配置（按表）</p>
+<ul>
+<li>热点表降低触发门槛：
+<ul>
+<li>ALTER TABLE &hellip; SET (autovacuum_vacuum_scale_factor=0.01, autovacuum_vacuum_threshold=200, autovacuum_analyze_scale_factor=0.02, autovacuum_vacuum_cost_limit=2000, autovacuum_naptime=&lsquo;5s&rsquo;);</li>
+</ul>
+</li>
+<li>插入密集表（PG13+）开启基于插入计数的 VACUUM 以尽快设置 VM：
+<ul>
+<li>autovacuum_vacuum_insert_scale_factor=0.01 / autovacuum_vacuum_insert_threshold=1000。</li>
+</ul>
+</li>
+<li>提升 autovacuum_max_workers、autovacuum_vacuum_cost_limit/减小 cost_delay 保持跟上增量垃圾产生速度；但与前台 IO/CPU 竞争需权衡。</li>
+</ul>
+</li>
+<li>
+<p>HOT 最大化</p>
+<ul>
+<li>保证更新不触发索引重写：避免更新被索引列；将频繁变更字段移出索引或拆表。</li>
+<li>调整 fillfactor=70~90 留出页内余量，提高 HOT 命中率，降低索引膨胀与回表次数。</li>
+</ul>
+</li>
+<li>
+<p>VM/Index Only Scan 命中率</p>
+<ul>
+<li>覆盖索引（INCLUDE）与合理列选择，确保查询可完全命中索引。</li>
+<li>通过更频繁 VACUUM 让页进入 all-visible/all-frozen 状态，减少回表。</li>
+<li>对插入多、更新少的 OLAP/报表表降低 vacuum 插入门槛（见上）。</li>
+</ul>
+</li>
+<li>
+<p>膨胀治理与索引维护</p>
+<ul>
+<li>高更新/删除表：定期 REINDEX CONCURRENTLY；PG13+ B-Tree dedup 减少重复键膨胀。</li>
+<li>极端膨胀场景用 pg_repack 或 VACUUM FULL/CLUSTER（维护窗口）。</li>
+<li>监控 pg_stat_user_tables.n_dead_tup、pg_stat_all_indexes、pg_visibility，建立阈值告警。</li>
+</ul>
+</li>
+<li>
+<p>删除策略与分区</p>
+<ul>
+<li>大量历史数据采用分区并定期 DROP/DETACH PARTITION 替代批量 DELETE，立即释放空间且 WAL/锁开销更低。</li>
+<li>分区键与查询维度吻合，避免跨多分区扫描；配合 constraint_exclusion/partition pruning。</li>
+</ul>
+</li>
+<li>
+<p>WAL/TOAST 与行宽度</p>
+<ul>
+<li>UPDATE 重写整行（除 HOT），宽表/大 JSONB 更新成本高。将冷热字段拆表或使用局部更新策略，减少 WAL 与 IO。</li>
+<li>合理控制 toast.autovacuum_* 与 TOAST 表的 vacuum 配置；频繁更新的大字段更适合外置存储/对象存储+引用。</li>
+</ul>
+</li>
+<li>
+<p>行级锁与 MultiXact 控制</p>
+<ul>
+<li>减少大批量 SELECT FOR UPDATE；若做队列类消费，用 SKIP LOCKED/NOWAIT、稳定排序，缩短锁持有时间。</li>
+<li>监控 pg_stat_database_conflicts、pg_prepared_xacts、pg_class.relminmxid；防止 multixact 膨胀与冻结滞后。</li>
+<li>调整 autovacuum_multixact_freeze_max_age、multixact_members/offsets SLRU 所在磁盘性能。</li>
+</ul>
+</li>
+<li>
+<p>复制与 xmin 地平线</p>
+<ul>
+<li>逻辑复制槽/备库 hot_standby_feedback 会抬高 oldestxmin，阻塞 VACUUM。监控 pg_replication_slots.restart_lsn 与 confirmed_flush_lsn，滞后时及时删除或推进。</li>
+<li>必要时关闭 hot_standby_feedback，改用更短的查询/重试策略；或采用 vacuum_defer_cleanup_age（副作用大，不推荐常态开启）。</li>
+</ul>
+</li>
+<li>
+<p>XID/冻结预案</p>
+<ul>
+<li>监控 age(datfrozenxid) 接近 autovacuum_freeze_max_age/2 即调大 VACUUM 频率；接近阈值触发 aggressive vacuum 全表扫描，预留维护窗口避免“wraparound autovacuum”冲击业务。</li>
+</ul>
+</li>
+<li>
+<p>配置要点</p>
+<ul>
+<li>maintenance_work_mem：足够大以加速 VACUUM/REINDEX（典型 512MB~2GB，视内存）。</li>
+<li>effective_io_concurrency、max_parallel_maintenance_workers 提升 VACUUM/索引并行 IO。</li>
+<li>wal_compression=on 降低宽更新的 WAL 体积；同步复制场景下注意 WAL 压缩 CPU 成本。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">监控与诊断
+    <div id="监控与诊断" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e7%9b%91%e6%8e%a7%e4%b8%8e%e8%af%8a%e6%96%ad" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>快照与阻塞
+<ul>
+<li>pg_stat_activity.backend_xmin；长时间非空说明快照长活，检查来源。</li>
+</ul>
+</li>
+<li>垃圾与 VM
+<ul>
+<li>pg_stat_user_tables.n_dead_tup、vacuum_count、autovacuum_count；pg_visibility(rel) 检查 all-visible/all-frozen 比例。</li>
+</ul>
+</li>
+<li>multixact/xid
+<ul>
+<li>检查 pg_controldata、pg_stat_database 里的 age(datfrozenxid)/age(datminmxid)。</li>
+</ul>
+</li>
+<li>索引健康
+<ul>
+<li>记录索引大小增长速率；对高重复键使用 REINDEX CONCURRENTLY；评估是否可由 hash/BRIN 替代（读写模式权衡）。</li>
+</ul>
+</li>
+</ul>
+
+<h4 class="relative group">雷点
+    <div id="雷点" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e9%9b%b7%e7%82%b9" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>长事务/空闲事务拖住全库 oldestxmin，导致：
+<ul>
+<li>VACUUM 无法回收、HOT prune 无法剪链、pg_xact/pg_multixact 膨胀、查询回表与链遍历成本增加。</li>
+</ul>
+</li>
+<li>在频繁更新列上建索引，直接破坏 HOT，放大索引膨胀与回表。</li>
+<li>忽视逻辑复制槽滞后或开启 hot_standby_feedback 导致极端膨胀与冻结失败，最终触发“wraparound shutdown”。</li>
+<li>autovacuum 共享配置过保守（高 scale_factor、低 workers/成本限额），在高写入表上必然落后。</li>
+<li>SERIALIZABLE 滥用导致 SIREAD 锁与内存占用暴涨，吞吐崩塌。</li>
+<li>批量 DELETE 不跟 VACUUM/维护窗口，文件空洞长期存在；随后顺序扫描/索引扫描效率下降。</li>
+<li>低 fillfactor 在更新密集表上造成 HOT 失败与频繁页分裂/新页写入。</li>
+</ul>
+
+<h4 class="relative group">权衡点
+    <div id="权衡点" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e6%9d%83%e8%a1%a1%e7%82%b9" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>真空频率 vs 前台负载：更频繁的 VACUUM 降低可见性判定与回表，但与查询/写入争用 IO/CPU。</li>
+<li>早期 FREEZE vs 吞吐：更激进冻结减少 pg_xact 访问与 I/O，但扩大全表扫描与页写放大。</li>
+<li>fillfactor 空间 vs 存储成本：留白提高 HOT 比例与更新性能，但增大存储与缓存占用。</li>
+<li>索引覆盖度 vs 写入成本：覆盖索引提升查询与 IOS 比例，但增加写放大与维护成本。</li>
+<li>hot_standby_feedback：减少备库冲突 vs 主库膨胀与 VACUUM 受限。</li>
+<li>WAL 压缩与同步复制：压缩降低日志体积与网络 IO，但在 CPU 紧张或同步复制下带来额外延迟。</li>
+</ul>
+
+<h4 class="relative group">实操模板
+    <div id="实操模板" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#%e5%ae%9e%e6%93%8d%e6%a8%a1%e6%9d%bf" aria-label="Anchor">#</a>
+    </span>
+    
+</h4>
+<ul>
+<li>更新密集表
+<ul>
+<li>ALTER TABLE t SET (fillfactor=80, autovacuum_vacuum_scale_factor=0.01, autovacuum_vacuum_threshold=200, autovacuum_analyze_scale_factor=0.02, autovacuum_vacuum_cost_limit=2000);</li>
+<li>去除在高频变更列上的二级索引；必要时改为 INCLUDE 次要列或覆盖不同查询模式的分离索引。</li>
+</ul>
+</li>
+<li>插入多、查询多（报表）
+<ul>
+<li>创建覆盖索引；开启 autovacuum_vacuum_insert_scale_factor=0.01 以提升 all-visible 覆盖；周期 ANALYZE。</li>
+</ul>
+</li>
+<li>高删改历史数据
+<ul>
+<li>分区 + 定期 DROP PARTITION；剩余碎片窗口内 REINDEX CONCURRENTLY。</li>
+</ul>
+</li>
+<li>运行守则
+<ul>
+<li>全面启用 idle_in_transaction_session_timeout；连接池化降低活跃事务数，缩减快照构建成本（ProcArray 扫描开销随并发上升）。</li>
+</ul>
+</li>
+</ul>
+
+          
+          
+          
+        </div>
+        
+          
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+    
+    
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+      
+      
+        
+        
+        
+      
+      <img
+        class="!mt-0 !mb-0 h-24 w-24 rounded-full me-4"
+        width="96"
+        height="96"
+        alt="yuliu"
+        src="/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-04-10_191453_343_hu_f1362339ce55e65e.jpg"
+        data-zoom-src="/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-04-10_191453_343_hu_86f827f1f71ecf20.jpg">
+    
+  
+  <div class="place-self-center">
+    
+      <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+        Author
+      </div>
+      <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+        yuliu
+      </div>
+    
+    
+      <div class="text-sm text-neutral-700 dark:text-neutral-400">人生海海</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500 space-x-2">
+    
+      
+        
+        <a
+          class="email-link hover:text-primary-700 dark:hover:text-primary-400"
+          href="#"
+          
+            data-email="eXVsaXU2NjY2NjZAb3V0bG9vay5jb20="
+          
+          target="_blank"
+          aria-label="Email"
+          title="Email"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+</span></span></a
+        >
+      
+    
+      
+        
+        <a
+          class=" hover:text-primary-700 dark:hover:text-primary-400"
+          href="yuliusw.github.io"
+          
+          target="_blank"
+          aria-label="Github"
+          title="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span></span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+  
+
+  
+
+  
+    <div class="mb-10"></div>
+  
+
+        
+        
+
+        
+
+        
+
+      </div>
+    </section>
+
+    
+    <footer class="pt-8 max-w-prose print:hidden">
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
+      <div class="flex justify-between pt-3">
+        <span class="flex flex-col">
+          
+        </span>
+        <span class="flex flex-col items-end">
+          
+            <a
+              class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+              href="/%E6%95%B0%E6%8D%AE%E5%BA%93/pg02-%E7%B4%A2%E5%BC%95/">
+              <span class="leading-6">
+                PG02 索引&ensp;<span class="inline-block rtl:rotate-180">&rarr;</span>
+              </span>
+            </a>
+            
+              <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                <time datetime="2026-05-28T14:42:08&#43;08:00">28 May 2026</time>
+              </span>
+            
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        
+
+
+  
+
+
+
+
+
+
+<div
+  id="scroll-to-top"
+  class="fixed bottom-6 end-6 z-50 transform translate-y-4 opacity-0 duration-200">
+  <a
+    href="#the-top"
+    class="pointer-events-auto flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top"
+    title="Scroll to top">
+    &uarr;
+  </a>
+</div>
+
+      </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+      
+      
+        
+      
+      
+      
+      
+      <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400 overflow-x-auto py-2">
+        <ul class="flex list-none flex-row">
+          
+            <li class=" flex mb-1 text-end sm:mb-0 sm:me-7 sm:last:me-0 me-4">
+              <a
+                class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center"
+                href=""
+                title="">
+                
+                
+              </a>
+            </li>
+          
+        </ul>
+      </nav>
+    
+  
+  <div class="flex items-center justify-between">
+    
+    
+      <p class="text-sm text-neutral-500 dark:text-neutral-400">
+          &copy;
+          2026
+          yuliu
+      </p>
+    
+
+    
+    
+      <p class="text-xs text-neutral-500 dark:text-neutral-400">
+        
+        
+        Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+          href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+          href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+      </p>
+    
+  </div>
+  
+    <script>
+      mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+        margin: 24,
+        background: "rgba(0,0,0,0.5)",
+        scrollOffset: 0,
+      });
+    </script>
+  
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh] z-500"
+  data-url="http://localhost:1313/">
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800">
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0">
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+  
+</html>

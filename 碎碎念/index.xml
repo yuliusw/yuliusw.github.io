@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>杂谈 on yuliu&#39;s blog</title>
-    <link>https://example.org/%E7%A2%8E%E7%A2%8E%E5%BF%B5/</link>
+    <link>http://localhost:1313/%E7%A2%8E%E7%A2%8E%E5%BF%B5/</link>
     <description>Recent content in 杂谈 on yuliu&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <managingEditor>yuliu666666@outlook.com (yuliu)</managingEditor>
     <webMaster>yuliu666666@outlook.com (yuliu)</webMaster>
     <copyright>© 2026 yuliu</copyright>
-    <lastBuildDate>Fri, 03 Apr 2026 14:31:03 +0800</lastBuildDate><atom:link href="https://example.org/%E7%A2%8E%E7%A2%8E%E5%BF%B5/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 03 Apr 2026 14:31:03 +0800</lastBuildDate><atom:link href="http://localhost:1313/%E7%A2%8E%E7%A2%8E%E5%BF%B5/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Why Fedora linux &amp; why not for beginner 2026</title>
-      <link>https://example.org/%E7%A2%8E%E7%A2%8E%E5%BF%B5/why-fedora-linux--why-not-for-beginner-2026/</link>
+      <link>http://localhost:1313/%E7%A2%8E%E7%A2%8E%E5%BF%B5/why-fedora-linux--why-not-for-beginner-2026/</link>
       <pubDate>Fri, 03 Apr 2026 14:31:03 +0800</pubDate>
       <author>yuliu666666@outlook.com (yuliu)</author>
-      <guid>https://example.org/%E7%A2%8E%E7%A2%8E%E5%BF%B5/why-fedora-linux--why-not-for-beginner-2026/</guid>
+      <guid>http://localhost:1313/%E7%A2%8E%E7%A2%8E%E5%BF%B5/why-fedora-linux--why-not-for-beginner-2026/</guid>
       <description></description>
       
     </item>
